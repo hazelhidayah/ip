@@ -13,7 +13,7 @@ public class Task {
     // constructor
     public Task(String name) {
         if (name == null || name.trim().isEmpty()) { // handles empty/whitespace only input
-            throw new IllegalArgumentException("The description cannot be empty :(");
+            System.out.println("The description cannot be empty :(");
         }
         this.name = name;
         this.isDone = false; // default: task not done

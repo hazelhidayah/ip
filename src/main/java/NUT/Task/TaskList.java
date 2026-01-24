@@ -23,6 +23,11 @@ public class TaskList {
         return list.get(index);
     }
 
+    // delete
+    public void delete(int index) {
+        list.remove(index);
+    }
+
     // return size of the list
     // this is needed cause the list is private
     public int size() {

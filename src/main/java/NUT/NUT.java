@@ -36,62 +36,107 @@ public class NUT {
                 else if (userInput.equalsIgnoreCase("list")) {
                     status = new ListCommand(list).execute();
                 }
+                // delete
+                else if (userInput.startsWith("delete")) {
+                    String[] parts = userInput.split(" ");
 
-                // mark ONLY
-                else if (userInput.equalsIgnoreCase("mark")) {
-                    throw new NUTException("""
+                    if (parts.length != 2) { // only "delete" or "delete "
+                        throw new NUTException("""
+                                ____________________________________________________________
+                                Please include which task to delete.
+                                (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
+                                ____________________________________________________________
+                            """);
+                    }
+
+                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    list.delete(index);
+                    System.out.println("    Task removed!");
+                }
+
+                // mark
+                else if (userInput.startsWith("mark")) {
+                    String[] parts = userInput.split(" ");
+
+                    if (parts.length != 2) { // only "mark" or "mark "
+                        throw new NUTException("""
                                 ____________________________________________________________
                                 Please include which task to mark off.
                                 (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
                                 ____________________________________________________________
                             """);
+                    }
+
+                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
+                    status = new MarkCommand(list, index).execute();
                 }
-                // unmark ONLY
-                else if (userInput.equalsIgnoreCase("unmark")) {
-                    throw new NUTException("""
+                // unmark
+                else if (userInput.startsWith("unmark")) {
+                    String[] parts = userInput.split(" ");
+
+                    if (parts.length != 2) { // only "unmark" or "unmark "
+                        throw new NUTException("""
                                 ____________________________________________________________
                                 Please include which task to unmark.
                                 (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
                                 ____________________________________________________________
                             """);
-                }
+                    }
 
-                // mark
-                else if (userInput.startsWith("mark ")) {
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    status = new MarkCommand(list, index).execute();
-                }
-                // unmark
-                else if (userInput.startsWith("unmark ")) {
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                     status = new UnmarkCommand(list, index).execute();
                 }
 
                 // todo
-                else if (userInput.startsWith("todo ")) {
-                    // remove the first word
-                    String editedName = userInput.substring(userInput.indexOf(" ") + 1);
+                else if (userInput.startsWith("todo")) {
+                    String[] parts = userInput.split(" ");
 
-                    if (editedName.trim().isEmpty()) {
+                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
                         throw new NUTException("""
                         ____________________________________________________________
                         Oops! The description of a todo cannot be empty.
                         ____________________________________________________________
                     """);
                     }
-                    list.add(new ToDos(editedName));
+                    list.add(new ToDos(parts[1]));
                 }
+
                 // deadline
-                else if (userInput.startsWith("deadline ")) {
-                    // remove the first word
-                    String editedName = userInput.substring(userInput.indexOf(" ") + 1);
-                    list.add(new Deadlines(editedName));
+                else if (userInput.startsWith("deadline")) {
+                    String[] parts = userInput.split(" ");
+
+                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                        throw new NUTException("""
+                        ____________________________________________________________
+                        Oops! The description of a deadline cannot be empty.
+                        ____________________________________________________________
+                    """);
+                    }
+
+                    try {
+                        list.add(new Deadlines(parts[1]));
+                    } catch (NUTException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
+
                 // event
-                else if (userInput.startsWith("event ")) {
-                    // remove the first word
-                    String editedName = userInput.substring(userInput.indexOf(" ") + 1);
-                    list.add(new Events(editedName));
+                else if (userInput.startsWith("event")) {
+                    String[] parts = userInput.split(" ");
+
+                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                        throw new NUTException("""
+                        ____________________________________________________________
+                        Oops! The description of an event cannot be empty.
+                        ____________________________________________________________
+                    """);
+                    }
+
+                    try {
+                        list.add(new Events(parts[1]));
+                    } catch (NUTException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 // not valid input
