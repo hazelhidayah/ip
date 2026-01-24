@@ -25,6 +25,3 @@ public class ToDos extends Task {
         return (isDone ? "[T] [x]" : "[T] [ ]");
     }
 }
-
-
-

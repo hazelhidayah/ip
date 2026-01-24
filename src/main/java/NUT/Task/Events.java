@@ -14,46 +14,56 @@ package NUT.Task;
 public class Events extends Task {
     // protected final String name;
     // protected boolean isDone;
+    private final String updatedName;
+    private final String updatedStartTime;
+    private final String updatedEndTime;
 
     // constructor
-    public Events(String name) {
+    public Events(String name) throws NUTException {
         super(name);
+
+        String[] parts = name.split("/");
+
+        // invalid
+        if (parts.length != 3
+                || !parts[1].trim().startsWith("from")
+                || !parts[2].trim().startsWith("to")) {
+            throw new NUTException("""
+                        ____________________________________________________________
+                        OOPS!!! Events must be in the format:
+                        event <name> /from <start> /to <end>
+                        ____________________________________________________________
+                    """);
+        }
+
+        this.updatedName = parts[0].trim();
+        this.updatedStartTime = parts[1].substring(parts[1].indexOf(" ") + 1); // "Mon 2pm"
+        this.updatedEndTime = parts[2].substring(parts[2].indexOf(" ") + 1); // "4pm"
     }
-
-    // for name only
-    String updatedName = name.split("/")[0];
-
-    // for start only
-    String startTime = name.split("/")[1]; // "from Mon 2pm"
-    String updatedStartTime = startTime.substring(startTime.indexOf(" ")+1); // "Mon 2pm"
-
-    // for end only
-    String endTime = name.split("/")[2]; // "to 2pm"
-    String updatedEndTime = endTime.substring(endTime.indexOf(" ")+1); // "2pm"
 
     @Override
     public String getName() {
         return updatedName;
     }
 
-    public String getStart() {
+    public String getStartTime() {
         return updatedStartTime;
     }
 
-    public String getEnd() {
+    public String getEndTime() {
         return updatedEndTime;
     }
 
     // included [D]
     @Override
-    public String getStatusIcon() {
+    public String getStatusIcon () {
         return (isDone ? "[E] [x]" : "[E] [ ]");
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         return getStatusIcon() + " " + updatedName
-                + " (by: " +  updatedStartTime
+                + " (by: " + updatedStartTime
                 + " to: " + updatedEndTime + ")";
     }
 }
