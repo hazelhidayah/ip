@@ -25,29 +25,64 @@ public class NUT {
 
         while (!status) { // while false
             String userInput = sc.nextLine();
+            // remove the first word
+            String editedName = userInput.substring(userInput.indexOf(" ")+1);
 
+            // bye
             if (userInput.equalsIgnoreCase("bye")) {
                 status = new ByeCommand().execute();
-            } else if (userInput.equalsIgnoreCase("list")) {
+            }
+            // list
+            else if (userInput.equalsIgnoreCase("list")) {
                 status = new ListCommand(list).execute();
-            } else if (userInput.equalsIgnoreCase("mark")) { // mark ONLY
+            }
+
+            // mark ONLY
+            else if (userInput.equalsIgnoreCase("mark")) {
                 System.out.println("    ____________________________________________________________\n");
                 System.out.println("    Please include which task to mark off.");
                 System.out.println("    (if you meant to actually add 'mark' to the task, please rephrase it ^-^) \n");
                 System.out.println("    ____________________________________________________________\n");
-            } else if (userInput.equalsIgnoreCase("unmark")) { // unmark ONLY
+            }
+            // unmark ONLY
+            else if (userInput.equalsIgnoreCase("unmark")) {
                 System.out.println("    ____________________________________________________________\n");
                 System.out.println("    Please include which task to unmark.");
                 System.out.println("    (if you meant to actually add 'unmark' to the task, please rephrase it ^-^) \n");
                 System.out.println("    ____________________________________________________________\n");
-            } else if (userInput.startsWith("mark ")) {
-                // if "only mark"
+            }
+
+            // mark
+            else if (userInput.startsWith("mark ")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 status = new MarkCommand(list, index).execute();
-            } else if (userInput.startsWith("unmark ")) {
+            }
+            // unmark
+            else if (userInput.startsWith("unmark ")) {
                 int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                 status = new UnmarkCommand(list, index).execute();
-            } else { // other things to add to the list
+            }
+
+
+            // Eventually might be able to just make a Task-adder method and wrap all of these below??
+
+            // todo
+            else if (userInput.startsWith("todo ")) {
+                list.add(new ToDos(editedName));
+            }
+
+            // deadline
+            else if (userInput.startsWith("deadline ")) {
+                list.add(new Deadlines(editedName));
+            }
+
+            // event
+            else if (userInput.startsWith("event ")) {
+                list.add(new Events(editedName));
+            }
+            // generic task
+            else {
+                // if (status) { break;}
                 list.add(new Task(userInput)); // add to list
             }
         }
@@ -56,11 +91,7 @@ public class NUT {
         while (tasks.size() < 100) { // continue till too many tasks
             String userInput = sc.nextLine();
 
-                // only said 'mark'
-                if (words.length == 1) {
-                    System.out.println("    ____________________________________________________________\n");
-                    System.out.println("    please indicate which task you want to mark off :)");
-                    System.out.println("    ____________________________________________________________\n");
+                'mark'
                 } else { // 2 words
                     int num = Integer.parseInt(words[1]); // change to int
 

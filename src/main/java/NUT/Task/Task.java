@@ -1,12 +1,14 @@
 package NUT.Task;
 
 /*
- * Abstract class representing a generic task.
+ * Class representing a generic task.
+ * Other subtasks should be extended from this
  */
 
 public class Task {
-    private final String name;
-    private boolean isDone;
+    // protected so it's accessible by subclasses
+    protected final String name;
+    protected boolean isDone;
 
     // constructor
     public Task(String name) {
@@ -14,8 +16,12 @@ public class Task {
         this.isDone = false; // default: task not done
     }
 
-    public String getStatusIcon() { return (isDone ? "[x]" : "[ ]");}
-    public void mark() { isDone = true; }
+    public String getStatusIcon() {
+        return (isDone ? "[x]" : "[ ]");
+    }
+    public void mark() {
+        isDone = true;
+    }
     public void unmark() {
         isDone = false;
     }
