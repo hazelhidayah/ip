@@ -25,8 +25,6 @@ public class NUT {
 
         while (!status) { // while false
             String userInput = sc.nextLine();
-            // remove the first word
-            String editedName = userInput.substring(userInput.indexOf(" ")+1);
 
             // bye
             if (userInput.equalsIgnoreCase("bye")) {
@@ -68,16 +66,22 @@ public class NUT {
 
             // todo
             else if (userInput.startsWith("todo ")) {
+                // remove the first word
+                String editedName = userInput.substring(userInput.indexOf(" ")+1);
                 list.add(new ToDos(editedName));
             }
 
             // deadline
             else if (userInput.startsWith("deadline ")) {
+                // remove the first word
+                String editedName = userInput.substring(userInput.indexOf(" ")+1);
                 list.add(new Deadlines(editedName));
             }
 
             // event
             else if (userInput.startsWith("event ")) {
+                // remove the first word
+                String editedName = userInput.substring(userInput.indexOf(" ")+1);
                 list.add(new Events(editedName));
             }
             // generic task

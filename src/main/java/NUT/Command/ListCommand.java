@@ -16,7 +16,7 @@ public class ListCommand implements Command {
     @Override
     public boolean execute() {
         System.out.println("    ____________________________________________________________\n");
-        System.out.println("    Here are your tasks: \n");
+        System.out.println("    Here are your tasks:\n");
         for (int i = 0; i < list.size(); i++) {
             System.out.println("    " + (i + 1) + ". " + list.get(i));
         }

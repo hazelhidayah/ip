@@ -35,7 +35,7 @@ public class MarkCommand implements Command {
         }
         list.get(index).mark(); // mark() is from Task
         System.out.println("    ____________________________________________________________\n");
-        System.out.println("    ood job babes! \n");
+        System.out.println("    good job babes!\n");
         System.out.println("    Marked task: " + list.get(index));
         System.out.println("    ____________________________________________________________\n");
         return false;
