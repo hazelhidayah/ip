@@ -1,5 +1,7 @@
 package NUT.Command;
 
+import NUT.Ui.Ui;
+
 /*
  * Terminates when the user says 'bye'
  */
@@ -7,10 +9,8 @@ package NUT.Command;
 public class ByeCommand implements Command {
 
     @Override
-    public boolean execute() {
-        System.out.println("    ____________________________________________________________\n");
-        System.out.println("    Orite, bai bai \\(^-^)/"); // we use 2 '\' to print out one \
-        System.out.println("    ____________________________________________________________\n");
+    public boolean execute(Ui ui) {
+        ui.showGoodbye();
         return true; // exit
     }
 

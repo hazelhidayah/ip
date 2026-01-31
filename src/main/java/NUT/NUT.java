@@ -2,6 +2,7 @@ package NUT;
 import java.util.Scanner;
 import NUT.Command.*;
 import NUT.Task.*;
+import NUT.Ui.*;
 
 /*
  * This is the main program class for NUT
@@ -11,30 +12,24 @@ public class NUT {
     private static final TaskList list = new TaskList();
 
     public static void main(String[] args) throws NUTException {
-        System.out.println("""
-                ____________________________________________________________
-                 Hello! I'm NUT
-                 What can I do for you?
-                ____________________________________________________________
-                """);
-
-        Scanner sc = new Scanner(System.in); // read user input
+        Ui ui = new Ui();
+        ui.showWelcome();
 
         // by the end of each command, the status will change.
         // if the status becomes true then exit.
         boolean status = false;
 
         while (!status) {
-            String userInput = sc.nextLine();
+            String userInput = ui.readCommand();
 
             try {
                 // bye
                 if (userInput.equalsIgnoreCase("bye")) {
-                    status = new ByeCommand().execute();
+                    status = new ByeCommand().execute(ui);
                 }
                 // list
                 else if (userInput.equalsIgnoreCase("list")) {
-                    status = new ListCommand(list).execute();
+                    status = new ListCommand(list).execute(ui);
                 }
                 // delete
                 else if (userInput.startsWith("delete")) {
@@ -51,7 +46,7 @@ public class NUT {
 
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
                     list.delete(index);
-                    System.out.println("    Task removed!");
+                    ui.showTaskDeleted(list.get(index), list.size());
                 }
 
                 // mark
@@ -68,7 +63,7 @@ public class NUT {
                     }
 
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    status = new MarkCommand(list, index).execute();
+                    status = new MarkCommand(list, index).execute(ui);
                 }
                 // unmark
                 else if (userInput.startsWith("unmark")) {
@@ -84,58 +79,64 @@ public class NUT {
                     }
 
                     int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    status = new UnmarkCommand(list, index).execute();
+                    status = new UnmarkCommand(list, index).execute(ui);
                 }
 
                 // todo
                 else if (userInput.startsWith("todo")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(5).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of a todo cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    OOPS! The description of a todo cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
-                    list.add(new ToDos(parts[1]));
+                    Task newTask = new ToDos(taskDescription);
+                    list.add(newTask);
+                    ui.showTaskAdded(newTask, list.size());
                 }
 
                 // deadline
                 else if (userInput.startsWith("deadline")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(9).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of a deadline cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    Oops! The description of a deadline cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
 
                     try {
-                        list.add(new Deadlines(parts[1]));
+                        Task newTask = new Deadlines(taskDescription);
+                        list.add(newTask);
+                        ui.showTaskAdded(newTask, list.size());
                     } catch (NUTException e) {
-                        System.out.println(e.getMessage());
+                        ui.showError(e.getMessage());
                     }
                 }
 
                 // event
                 else if (userInput.startsWith("event")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(6).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of an event cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    Oops! The description of an event cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
 
                     try {
-                        list.add(new Events(parts[1]));
+                        Task newTask = new Events(taskDescription);
+                        list.add(newTask);
+                        ui.showTaskAdded(newTask, list.size());
                     } catch (NUTException e) {
-                        System.out.println(e.getMessage());
+                        ui.showError(e.getMessage());
                     }
                 }
 
@@ -146,23 +147,11 @@ public class NUT {
                                 Oops, I don't know what you just said :(
                                 ____________________________________________________________
                             """);
-                    // if (status) { break;}
-                    // list.add(new Task(userInput)); // add to list
                 }
 
             } catch (NUTException e) { // this just loops the error msg without terminating!
-                System.out.println(e.getMessage());
+                ui.showError(e.getMessage());
             }
         }
-
-        /*
-        // break cause too many tasks or user said bye
-        if (tasks.size() > 99) { // max out
-            System.out.println("    ____________________________________________________________\n");
-            System.out.println("    You're too overwhelmed! No more tasks for you >:( \n");
-            System.out.println("    ____________________________________________________________\n");
-        */
-
-        sc.close();
     }
 }

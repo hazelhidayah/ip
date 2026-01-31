@@ -15,7 +15,7 @@ public class ToDos extends Task {
     // protected boolean isDone;
 
     // constructor
-    public ToDos(String name) {
+    public ToDos(String name) throws NUTException {
         super(name);
     }
 

@@ -13,9 +13,6 @@ public class TaskList {
     // add new task to list
     public void add(Task task) {
         list.add(task);
-        System.out.println("    ____________________________________________________________\n");
-        System.out.println("    added: " + task + "\n");
-        System.out.println("    ____________________________________________________________\n");
     }
 
     // get specific task from list

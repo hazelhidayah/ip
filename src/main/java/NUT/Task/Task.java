@@ -10,10 +10,14 @@ public class Task {
     protected final String name;
     protected boolean isDone;
 
-    // constructor
-    public Task(String name) {
+    /**
+     * Constructs a new Task with the given name.
+     * @param name The name/description of the task.
+     * @throws NUTException If the name is null or empty.
+     */
+    public Task(String name) throws NUTException {
         if (name == null || name.trim().isEmpty()) { // handles empty/whitespace only input
-            System.out.println("The description cannot be empty :(");
+            throw new NUTException("Task description cannot be empty!");
         }
         this.name = name;
         this.isDone = false; // default: task not done

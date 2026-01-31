@@ -1,6 +1,7 @@
 package NUT.Command;
 
 import NUT.Task.*;
+import NUT.Ui.Ui;
 
 public class MarkCommand implements Command {
     private final TaskList list;
@@ -13,18 +14,13 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(Ui ui) {
         if (index < 0 || index >= list.size()) { // out of bound
-            System.out.println("    ____________________________________________________________\n");
-            System.out.println("    Invalid task index, that doesn't exist darling :(");
-            System.out.println("    ____________________________________________________________\n");
+            ui.showSearchError();
             return false;
         }
         list.get(index).mark(); // mark() is from Task
-        System.out.println("    ____________________________________________________________\n");
-        System.out.println("    good job babes!\n");
-        System.out.println("    Marked task: " + list.get(index));
-        System.out.println("    ____________________________________________________________\n");
+        ui.markTask(list, index);
         return false;
     }
 }

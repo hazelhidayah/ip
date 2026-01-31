@@ -1,6 +1,7 @@
 package NUT.Command;
 
 import NUT.Task.*;
+import NUT.Ui.Ui;
 
 /*
  * Returns the list of tasks when the user says 'list'
@@ -14,13 +15,8 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public boolean execute() {
-        System.out.println("    ____________________________________________________________\n");
-        System.out.println("    Here are your tasks:\n");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("    " + (i + 1) + ". " + list.get(i));
-        }
-        System.out.println("    ____________________________________________________________\n");
+    public boolean execute(Ui ui) {
+        ui.showTaskList(list);
         return false; // DON'T exit
     }
 

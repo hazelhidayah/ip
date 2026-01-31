@@ -1,16 +1,5 @@
 package NUT.Task;
 
-    /*
-    event project meeting /from Mon 2pm /to 4pm
-    ____________________________________________________________
-     Got it. I've added this task:
-       [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 7 tasks in the list.
-    ____________________________________________________________
-    */
-
-    // project meeting /from Mon 2pm /to 4pm
-
 public class Events extends Task {
     // protected final String name;
     // protected boolean isDone;
