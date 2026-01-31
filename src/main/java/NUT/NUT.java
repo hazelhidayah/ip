@@ -18,10 +18,8 @@ public class NUT {
                 ____________________________________________________________
                 """);
 
-        Scanner sc = new Scanner(System.in); // read user input
+        Scanner sc = new Scanner(System.in);
 
-        // by the end of each command, the status will change.
-        // if the status becomes true then exit.
         boolean status = false;
 
         while (!status) {
@@ -40,7 +38,7 @@ public class NUT {
                 else if (userInput.startsWith("delete")) {
                     String[] parts = userInput.split(" ");
 
-                    if (parts.length != 2) { // only "delete" or "delete "
+                    if (parts.length != 2) {
                         throw new NUTException("""
                                 ____________________________________________________________
                                 Please include which task to delete.
@@ -58,7 +56,7 @@ public class NUT {
                 else if (userInput.startsWith("mark")) {
                     String[] parts = userInput.split(" ");
 
-                    if (parts.length != 2) { // only "mark" or "mark "
+                    if (parts.length != 2) {
                         throw new NUTException("""
                                 ____________________________________________________________
                                 Please include which task to mark off.
@@ -74,7 +72,7 @@ public class NUT {
                 else if (userInput.startsWith("unmark")) {
                     String[] parts = userInput.split(" ");
 
-                    if (parts.length != 2) { // only "unmark" or "unmark "
+                    if (parts.length != 2) {
                         throw new NUTException("""
                                 ____________________________________________________________
                                 Please include which task to unmark.
@@ -89,32 +87,32 @@ public class NUT {
 
                 // todo
                 else if (userInput.startsWith("todo")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(5).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of a todo cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    OOPS! The description of a todo cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
-                    list.add(new ToDos(parts[1]));
+                    list.add(new ToDos(taskDescription));
                 }
 
                 // deadline
                 else if (userInput.startsWith("deadline")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(9).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of a deadline cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    Oops! The description of a deadline cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
 
                     try {
-                        list.add(new Deadlines(parts[1]));
+                        list.add(new Deadlines(taskDescription));
                     } catch (NUTException e) {
                         System.out.println(e.getMessage());
                     }
@@ -122,18 +120,18 @@ public class NUT {
 
                 // event
                 else if (userInput.startsWith("event")) {
-                    String[] parts = userInput.split(" ");
+                    String taskDescription = userInput.substring(6).trim();
 
-                    if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    if (taskDescription.isEmpty()) {
                         throw new NUTException("""
-                        ____________________________________________________________
-                        Oops! The description of an event cannot be empty.
-                        ____________________________________________________________
-                    """);
+                    ____________________________________________________________
+                    Oops! The description of an event cannot be empty.
+                    ____________________________________________________________
+            """);
                     }
 
                     try {
-                        list.add(new Events(parts[1]));
+                        list.add(new Events(taskDescription));
                     } catch (NUTException e) {
                         System.out.println(e.getMessage());
                     }
@@ -146,22 +144,12 @@ public class NUT {
                                 Oops, I don't know what you just said :(
                                 ____________________________________________________________
                             """);
-                    // if (status) { break;}
-                    // list.add(new Task(userInput)); // add to list
                 }
 
-            } catch (NUTException e) { // this just loops the error msg without terminating!
+            } catch (NUTException e) {
                 System.out.println(e.getMessage());
             }
         }
-
-        /*
-        // break cause too many tasks or user said bye
-        if (tasks.size() > 99) { // max out
-            System.out.println("    ____________________________________________________________\n");
-            System.out.println("    You're too overwhelmed! No more tasks for you >:( \n");
-            System.out.println("    ____________________________________________________________\n");
-        */
 
         sc.close();
     }

@@ -1,51 +1,135 @@
 package NUT.Task;
 
-    /*
-    deadline return book /by Sunday
-    ____________________________________________________________
-     Got it. I've added this task:
-       [D][ ] return book (by: Sunday)
-     Now you have 6 tasks in the list.
-    ____________________________________________________________
-    */
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    // return book /by Sunday
+/**
+ * Represents a task with a specific deadline.
+ * A Deadline task contains a description and a date/time by which it must be completed.
+ * It supports input formats for both date and time (dd/MM/yyyy HHmm), and date only (dd/MM/yyyy).
+ */
 
 public class Deadlines extends Task {
-    // protected final String name;
-    // protected boolean isDone;
-
+    // The description of the task without the /by command.
     private final String updatedName;
-    private final String day;
 
-    // constructor
-    public Deadlines(String name) throws NUTException {
-        super(name);
+    // The parsed deadline date and time.
+    private LocalDateTime deadline;
 
-        String[] parts = name.split("/");
+    // Indicates if the user provided a specific time or just a date.
+    private boolean hasTime;
 
-        // invalid
-        if (parts.length != 2
-                || !parts[1].trim().startsWith("by")) {
+    // Input formatters
+    private static final DateTimeFormatter DATE_AND_TIME_INPUT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter DATE_INPUT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    // Output formatters
+    private static final DateTimeFormatter DATE_AND_TIME_DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
+    private static final DateTimeFormatter DATE_DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+    // Storage formatter
+    private static final DateTimeFormatter STORAGE_FORMAT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
+    /**
+     * Constructs a new Deadline task based on user input.
+     * Parses the raw command string to extract the description and the deadline date.
+     *
+     * @param rawInput The raw command string (e.g., "return book /by 12/12/2024 1800").
+     * @throws NUTException If the format is invalid or the date cannot be parsed.
+     */
+
+    public Deadlines(String rawInput) throws NUTException {
+        super(rawInput);
+
+        String[] parts = rawInput.split("/by");
+
+        // limit: 2 ensures we only split into Description and Date, and the input is valid
+        if (parts.length != 2 ||
+                parts[0].trim().isEmpty()) { // invalid
             throw new NUTException("""
                         ____________________________________________________________
                         OOPS!!! Deadlines must be in the format:
-                        deadline <name> /by <day>
+                        deadline <name> /by <d/M/yyyy HHmm>
+                        or
+                        deadline <name> /by <d/M/yyyy>
                         ____________________________________________________________
                     """);
         }
 
         this.updatedName = parts[0].trim();
-        this.day = parts[1].substring(parts[1].indexOf(" ") + 1); // "day"
+        String dateTimeString = parts[1].trim();
+
+        parseDeadline(dateTimeString);
     }
+
+    // constructor for loading from file
+    public Deadlines(String updatedName, String dateTimeString, boolean isDone) {
+        super(updatedName + " /by " + dateTimeString, isDone);
+        this.updatedName = updatedName;
+        try {
+            parseDeadline(dateTimeString);
+        } catch (NUTException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Helper method to parse the date string.
+     * Tries to parse as DateTime first, falls back to Date only.
+     * * @param dateString The string to parse.
+     * @throws NUTException If the date string matches neither format.
+     */
+
+    private void parseDeadline(String str) throws NUTException {
+        try {
+            // try to parse as date + time
+            this.deadline = LocalDateTime.parse(str, DATE_AND_TIME_INPUT);
+            this.hasTime = true;
+        } catch (DateTimeParseException e1) {
+            try {
+                // try parsing as Date only
+                LocalDate dateOnly = LocalDate.parse(str, DATE_INPUT);
+                // hasTime = false for formatting
+                this.deadline = dateOnly.atStartOfDay();
+                this.hasTime = false;
+            } catch (DateTimeParseException e2) {
+                throw new NUTException("""
+                        ____________________________________________________________
+                        OOPS!!! Deadlines must be in the format:
+                        deadline <name> /by <d/M/yyyy HHmm>
+                        or
+                        deadline <name> /by <d/M/yyyy>
+                        ____________________________________________________________
+                    """);
+            }
+        }
+    }
+
 
     @Override
     public String getName() {
         return updatedName;
     }
 
-    public String getDay() {
-        return day;
+    public String getDeadline() {
+        return hasTime
+                ? deadline.format(DATE_AND_TIME_DISPLAY_FORMAT)
+                : deadline.toLocalDate().format(DATE_DISPLAY_FORMAT);
+    }
+
+    @Override
+    public String toFileFormat() {
+        String dateTimeStr = hasTime ?
+                deadline.format(STORAGE_FORMAT) :
+                deadline.toLocalDate().format(DATE_INPUT);
+        return "D | " + (isDone ? "1" : "0") + " | " + updatedName + " | " + dateTimeStr;
     }
 
     // included [D]
@@ -56,9 +140,9 @@ public class Deadlines extends Task {
 
     @Override
     public String toString() {
-        return getStatusIcon() + " " + updatedName + " (by: " + day + " )";
+        String formattedDeadline = hasTime ?
+                deadline.format(DATE_AND_TIME_DISPLAY_FORMAT) :
+                deadline.toLocalDate().format(DATE_DISPLAY_FORMAT);
+        return getStatusIcon() + " " + updatedName + " (by: " + formattedDeadline + ")";
     }
 }
-
-
-

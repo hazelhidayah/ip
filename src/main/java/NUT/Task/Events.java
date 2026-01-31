@@ -1,44 +1,86 @@
 package NUT.Task;
 
-    /*
-    event project meeting /from Mon 2pm /to 4pm
-    ____________________________________________________________
-     Got it. I've added this task:
-       [E][ ] project meeting (from: Mon 2pm to: 4pm)
-     Now you have 7 tasks in the list.
-    ____________________________________________________________
-    */
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    // project meeting /from Mon 2pm /to 4pm
+/**
+ * Represents a task that occurs at a specific time period.
+ * An Event task has a description, start time, and end time.
+ */
 
 public class Events extends Task {
-    // protected final String name;
-    // protected boolean isDone;
     private final String updatedName;
-    private final String updatedStartTime;
-    private final String updatedEndTime;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
-    // constructor
-    public Events(String name) throws NUTException {
-        super(name);
+    // Input formatter
+    private static final DateTimeFormatter INPUT_FORMAT =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
-        String[] parts = name.split("/");
+    // Display formatter
+    private static final DateTimeFormatter DISPLAY_FORMAT =
+            DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
 
-        // invalid
-        if (parts.length != 3
-                || !parts[1].trim().startsWith("from")
-                || !parts[2].trim().startsWith("to")) {
+    /**
+     * Constructs a new Event task from user input.
+     * @param rawInput The raw input string.
+     * @throws NUTException If the format is invalid
+     */
+
+    public Events(String rawInput) throws NUTException {
+        super(rawInput);
+
+        int fromIndex = rawInput.indexOf("/from");
+        int toIndex = rawInput.indexOf("/to");
+
+        if (fromIndex == -1 || toIndex == -1 || fromIndex >= toIndex) {
             throw new NUTException("""
                         ____________________________________________________________
                         OOPS!!! Events must be in the format:
-                        event <name> /from <start> /to <end>
+                        event <name> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>
                         ____________________________________________________________
                     """);
         }
 
-        this.updatedName = parts[0].trim();
-        this.updatedStartTime = parts[1].substring(parts[1].indexOf(" ") + 1); // "Mon 2pm"
-        this.updatedEndTime = parts[2].substring(parts[2].indexOf(" ") + 1); // "4pm"
+        this.updatedName = rawInput.substring(0, fromIndex).trim();
+        String startString = rawInput.substring(fromIndex + 5, toIndex).trim();
+        String endString = rawInput.substring(toIndex + 3).trim();
+
+        try {
+            this.startTime = LocalDateTime.parse(startString, INPUT_FORMAT);
+            this.endTime = LocalDateTime.parse(endString, INPUT_FORMAT);
+
+            if (endTime.isBefore(startTime)) {
+                throw new NUTException("""
+                        ____________________________________________________________
+                        OOPS!!! End time cannot be before start time!
+                        ____________________________________________________________
+                    """);
+            }
+        } catch (DateTimeParseException e) {
+            throw new NUTException("""
+                        ____________________________________________________________
+                        OOPS!!! Invalid date/time format.
+                        Please use dd/MM/yyyy HHmm
+                        ____________________________________________________________
+                    """);
+        }
+    }
+
+    /**
+     * Constructs an Event task from saved file data.
+     * @param updatedName The task description
+     * @param startString The start time string
+     * @param endString The end time string
+     * @param isDone Whether the task is completed
+     */
+
+    public Events(String updatedName, String startString, String endString, boolean isDone) {
+        super(updatedName + " /from " + startString + " /to " + endString, isDone);
+        this.updatedName = updatedName;
+        this.startTime = LocalDateTime.parse(startString, INPUT_FORMAT);
+        this.endTime = LocalDateTime.parse(endString, INPUT_FORMAT);
     }
 
     @Override
@@ -46,27 +88,30 @@ public class Events extends Task {
         return updatedName;
     }
 
-    public String getStartTime() {
-        return updatedStartTime;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public String getEndTime() {
-        return updatedEndTime;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    // included [D]
     @Override
-    public String getStatusIcon () {
+    public String getStatusIcon() {
         return (isDone ? "[E] [x]" : "[E] [ ]");
     }
 
     @Override
-    public String toString () {
+    public String toFileFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + updatedName
+                + " | " + startTime.format(INPUT_FORMAT)
+                + " | " + endTime.format(INPUT_FORMAT);
+    }
+
+    @Override
+    public String toString() {
         return getStatusIcon() + " " + updatedName
-                + " (by: " + updatedStartTime
-                + " to: " + updatedEndTime + ")";
+                + " (from: " + startTime.format(DISPLAY_FORMAT)
+                + " to: " + endTime.format(DISPLAY_FORMAT) + ")";
     }
 }
-
-
-

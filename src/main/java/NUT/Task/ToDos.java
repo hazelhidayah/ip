@@ -1,27 +1,20 @@
 package NUT.Task;
 
-    /*
-    todo borrow book
-    ____________________________________________________________
-     Got it. I've added this task:
-       [T][ ] borrow book
-     Now you have 5 tasks in the list.
-    ____________________________________________________________
-    */
-
-
 public class ToDos extends Task {
-    // protected final String name;
-    // protected boolean isDone;
 
-    // constructor
+    // constructor for new task
     public ToDos(String name) {
         super(name);
     }
 
-    // included [T]
+    // constructor for loading from file
+    public ToDos(String name, boolean isDone) {
+        super(name, isDone);
+    }
+
     @Override
     public String getStatusIcon() {
         return (isDone ? "[T] [x]" : "[T] [ ]");
     }
+
 }
