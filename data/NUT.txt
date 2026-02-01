@@ -1,4 +1,0 @@
-T | 0 | sleep
-T | 0 | eat
-T | 0 | eat
-D | 0 | sleep | 02/03/2003
