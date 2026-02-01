@@ -4,7 +4,18 @@ import NUT.Command.*;
 import NUT.Task.*;
 
 /**
- * Parses user input and creates corresponding Command objects.
+ * Converts raw user input into executable objects.
+ *
+ * <p> This class acts as the command dispatcher for the application: it inspects the first keyword
+ * of the input (e.g. {@code bye}, {@code list}, {@code delete}, {@code mark}, {@code unmark},
+ * {@code todo}, {@code deadline}, {@code event}) and constructs the corresponding {@link Command}
+ * instance to be executed by the caller.</p>
+ *
+ * <p>For commands that operate on an existing task, the user-provided task number is interpreted
+ * as <strong>1-based</strong> and is converted internally to a <strong>0-based</strong> index.
+ * If the input is missing required parts or is not recognized, a {@link NUTException} is thrown.</p>
+ *
+ * <p>This is a utility-style class and is intended to be used via {@link #parse(String, TaskList)}.</p>
  */
 public class Parser {
 

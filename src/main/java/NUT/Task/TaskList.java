@@ -29,7 +29,6 @@ public class TaskList {
      *
      * @param task the task
      */
-// add new task to list
     public void add(Task task) {
         list.add(task);
     }
@@ -40,7 +39,6 @@ public class TaskList {
      * @param index the index
      * @return the task
      */
-// get specific task from list
     public Task get(int index) {
         return list.get(index);
     }
@@ -50,7 +48,6 @@ public class TaskList {
      *
      * @param index the index
      */
-// delete
     public void delete(int index) {
         list.remove(index);
     }
@@ -60,8 +57,6 @@ public class TaskList {
      *
      * @return the int
      */
-// return size of the list
-    // this is needed cause the list is private
     public int size() {
         return list.size();
     }

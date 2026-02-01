@@ -6,7 +6,7 @@ package NUT.Task;
 public class ToDos extends Task {
 
     /**
-     * Instantiates a new To dos.
+     * Instantiates a new Todos.
      *
      * @param name the name
      * @throws NUTException the nut exception

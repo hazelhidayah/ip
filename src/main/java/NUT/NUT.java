@@ -38,14 +38,14 @@ public class NUT {
         ui.showWelcome();  // Show welcome message
         boolean status = false;  // false = keep running, true = exit
 
-        while (!status) {  // Loop until user says "bye"
+        while (!status) {  // Loop until the user says "bye"
             try {
                 String userInput = ui.readCommand();  // Read user's command
                 Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
                 status = command.execute(ui);  // Execute command, returns true if "bye"
                 storage.save(tasks);  // Save tasks to file after each command
             } catch (NUTException e) {
-                ui.showError(e.getMessage());  // Show error message if something goes wrong
+                ui.showError(e.getMessage());  // Show an error message if something goes wrong
             }
         }
     }
@@ -54,6 +54,6 @@ public class NUT {
      * Main entry point of the program.
      */
     public static void main(String[] args) {
-        new NUT("NUT.txt").run();  // Create NUT with "NUT.txt" as data file, then run
+        new NUT("NUT.txt").run();  // Create NUT with "NUT.txt" as a data file, then run
     }
 }

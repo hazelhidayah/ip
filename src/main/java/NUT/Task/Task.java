@@ -34,7 +34,7 @@ public class Task {
     }
 
     /**
-     * Constructor for loading tasks from file with a completion status.
+     * Constructor for loading tasks from a file with a completion status.
      *
      * @param name The name/description of the task.
      * @param isDone The completion status of the task.
@@ -47,7 +47,7 @@ public class Task {
     /**
      * Returns the status icon representing whether the task is done.
      *
-     * @return "[x]" if task is done, "[ ]" otherwise.
+     * @return "[x]" if a task is done, "[ ]" otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "[x]" : "[ ]");
