@@ -1,157 +1,59 @@
 package NUT;
-import java.util.Scanner;
+
 import NUT.Command.*;
+import NUT.Parser.*;
+import NUT.Storage.*;
 import NUT.Task.*;
 import NUT.Ui.*;
 
-/*
- * This is the main program class for NUT
+/**
+ * Main program class for NUT task manager.
  */
-
 public class NUT {
-    private static final TaskList list = new TaskList();
+    private final Storage storage;
+    private TaskList tasks;
+    private final Ui ui;
 
-    public static void main(String[] args) throws NUTException {
-        Ui ui = new Ui();
-        ui.showWelcome();
+    /**
+     * Constructs a NUT object with the specified file path.
+     *
+     * @param filePath The path to the file for storing tasks.
+     */
+    public NUT(String filePath) {
+        ui = new Ui();  // Create UI for displaying messages
+        storage = new Storage(filePath);  // Create Storage with file path
 
-        // by the end of each command, the status will change.
-        // if the status becomes true then exit.
-        boolean status = false;
+        try {
+            tasks = new TaskList(storage.load());  // load tasks from file into TaskList
+        } catch (NUTException e) {
+            ui.noFileError();
+            tasks = new TaskList();  // start with empty list if loading fails
+        }
+    }
 
-        while (!status) {
-            String userInput = ui.readCommand();
+    /**
+     * Runs the main program loop.
+     */
+    public void run() {
+        ui.showWelcome();  // Show welcome message
+        boolean status = false;  // false = keep running, true = exit
 
+        while (!status) {  // Loop until user says "bye"
             try {
-                // bye
-                if (userInput.equalsIgnoreCase("bye")) {
-                    status = new ByeCommand().execute(ui);
-                }
-                // list
-                else if (userInput.equalsIgnoreCase("list")) {
-                    status = new ListCommand(list).execute(ui);
-                }
-                // delete
-                else if (userInput.startsWith("delete")) {
-                    String[] parts = userInput.split(" ");
-
-                    if (parts.length != 2) { // only "delete" or "delete "
-                        throw new NUTException("""
-                                ____________________________________________________________
-                                Please include which task to delete.
-                                (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
-                                ____________________________________________________________
-                            """);
-                    }
-
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    list.delete(index);
-                    ui.showTaskDeleted(list.get(index), list.size());
-                }
-
-                // mark
-                else if (userInput.startsWith("mark")) {
-                    String[] parts = userInput.split(" ");
-
-                    if (parts.length != 2) { // only "mark" or "mark "
-                        throw new NUTException("""
-                                ____________________________________________________________
-                                Please include which task to mark off.
-                                (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
-                                ____________________________________________________________
-                            """);
-                    }
-
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    status = new MarkCommand(list, index).execute(ui);
-                }
-                // unmark
-                else if (userInput.startsWith("unmark")) {
-                    String[] parts = userInput.split(" ");
-
-                    if (parts.length != 2) { // only "unmark" or "unmark "
-                        throw new NUTException("""
-                                ____________________________________________________________
-                                Please include which task to unmark.
-                                (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
-                                ____________________________________________________________
-                            """);
-                    }
-
-                    int index = Integer.parseInt(userInput.split(" ")[1]) - 1;
-                    status = new UnmarkCommand(list, index).execute(ui);
-                }
-
-                // todo
-                else if (userInput.startsWith("todo")) {
-                    String taskDescription = userInput.substring(5).trim();
-
-                    if (taskDescription.isEmpty()) {
-                        throw new NUTException("""
-                    ____________________________________________________________
-                    OOPS! The description of a todo cannot be empty.
-                    ____________________________________________________________
-            """);
-                    }
-                    Task newTask = new ToDos(taskDescription);
-                    list.add(newTask);
-                    ui.showTaskAdded(newTask, list.size());
-                }
-
-                // deadline
-                else if (userInput.startsWith("deadline")) {
-                    String taskDescription = userInput.substring(9).trim();
-
-                    if (taskDescription.isEmpty()) {
-                        throw new NUTException("""
-                    ____________________________________________________________
-                    Oops! The description of a deadline cannot be empty.
-                    ____________________________________________________________
-            """);
-                    }
-
-                    try {
-                        Task newTask = new Deadlines(taskDescription);
-                        list.add(newTask);
-                        ui.showTaskAdded(newTask, list.size());
-                    } catch (NUTException e) {
-                        ui.showError(e.getMessage());
-                    }
-                }
-
-                // event
-                else if (userInput.startsWith("event")) {
-                    String taskDescription = userInput.substring(6).trim();
-
-                    if (taskDescription.isEmpty()) {
-                        throw new NUTException("""
-                    ____________________________________________________________
-                    Oops! The description of an event cannot be empty.
-                    ____________________________________________________________
-            """);
-                    }
-
-                    try {
-                        Task newTask = new Events(taskDescription);
-                        list.add(newTask);
-                        ui.showTaskAdded(newTask, list.size());
-                    } catch (NUTException e) {
-                        ui.showError(e.getMessage());
-                    }
-                }
-
-                // not valid input
-                else {
-                    throw new NUTException("""
-                                ____________________________________________________________
-                                Oops, I don't know what you just said :(
-                                ____________________________________________________________
-                            """);
-                }
-
-            } catch (NUTException e) { // this just loops the error msg without terminating!
-                ui.showError(e.getMessage());
+                String userInput = ui.readCommand();  // Read user's command
+                Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
+                status = command.execute(ui);  // Execute command, returns true if "bye"
+                storage.save(tasks);  // Save tasks to file after each command
+            } catch (NUTException e) {
+                ui.showError(e.getMessage());  // Show error message if something goes wrong
             }
         }
+    }
+
+    /**
+     * Main entry point of the program.
+     */
+    public static void main(String[] args) {
+        new NUT("NUT.txt").run();  // Create NUT with "NUT.txt" as data file, then run
     }
 }

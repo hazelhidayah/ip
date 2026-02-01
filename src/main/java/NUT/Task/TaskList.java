@@ -10,6 +10,14 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with existing tasks (for loading from file).
+     * @param tasks The list of tasks to initialize with.
+     */
+    public TaskList(ArrayList<Task> tasks) {
+        this.list = tasks;
+    }
+
     // add new task to list
     public void add(Task task) {
         list.add(task);

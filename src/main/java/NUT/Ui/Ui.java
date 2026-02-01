@@ -27,6 +27,15 @@ public class Ui {
     }
 
     /**
+     * Displays a greeting when the user says hello
+     */
+    public void showHello() {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Hello <3");
+        System.out.println("    ____________________________________________________________");
+    }
+
+    /**
      * Displays the welcome message when the program starts.
      */
     public void showWelcome() {
@@ -94,10 +103,25 @@ public class Ui {
     }
 
     /**
+     * Displays an error message to the user if no file is found.
+     */
+    public void noFileError() {
+        System.out.println("No files found");
+    }
+
+
+    /**
      * Displays all tasks in the task list.
      * @param tasks The TaskList containing all tasks.
      */
     public void showTaskList(TaskList tasks) {
+        if (tasks.size() == 0) {
+            System.out.println("    ____________________________________________________________");
+            System.out.println("    Your task list is empty!");
+            System.out.println("    ____________________________________________________________");
+            return;
+        }
+
         System.out.println("    ____________________________________________________________");
         System.out.println("    Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
