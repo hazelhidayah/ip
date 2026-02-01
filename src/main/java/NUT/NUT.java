@@ -21,13 +21,13 @@ public class NUT {
      */
     public NUT(String filePath) {
         ui = new Ui();  // Create UI for displaying messages
-        storage = new Storage(filePath);  // Create Storage with file path
+        storage = new Storage(filePath);  // Create Storage with a file path
 
         try {
-            tasks = new TaskList(storage.load());  // load tasks from file into TaskList
+            tasks = new TaskList(storage.load());  // load tasks from a file into TaskList
         } catch (NUTException e) {
             ui.noFileError();
-            tasks = new TaskList();  // start with empty list if loading fails
+            tasks = new TaskList();  // start with an empty list if loading fails
         }
     }
 

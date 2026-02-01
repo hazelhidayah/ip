@@ -1,8 +1,8 @@
 package NUT.Task;
 
 /**
- * Base class for all task types (ToDos, Deadlines, Events).
- * A task has a name/description and a completion status.
+ * Base class for all task types (e.g. {@link ToDos}, {@link Deadlines}, {@link Events}).
+ * A task has a description and a completion status.
  */
 public class Task {
     /**
@@ -16,10 +16,11 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the given name.
+     * Constructs a new task with the given description.
      * The task is initially marked as not done.
      *
-     * @param name The name/description of the task.
+     * @param name the task description
+     * @throws NUTException if {@code name} is {@code null} or blank
      */
     public Task(String name) throws NUTException {
         if (name == null || name.trim().isEmpty()) {
@@ -34,10 +35,11 @@ public class Task {
     }
 
     /**
-     * Constructor for loading tasks from a file with a completion status.
+     * Constructs a new task with the given description and completion status.
+     * Intended for restoring tasks from storage.
      *
-     * @param name The name/description of the task.
-     * @param isDone The completion status of the task.
+     * @param name   the task description
+     * @param isDone the completion status
      */
     public Task(String name, boolean isDone) {
         this.name = name;
@@ -47,7 +49,7 @@ public class Task {
     /**
      * Returns the status icon representing whether the task is done.
      *
-     * @return "[x]" if a task is done, "[ ]" otherwise.
+     * @return {@code "[x]"} if a task is done, {@code "[ ]"} otherwise
      */
     public String getStatusIcon() {
         return (isDone ? "[x]" : "[ ]");
@@ -68,9 +70,9 @@ public class Task {
     }
 
     /**
-     * Returns the name/description of the task.
+     * Returns the task description.
      *
-     * @return The task name.
+     * @return the task description
      */
     public String getName() {
         return name;
@@ -79,7 +81,7 @@ public class Task {
     /**
      * Returns whether the task is marked as done.
      *
-     * @return true if the task is done, false otherwise.
+     * @return {@code true} if the task is done; {@code false} otherwise
      */
     public boolean isDone() {
         return isDone;
@@ -87,18 +89,18 @@ public class Task {
 
     /**
      * Returns the string representation for saving to file.
-     * This should be overridden by subclasses for specific formats.
+     * Subclasses should override this for type-specific formats.
      *
-     * @return The file format string.
+     * @return the file format string
      */
     public String toFileFormat() {
         return "T | " + (isDone ? "1" : "0") + " | " + name;
     }
 
     /**
-     * Returns the string representation of the task.
+     * Returns a human-readable representation of this task.
      *
-     * @return A formatted string showing the status icon and task name.
+     * @return a formatted string showing the status icon and task description
      */
     @Override
     public String toString() {
