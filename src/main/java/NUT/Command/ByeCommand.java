@@ -5,7 +5,6 @@ import NUT.Ui.Ui;
 /*
  * Terminates when the user says 'bye'
  */
-
 public class ByeCommand implements Command {
 
     @Override

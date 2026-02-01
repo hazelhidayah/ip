@@ -10,8 +10,9 @@ public class Parser {
 
     /**
      * Parses the user's input string and returns the appropriate Command.
+     *
      * @param userInput The full user input string.
-     * @param list The TaskList to operate on.
+     * @param list      The TaskList to operate on.
      * @return The Command object corresponding to the user input.
      * @throws NUTException If the input format is invalid.
      */

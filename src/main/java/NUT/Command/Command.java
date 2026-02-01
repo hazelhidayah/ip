@@ -9,6 +9,7 @@ import NUT.Ui.Ui;
 public interface Command {
     /**
      * Executes the command.
+     *
      * @param ui The Ui object for displaying messages to the user.
      * @return true if program should exit, false otherwise.
      */

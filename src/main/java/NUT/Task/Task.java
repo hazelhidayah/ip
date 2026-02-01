@@ -5,15 +5,20 @@ package NUT.Task;
  * A task has a name/description and a completion status.
  */
 public class Task {
-    /** The name/description of the task. */
+    /**
+     * The name/description of the task.
+     */
     protected final String name;
 
-    /** Indicates whether the task has been completed. */
+    /**
+     * Indicates whether the task has been completed.
+     */
     protected boolean isDone;
 
     /**
      * Constructs a new Task with the given name.
      * The task is initially marked as not done.
+     *
      * @param name The name/description of the task.
      */
     public Task(String name) throws NUTException {
@@ -30,6 +35,7 @@ public class Task {
 
     /**
      * Constructor for loading tasks from file with a completion status.
+     *
      * @param name The name/description of the task.
      * @param isDone The completion status of the task.
      */
@@ -63,6 +69,7 @@ public class Task {
 
     /**
      * Returns the name/description of the task.
+     *
      * @return The task name.
      */
     public String getName() {
@@ -71,6 +78,7 @@ public class Task {
 
     /**
      * Returns whether the task is marked as done.
+     *
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
@@ -80,6 +88,7 @@ public class Task {
     /**
      * Returns the string representation for saving to file.
      * This should be overridden by subclasses for specific formats.
+     *
      * @return The file format string.
      */
     public String toFileFormat() {
@@ -88,6 +97,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return A formatted string showing the status icon and task name.
      */
     @Override

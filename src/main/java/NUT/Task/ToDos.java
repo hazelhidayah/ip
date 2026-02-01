@@ -1,20 +1,17 @@
 package NUT.Task;
 
-    /*
-    todo borrow book
-    ____________________________________________________________
-     Got it. I've added this task:
-       [T][ ] borrow book
-     Now you have 5 tasks in the list.
-    ____________________________________________________________
-    */
-
-
+/**
+ * The type To dos.
+ */
 public class ToDos extends Task {
-    // protected final String name;
-    // protected boolean isDone;
 
-    // constructor
+    /**
+     * Instantiates a new To dos.
+     *
+     * @param name the name
+     * @throws NUTException the nut exception
+     */
+// constructor
     public ToDos(String name) throws NUTException {
         super(name);
     }

@@ -7,7 +7,6 @@ import java.util.Scanner;
  * Handles interactions with the user.
  * Deals with reading user input and displaying messages.
  */
-
 public class Ui {
     private final Scanner sc;
 
@@ -20,6 +19,7 @@ public class Ui {
 
     /**
      * Reads the user's command from the console.
+     *
      * @return The user's input as a String.
      */
     public String readCommand() {
@@ -65,6 +65,7 @@ public class Ui {
 
     /**
      * Displays confirmation message when a task is added.
+     *
      * @param task The task that was added.
      * @param taskCount The total number of tasks in the list.
      */
@@ -77,6 +78,7 @@ public class Ui {
 
     /**
      * Displays confirmation message when a task is deleted.
+     *
      * @param task The task that was deleted.
      * @param taskCount The total number of tasks remaining in the list.
      */
@@ -89,6 +91,7 @@ public class Ui {
 
     /**
      * Displays an error message to the user.
+     *
      * @param errorMessage The error message to display.
      */
     public void showError(String errorMessage) {
@@ -112,6 +115,7 @@ public class Ui {
 
     /**
      * Displays all tasks in the task list.
+     *
      * @param tasks The TaskList containing all tasks.
      */
     public void showTaskList(TaskList tasks) {
@@ -132,6 +136,7 @@ public class Ui {
 
     /**
      * Displays a task marked confirmation message to the user.
+     *
      * @param tasks The TaskList containing all tasks.
      */
     public void markTask(TaskList tasks, int index) {

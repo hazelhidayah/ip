@@ -3,6 +3,9 @@ package NUT.Command;
 import NUT.Task.*;
 import NUT.Ui.Ui;
 
+/**
+ * Command displaying Hello to user
+ */
 public class HelloCommand implements Command {
 
     @Override

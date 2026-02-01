@@ -4,12 +4,18 @@ import NUT.Task.*;
 import NUT.Ui.Ui;
 
 /*
- * Deletes task
+ * Command for deleting a Task from the list
  */
 public class DeleteCommand implements Command {
     private final TaskList list;
     private final int index;
 
+    /**
+     * Instantiates a new Delete command.
+     *
+     * @param list  the list
+     * @param index the index
+     */
     public DeleteCommand(TaskList list, int index) {
         this.list = list;
         this.index = index;

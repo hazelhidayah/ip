@@ -7,7 +7,7 @@ import NUT.Task.*;
 import NUT.Ui.*;
 
 /**
- * Main program class for NUT task manager.
+ * This is the main program class for NUT task manager.
  */
 public class NUT {
     private final Storage storage;

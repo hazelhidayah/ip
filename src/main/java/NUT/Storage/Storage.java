@@ -15,6 +15,7 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
+     *
      * @param filePath The path to the file for storing tasks.
      */
     public Storage(String filePath) {
@@ -23,6 +24,7 @@ public class Storage {
 
     /**
      * Loads tasks from the file.
+     *
      * @return ArrayList of tasks loaded from the file.
      * @throws NUTException If there is an error reading the file.
      */
@@ -51,17 +53,18 @@ public class Storage {
 
     /**
      * Parses a line from the file into a Task object.
+     *
      * @param line The line from the file to parse.
      * @return The parsed Task object, or null if parsing fails.
      */
     private Task parseTaskFromFile(String line) {
         try {
-            String[] parts = line.split(" \\| ");  // Split by " | " → ["T", "0", "sleep"]
-            if (parts.length < 3) return null;  // Invalid format, skip this line
+            String[] parts = line.split(" \\| ");  // Split by " | " -> ["T", "0", "sleep"]
+            if (parts.length < 3) return null;  // invalid format -> skip this
 
-            String type = parts[0];  // Task type: "T", "D", or "E"
+            String type = parts[0];  // task type: "Todos", "Deadlines", or "Events"
             boolean isDone = parts[1].equals("1");  // "1" = done, "0" = not done
-            String description = parts[2];  // Task description
+            String description = parts[2];  // task description
 
             return switch (type) {
                 case "T" ->  // ToDo task
@@ -83,6 +86,7 @@ public class Storage {
 
     /**
      * Saves all tasks to the file.
+     *
      * @param tasks The TaskList containing all tasks to save.
      * @throws NUTException If there is an error writing to the file.
      */

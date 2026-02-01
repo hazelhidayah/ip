@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
  * A Deadline task contains a description and a date/time by which it must be completed.
  * It supports input formats for both date and time (dd/MM/yyyy HHmm), and date only (dd/MM/yyyy).
  */
-
 public class Deadlines extends Task {
     // The description of the task without the /by command.
     private final String updatedName;
@@ -36,6 +35,7 @@ public class Deadlines extends Task {
     // Storage formatter
     private static final DateTimeFormatter STORAGE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
     /**
      * Constructs a new Deadline task based on user input.
      * Parses the raw command string to extract the description and the deadline date.
@@ -43,7 +43,6 @@ public class Deadlines extends Task {
      * @param rawInput The raw command string (e.g., "return book /by 12/12/2024 1800").
      * @throws NUTException If the format is invalid or the date cannot be parsed.
      */
-
     public Deadlines(String rawInput) throws NUTException {
         super(rawInput);
 
@@ -68,7 +67,14 @@ public class Deadlines extends Task {
         parseDeadline(dateTimeString);
     }
 
-    // constructor for loading from file
+    /**
+     * Instantiates a new Deadlines.
+     *
+     * @param updatedName    the updated name
+     * @param dateTimeString the date time string
+     * @param isDone         the is done
+     * @throws NUTException the nut exception
+     */
     public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NUTException {
         super(updatedName + " /by " + dateTimeString);
         this.updatedName = updatedName;
@@ -82,10 +88,10 @@ public class Deadlines extends Task {
     /**
      * Helper method to parse the date string.
      * Tries to parse as DateTime first, falls back to Date only.
-     * * @param dateString The string to parse.
+     *
+     * @param str The string to parse.
      * @throws NUTException If the date string matches neither format.
      */
-
     private void parseDeadline(String str) throws NUTException {
         try {
             // try to parse as date + time
@@ -117,6 +123,11 @@ public class Deadlines extends Task {
         return updatedName;
     }
 
+    /**
+     * Gets deadline.
+     *
+     * @return the deadline
+     */
     public String getDeadline() {
         return hasTime
                 ? deadline.format(DATE_AND_TIME_DISPLAY_FORMAT)

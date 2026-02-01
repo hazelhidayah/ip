@@ -1,22 +1,29 @@
 package NUT.Task;
 
+/**
+ * Represents a task with a specific start and end date.
+ * An Events task contains a description and a date/time by which it must be completed.
+ * It supports input formats for both date and time (dd/MM/yyyy HHmm), and date only (dd/MM/yyyy).
+ */
 public class Events extends Task {
-    // protected final String name;
-    // protected boolean isDone;
     private final String updatedName;
     private final String updatedStartTime;
     private final String updatedEndTime;
 
-    // constructor
+    /**
+     * Instantiates a new Events.
+     *
+     * @param name the name
+     * @throws NUTException the nut exception
+     */
     public Events(String name) throws NUTException {
         super(name);
 
         String[] parts = name.split("/");
 
-        // invalid
         if (parts.length != 3
                 || !parts[1].trim().startsWith("from")
-                || !parts[2].trim().startsWith("to")) {
+                || !parts[2].trim().startsWith("to")) { // invalid
             throw new NUTException("""
                         ____________________________________________________________
                         OOPS!!! Events must be in the format:
@@ -35,10 +42,20 @@ public class Events extends Task {
         return updatedName;
     }
 
+    /**
+     * Gets start time.
+     *
+     * @return the start time
+     */
     public String getStartTime() {
         return updatedStartTime;
     }
 
+    /**
+     * Gets end time.
+     *
+     * @return the end time
+     */
     public String getEndTime() {
         return updatedEndTime;
     }
