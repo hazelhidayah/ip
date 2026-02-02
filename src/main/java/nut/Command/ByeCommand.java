@@ -1,0 +1,20 @@
+package nut.Command;
+
+import nut.Ui.Ui;
+
+/**
+ * Command that ends the application session.
+ * <p>
+ * When executed, this command displays a goodbye message via the {@link Ui}
+ * and signals to the caller that the program should terminate.
+ * </p>
+ */
+public class ByeCommand implements Command {
+
+    @Override
+    public boolean execute(Ui ui) {
+        ui.showGoodbye();
+        return true; // exit
+    }
+
+}

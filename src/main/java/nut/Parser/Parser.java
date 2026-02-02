@@ -1,21 +1,43 @@
-package NUT.Parser;
+package nut.Parser;
 
-import NUT.Command.*;
-import NUT.Task.*;
+import nut.Command.SearchCommand;
+import nut.Command.ByeCommand;
+import nut.Command.HelloCommand;
+import nut.Command.ListCommand;
+import nut.Command.AddCommand;
+import nut.Command.DeleteCommand;
+import nut.Command.MarkCommand;
+import nut.Command.UnmarkCommand;
+import nut.Command.Command;
+import nut.Task.TaskList;
+import nut.Task.Deadlines;
+import nut.Task.Events;
+import nut.Task.NutException;
+import nut.Task.ToDos;
 
 /**
- * Parses user input and creates corresponding Command objects.
+ * Converts raw user input into executable {@link nut.Command.Command} instances.
+ * <p>
+ * The {@code Parser} is responsible for interpreting a user's command line (e.g. {@code list},
+ * {@code todo <desc>}, {@code delete <index>}) and constructing the corresponding command object
+ * configured with the provided {@link nut.Task.TaskList}.
+ * </p>
+ * <p>
+ * If the input does not match a supported command or is missing required arguments, parsing fails
+ * by throwing {@link nut.Task.NutException}.
+ * </p>
  */
 public class Parser {
 
     /**
      * Parses the user's input string and returns the appropriate Command.
+     *
      * @param userInput The full user input string.
      * @param list The TaskList to operate on.
      * @return The Command object corresponding to the user input.
-     * @throws NUTException If the input format is invalid.
+     * @throws NutException If the input format is invalid.
      */
-    public static Command parse(String userInput, TaskList list) throws NUTException {
+    public static Command parse(String userInput, TaskList list) throws NutException {
         // bye
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
@@ -32,12 +54,26 @@ public class Parser {
             return new ListCommand(list);
         }
 
+        // search
+        if (userInput.startsWith("find")) {
+            String searchTerm = userInput.substring(5).trim();
+
+            if (searchTerm.isEmpty()) {
+                throw new NutException("""
+                        ____________________________________________________________
+                        OOPS! Please enter a search term to search for!
+                        ____________________________________________________________
+                        """);
+            }
+            return new SearchCommand(list, searchTerm);
+        }
+
         // delete
         else if (userInput.startsWith("delete")) {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to delete.
                         (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
@@ -54,7 +90,7 @@ public class Parser {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to mark off.
                         (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
@@ -71,7 +107,7 @@ public class Parser {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to unmark.
                         (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
@@ -88,7 +124,7 @@ public class Parser {
             String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         OOPS! The description of a todo cannot be empty.
                         ____________________________________________________________
@@ -103,7 +139,7 @@ public class Parser {
             String taskDescription = userInput.substring(9).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Oops! The description of a deadline cannot be empty.
                         ____________________________________________________________
@@ -118,7 +154,7 @@ public class Parser {
             String taskDescription = userInput.substring(6).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Oops! The description of an event cannot be empty.
                         ____________________________________________________________
@@ -130,7 +166,7 @@ public class Parser {
 
         // not valid input
         else {
-            throw new NUTException("""
+            throw new NutException("""
                     ____________________________________________________________
                     Oops, I don't know what you just said :(
                     ____________________________________________________________

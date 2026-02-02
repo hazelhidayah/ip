@@ -1,4 +1,4 @@
-package NUT.Task;
+package nut.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,10 +41,10 @@ public class Deadlines extends Task {
      * Parses the raw command string to extract the description and the deadline date.
      *
      * @param rawInput The raw command string (e.g., "return book /by 12/12/2024 1800").
-     * @throws NUTException If the format is invalid or the date cannot be parsed.
+     * @throws NutException If the format is invalid or the date cannot be parsed.
      */
 
-    public Deadlines(String rawInput) throws NUTException {
+    public Deadlines(String rawInput) throws NutException {
         super(rawInput);
 
         String[] parts = rawInput.split("/by");
@@ -52,7 +52,7 @@ public class Deadlines extends Task {
         // limit: 2 ensures we only split into Description and Date, and the input is valid
         if (parts.length != 2 ||
                 parts[0].trim().isEmpty()) { // invalid
-            throw new NUTException("""
+            throw new NutException("""
                         ____________________________________________________________
                         OOPS!!! Deadlines must be in the format:
                         deadline <name> /by <dd/MM/yyyy HHmm>
@@ -68,13 +68,13 @@ public class Deadlines extends Task {
         parseDeadline(dateTimeString);
     }
 
-    // constructor for loading from file
-    public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NUTException {
+    // constructor for loading from a file
+    public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NutException {
         super(updatedName + " /by " + dateTimeString);
         this.updatedName = updatedName;
         try {
             parseDeadline(dateTimeString);
-        } catch (NUTException e) {
+        } catch (NutException e) {
             throw new RuntimeException(e);
         }
     }
@@ -83,10 +83,10 @@ public class Deadlines extends Task {
      * Helper method to parse the date string.
      * Tries to parse as DateTime first, falls back to Date only.
      * * @param dateString The string to parse.
-     * @throws NUTException If the date string matches neither format.
+     * @throws NutException If the date string matches neither format.
      */
 
-    private void parseDeadline(String str) throws NUTException {
+    private void parseDeadline(String str) throws NutException {
         try {
             // try to parse as date + time
             this.deadline = LocalDateTime.parse(str, DATE_AND_TIME_INPUT);
@@ -99,7 +99,7 @@ public class Deadlines extends Task {
                 this.deadline = dateOnly.atStartOfDay();
                 this.hasTime = false;
             } catch (DateTimeParseException e2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         OOPS!!! Deadlines must be in the format:
                         deadline <name> /by <dd/MM/yyyy HHmm>

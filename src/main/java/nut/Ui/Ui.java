@@ -1,6 +1,7 @@
-package NUT.Ui;
+package nut.Ui;
 
-import NUT.Task.*;
+import nut.Task.TaskList;
+import nut.Task.Task;
 import java.util.Scanner;
 
 /**
@@ -40,7 +41,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello! I'm NUT");
+        System.out.println("    Hello! I'm Nut");
         System.out.println("    What can I do for you?");
         System.out.println("    ____________________________________________________________");
     }
@@ -55,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Displays an error message when index searched is out of bound.
+     * Displays an error message when the index searched is out of bound.
      */
     public void showSearchError() {
         System.out.println("    ____________________________________________________________");
@@ -64,7 +65,25 @@ public class Ui {
     }
 
     /**
-     * Displays confirmation message when a task is added.
+     * Displays user's search results
+     *
+     * @param list The list to search through.
+     * @param searchTerm The search term used.
+     */
+    public void showSearchResults(TaskList list, String searchTerm) {
+        System.out.println("    ____________________________________________________________");
+        System.out.println("    Here are the matching tasks in your list:");
+
+        for (int i = 0; i < list.size(); i++) { // loop through all tasks
+            if (list.get(i).getName().contains(searchTerm)) { // if task name contains search term
+                System.out.println("    " + (i + 1) + "." + list.get(i)); // print task
+            }
+        }
+        System.out.println("    ____________________________________________________________");
+    }
+
+    /**
+     * Displays a confirmation message when a task is added.
      * @param task The task that was added.
      * @param taskCount The total number of tasks in the list.
      */
@@ -76,7 +95,7 @@ public class Ui {
     }
 
     /**
-     * Displays confirmation message when a task is deleted.
+     * Displays a confirmation message when a task is deleted.
      * @param task The task that was deleted.
      * @param taskCount The total number of tasks remaining in the list.
      */
@@ -112,6 +131,7 @@ public class Ui {
 
     /**
      * Displays all tasks in the task list.
+     *
      * @param tasks The TaskList containing all tasks.
      */
     public void showTaskList(TaskList tasks) {
@@ -132,6 +152,7 @@ public class Ui {
 
     /**
      * Displays a task marked confirmation message to the user.
+     *
      * @param tasks The TaskList containing all tasks.
      */
     public void markTask(TaskList tasks, int index) {

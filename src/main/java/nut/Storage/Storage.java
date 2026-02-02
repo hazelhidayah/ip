@@ -1,6 +1,11 @@
-package NUT.Storage;
+package nut.Storage;
 
-import NUT.Task.*;
+import nut.Task.Events;
+import nut.Task.Deadlines;
+import nut.Task.ToDos;
+import nut.Task.TaskList;
+import nut.Task.Task;
+import nut.Task.NutException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,10 +13,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles loading tasks from file and saving tasks to file.
+ * Handles persistence of tasks to and from local storage.
+ * <p>
+ * The {@code Storage} component is responsible for reading saved tasks from a data file at startup
+ * and writing the current task list back to disk after changes, so the user's tasks persist between
+ * runs of the application.
+ * </p>
  */
 public class Storage {
-    private final String filePath;  // Path to the data file (e.g., "NUT.txt")
+    private final String filePath;  // Path to the data file (e.g., "Nut.txt")
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -24,9 +34,9 @@ public class Storage {
     /**
      * Loads tasks from the file.
      * @return ArrayList of tasks loaded from the file.
-     * @throws NUTException If there is an error reading the file.
+     * @throws NutException If there is an error reading the file.
      */
-    public ArrayList<Task> load() throws NUTException {
+    public ArrayList<Task> load() throws NutException {
         ArrayList<Task> tasks = new ArrayList<>();  // create empty list to store tasks
         File file = new File(filePath);  // referencing the file
 
@@ -43,7 +53,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new NUTException("Error loading tasks from file: " + filePath);
+            throw new NutException("Error loading tasks from file: " + filePath);
         }
 
         return tasks;  // return list of tasks
@@ -76,7 +86,7 @@ public class Storage {
                 }
                 default -> null;
             };
-        } catch (NUTException e) {
+        } catch (NutException e) {
             return null;  // if task creation fails, skip
         }
     }
@@ -84,9 +94,9 @@ public class Storage {
     /**
      * Saves all tasks to the file.
      * @param tasks The TaskList containing all tasks to save.
-     * @throws NUTException If there is an error writing to the file.
+     * @throws NutException If there is an error writing to the file.
      */
-    public void save(TaskList tasks) throws NUTException {
+    public void save(TaskList tasks) throws NutException {
         try {
             File file = new File(filePath);
             File parentDir = file.getParentFile();  // Get parent directory
@@ -98,7 +108,7 @@ public class Storage {
             }
             writer.close();  // Close file
         } catch (IOException e) {
-            throw new NUTException("Error saving tasks to file: " + filePath);
+            throw new NutException("Error saving tasks to file: " + filePath);
         }
     }
 }

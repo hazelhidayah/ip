@@ -1,10 +1,14 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.*;
-import NUT.Ui.Ui;
+import nut.Task.TaskList;
+import nut.Ui.Ui;
 
-/*
- * Deletes task
+/**
+ * Command that ends the application session.
+ * <p>
+ * When executed, this command displays a goodbye message via the {@link Ui}
+ * and signals to the caller that the program should terminate.
+ * </p>
  */
 public class DeleteCommand implements Command {
     private final TaskList list;

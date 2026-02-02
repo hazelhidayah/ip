@@ -1,4 +1,4 @@
-package NUT.Task;
+package nut.Task;
 
 /**
  * Base class for all task types (ToDos, Deadlines, Events).
@@ -16,9 +16,9 @@ public class Task {
      * The task is initially marked as not done.
      * @param name The name/description of the task.
      */
-    public Task(String name) throws NUTException {
+    public Task(String name) throws NutException {
         if (name == null || name.trim().isEmpty()) {
-            throw new NUTException("""
+            throw new NutException("""
                     ____________________________________________________________
                     OOPS! The description of a task cannot be empty.
                     ____________________________________________________________
@@ -41,7 +41,7 @@ public class Task {
     /**
      * Returns the status icon representing whether the task is done.
      *
-     * @return "[x]" if task is done, "[ ]" otherwise.
+     * @return "[x]" if a task is done, "[ ]" otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "[x]" : "[ ]");
@@ -63,6 +63,7 @@ public class Task {
 
     /**
      * Returns the name/description of the task.
+     *
      * @return The task name.
      */
     public String getName() {
@@ -71,6 +72,7 @@ public class Task {
 
     /**
      * Returns whether the task is marked as done.
+     *
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
@@ -80,6 +82,7 @@ public class Task {
     /**
      * Returns the string representation for saving to file.
      * This should be overridden by subclasses for specific formats.
+     *
      * @return The file format string.
      */
     public String toFileFormat() {
@@ -88,6 +91,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return A formatted string showing the status icon and task name.
      */
     @Override
