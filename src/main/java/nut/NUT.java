@@ -1,13 +1,13 @@
-package NUT;
+package nut;
 
-import NUT.Command.*;
-import NUT.Parser.*;
-import NUT.Storage.*;
-import NUT.Task.*;
-import NUT.Ui.*;
+import nut.Command.*;
+import nut.Parser.*;
+import nut.Storage.*;
+import nut.Task.*;
+import nut.Ui.*;
 
 /**
- * Main program class for NUT task manager.
+ * Main program class for nut task manager.
  */
 public class NUT {
     private final Storage storage;
@@ -15,7 +15,7 @@ public class NUT {
     private final Ui ui;
 
     /**
-     * Constructs a NUT object with the specified file path.
+     * Constructs a nut object with the specified file path.
      *
      * @param filePath The path to the file for storing tasks.
      */
@@ -25,7 +25,7 @@ public class NUT {
 
         try {
             tasks = new TaskList(storage.load());  // load tasks from file into TaskList
-        } catch (NUTException e) {
+        } catch (NutException e) {
             ui.noFileError();
             tasks = new TaskList();  // start with empty list if loading fails
         }
@@ -44,7 +44,7 @@ public class NUT {
                 Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
                 status = command.execute(ui);  // Execute command, returns true if "bye"
                 storage.save(tasks);  // Save tasks to file after each command
-            } catch (NUTException e) {
+            } catch (NutException e) {
                 ui.showError(e.getMessage());  // Show error message if something goes wrong
             }
         }
@@ -54,6 +54,6 @@ public class NUT {
      * Main entry point of the program.
      */
     public static void main(String[] args) {
-        new NUT("NUT.txt").run();  // Create NUT with "NUT.txt" as data file, then run
+        new NUT("nut.txt").run();  // Create nut with "nut.txt" as data file, then run
     }
 }

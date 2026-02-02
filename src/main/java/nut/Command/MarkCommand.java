@@ -1,13 +1,14 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.*;
-import NUT.Ui.Ui;
+import nut.Task.*;
+import nut.Ui.Ui;
 
-public class UnmarkCommand implements Command {
+public class MarkCommand implements Command {
     private final TaskList list;
     private final int index;
 
-    public UnmarkCommand(TaskList list, int index) {
+    // constructor
+    public MarkCommand(TaskList list, int index) {
         this.list = list;
         this.index = index;
     }
@@ -18,7 +19,7 @@ public class UnmarkCommand implements Command {
             ui.showSearchError();
             return false;
         }
-        list.get(index).unmark(); // unmark() is from Task
+        list.get(index).mark(); // mark() is from Task
         ui.markTask(list, index);
         return false;
     }

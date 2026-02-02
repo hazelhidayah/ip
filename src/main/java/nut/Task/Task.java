@@ -1,4 +1,4 @@
-package NUT.Task;
+package nut.Task;
 
 /**
  * Base class for all task types (ToDos, Deadlines, Events).
@@ -17,9 +17,9 @@ public class Task {
      *
      * @param name The name/description of the task.
      */
-    public Task(String name) throws NUTException {
+    public Task(String name) throws NutException {
         if (name == null || name.trim().isEmpty()) {
-            throw new NUTException("""
+            throw new NutException("""
                     ____________________________________________________________
                     OOPS! The description of a task cannot be empty.
                     ____________________________________________________________
@@ -30,7 +30,7 @@ public class Task {
     }
 
     /**
-     * Constructor for loading tasks from file with a completion status.
+     * Constructor for loading tasks from the file with a completion status.
      *
      * @param name The name/description of the task.
      * @param isDone The completion status of the task.
@@ -43,7 +43,7 @@ public class Task {
     /**
      * Returns the status icon representing whether the task is done.
      *
-     * @return "[x]" if task is done, "[ ]" otherwise.
+     * @return "[x]" if the task is done, "[ ]" otherwise.
      */
     public String getStatusIcon() {
         return (isDone ? "[x]" : "[ ]");

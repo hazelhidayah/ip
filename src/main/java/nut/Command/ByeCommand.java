@@ -1,6 +1,6 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Ui.Ui;
+import nut.Ui.Ui;
 
 /*
  * Terminates when the user says 'bye'

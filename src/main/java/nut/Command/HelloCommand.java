@@ -1,7 +1,6 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.*;
-import NUT.Ui.Ui;
+import nut.Ui.Ui;
 
 public class HelloCommand implements Command {
 

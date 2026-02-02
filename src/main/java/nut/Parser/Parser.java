@@ -1,7 +1,18 @@
-package NUT.Parser;
+package nut.Parser;
 
-import NUT.Command.*;
-import NUT.Task.*;
+import nut.Command.AddCommand;
+import nut.Command.ByeCommand;
+import nut.Command.Command;
+import nut.Command.DeleteCommand;
+import nut.Command.HelloCommand;
+import nut.Command.ListCommand;
+import nut.Command.MarkCommand;
+import nut.Command.UnmarkCommand;
+import nut.Task.TaskList;
+import nut.Task.Deadlines;
+import nut.Task.Events;
+import nut.Task.NutException;
+import nut.Task.ToDos;
 
 /**
  * Parses user input and creates corresponding Command objects.
@@ -13,9 +24,9 @@ public class Parser {
      * @param userInput The full user input string.
      * @param list The TaskList to operate on.
      * @return The Command object corresponding to the user input.
-     * @throws NUTException If the input format is invalid.
+     * @throws NutException If the input format is invalid.
      */
-    public static Command parse(String userInput, TaskList list) throws NUTException {
+    public static Command parse(String userInput, TaskList list) throws NutException {
         // bye
         if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
@@ -37,7 +48,7 @@ public class Parser {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to delete.
                         (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
@@ -54,7 +65,7 @@ public class Parser {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to mark off.
                         (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
@@ -71,7 +82,7 @@ public class Parser {
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Please include which task to unmark.
                         (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
@@ -88,7 +99,7 @@ public class Parser {
             String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         OOPS! The description of a todo cannot be empty.
                         ____________________________________________________________
@@ -103,7 +114,7 @@ public class Parser {
             String taskDescription = userInput.substring(9).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Oops! The description of a deadline cannot be empty.
                         ____________________________________________________________
@@ -118,7 +129,7 @@ public class Parser {
             String taskDescription = userInput.substring(6).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NUTException("""
+                throw new NutException("""
                         ____________________________________________________________
                         Oops! The description of an event cannot be empty.
                         ____________________________________________________________
@@ -130,7 +141,7 @@ public class Parser {
 
         // not valid input
         else {
-            throw new NUTException("""
+            throw new NutException("""
                     ____________________________________________________________
                     Oops, I don't know what you just said :(
                     ____________________________________________________________

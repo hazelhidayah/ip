@@ -1,8 +1,8 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.Task;
-import NUT.Task.TaskList;
-import NUT.Ui.Ui;
+import nut.Task.Task;
+import nut.Task.TaskList;
+import nut.Ui.Ui;
 
 public class AddCommand implements Command {
     private final TaskList list;

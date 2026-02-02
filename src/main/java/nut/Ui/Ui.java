@@ -1,6 +1,6 @@
-package NUT.Ui;
+package nut.Ui;
 
-import NUT.Task.*;
+import nut.Task.*;
 import java.util.Scanner;
 
 /**
@@ -40,7 +40,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello! I'm NUT");
+        System.out.println("    Hello! I'm nut");
         System.out.println("    What can I do for you?");
         System.out.println("    ____________________________________________________________");
     }

@@ -1,7 +1,7 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.*;
-import NUT.Ui.Ui;
+import nut.Task.TaskList;
+import nut.Ui.Ui;
 
 /*
  * Returns the list of tasks when the user says 'list'

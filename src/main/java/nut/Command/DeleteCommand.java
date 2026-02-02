@@ -1,7 +1,7 @@
-package NUT.Command;
+package nut.Command;
 
-import NUT.Task.*;
-import NUT.Ui.Ui;
+import nut.Task.*;
+import nut.Ui.Ui;
 
 /*
  * Deletes task
