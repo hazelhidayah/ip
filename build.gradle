@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+application {
+    mainClass = "nut.Nut"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
+}
+
+tasks.named("run", JavaExec) {
+    standardInput = System.in
+}
