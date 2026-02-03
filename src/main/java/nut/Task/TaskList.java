@@ -2,6 +2,7 @@ package nut.Task;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a list of {@link Task} objects.
@@ -71,12 +72,11 @@ public class TaskList {
     /**
      * Returns the underlying list containing all tasks.
      * <p>
-     * Note: This returns the internal mutable list. Modifying the returned list will
-     * affect this {@code TaskList} instance.
+     * The returned list is an unmodifiable view; modifying it will throw an exception.
      *
-     * @return The internal {@link ArrayList} of tasks.
+     * @return An unmodifiable {@link List} view of the tasks.
      */
-    public ArrayList<Task> retrieveAll() {
-        return (ArrayList<Task>) Collections.unmodifiableList(list); // unmodifiable view
+    public List<Task> retrieveAll() {
+        return Collections.unmodifiableList(list);
     }
 }
