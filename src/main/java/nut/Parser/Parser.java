@@ -56,7 +56,8 @@ public class Parser {
 
         // search
         if (userInput.startsWith("find")) {
-            String searchTerm = userInput.substring(5).trim();
+            String searchTerm = userInput.substring(4).trim(); // find is 4 char long, trim to remove whitespace
+
 
             if (searchTerm.isEmpty()) {
                 throw new NutException("""
