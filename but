@@ -1,0 +1,17 @@
+git status
+```
+If it shows the merge is completed, you’re done. If you were merging `origin/master` into your old branch, then push:
+```bash
+git push origin HEAD
+```
+---
+Run this to preview what `master` has in that file (without fully resolving yet):
+```bash
+git show origin/master:src/main/java/nut/Task/TaskList.java | head -n 40
+```
+Tell me: **did you mean to delete `TaskList.java` on your old branch**, or do you want it back from `master`? I’ll confirm the right resolution path.
+
+
+:q
+exit
+quit
