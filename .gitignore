@@ -7,6 +7,7 @@ nut.txt
 # Gradle build files
 /.gradle/
 /build/
+*.jar
 
 # App/compile outputs (if you still generate these)
 #/bin/

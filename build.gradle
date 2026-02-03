@@ -17,6 +17,14 @@ application {
     mainClass = "nut.Nut"
 }
 
+jar {
+    manifest {
+        attributes(
+                "Main-Class": application.mainClass.get()
+        )
+    }
+}
+
 test {
     useJUnitPlatform()
 }
