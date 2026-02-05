@@ -54,7 +54,7 @@ public class Deadlines extends Task {
                 parts[0].trim().isEmpty()) { // invalid
             throw new NutException("""
                         ____________________________________________________________
-                        OOPS!!! Deadlines must be in the format:
+                        OOPS! Deadlines must be in the format:
                         deadline <name> /by <dd/MM/yyyy HHmm>
                         or
                         deadline <name> /by <dd/MM/yyyy>
@@ -101,7 +101,7 @@ public class Deadlines extends Task {
             } catch (DateTimeParseException e2) {
                 throw new NutException("""
                         ____________________________________________________________
-                        OOPS!!! Deadlines must be in the format:
+                        OOPS! Deadlines must be in the format:
                         deadline <name> /by <dd/MM/yyyy HHmm>
                         or
                         deadline <name> /by <dd/MM/yyyy>

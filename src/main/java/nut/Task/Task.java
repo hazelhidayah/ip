@@ -19,9 +19,9 @@ public class Task {
     public Task(String name) throws NutException {
         if (name == null || name.trim().isEmpty()) {
             throw new NutException("""
-                    ____________________________________________________________
-                    OOPS! The description of a task cannot be empty.
-                    ____________________________________________________________
+                        ____________________________________________________________
+                        OOPS! The description of a task cannot be empty.
+                        ____________________________________________________________
                     """);
         }
         this.name = name;

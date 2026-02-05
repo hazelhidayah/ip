@@ -61,9 +61,9 @@ public class Parser {
 
             if (searchTerm.isEmpty()) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        OOPS! Please enter a search term to search for!
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            OOPS! Please enter a search term to search for!
+                            ____________________________________________________________
                         """);
             }
             return new SearchCommand(list, searchTerm);
@@ -75,10 +75,10 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        Please include which task to delete.
-                        (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            Please include which task to delete.
+                            (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
+                            ____________________________________________________________
                         """);
             }
 
@@ -92,10 +92,10 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        Please include which task to mark off.
-                        (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            Please include which task to mark off.
+                            (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
+                            ____________________________________________________________
                         """);
             }
 
@@ -109,10 +109,10 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        Please include which task to unmark.
-                        (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            Please include which task to unmark.
+                            (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
+                            ____________________________________________________________
                         """);
             }
 
@@ -122,13 +122,13 @@ public class Parser {
 
         // todo
         else if (userInput.startsWith("todo")) {
-            String taskDescription = userInput.substring(5).trim();
+            String taskDescription = userInput.substring(4).trim();
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        OOPS! The description of a todo cannot be empty.
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            OOPS! The description of a todo cannot be empty.
+                            ____________________________________________________________
                         """);
             }
 
@@ -137,13 +137,13 @@ public class Parser {
 
         // deadline
         else if (userInput.startsWith("deadline")) {
-            String taskDescription = userInput.substring(9).trim();
+            String taskDescription = userInput.substring(8).trim();
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        Oops! The description of a deadline cannot be empty.
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            OOPS! The description of a deadline cannot be empty.
+                            ____________________________________________________________
                         """);
             }
 
@@ -152,13 +152,13 @@ public class Parser {
 
         // event
         else if (userInput.startsWith("event")) {
-            String taskDescription = userInput.substring(6).trim();
+            String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                        ____________________________________________________________
-                        Oops! The description of an event cannot be empty.
-                        ____________________________________________________________
+                            ____________________________________________________________
+                            OOPS! The description of an event cannot be empty.
+                            ____________________________________________________________
                         """);
             }
 
@@ -168,9 +168,9 @@ public class Parser {
         // not valid input
         else {
             throw new NutException("""
-                    ____________________________________________________________
-                    Oops, I don't know what you just said :(
-                    ____________________________________________________________
+                        ____________________________________________________________
+                        OOPS! I don't know what you just said :(
+                        ____________________________________________________________
                     """);
         }
     }
