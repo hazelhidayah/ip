@@ -1,0 +1,38 @@
+/* Register the Family (using Regular as the base) */
+@font-face {
+    font-family: 'Inter';
+    src: url('Fonts/Inter_18pt-Regular.ttf');
+}
+
+/* Make Inter the Global default for the whole app */
+.root {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+}
+
+/* Utility classes */
+
+.font-thin {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 100; /* Maps to Thin */
+}
+
+.font-regular {
+    -fx-font-family: "Inter";
+    -fx-font-weight: normal; /* Maps to Regular */
+}
+
+.font-medium {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 500; /* Maps to Medium */
+}
+
+.font-semibold {
+    -fx-font-family: "Inter";
+    -fx-font-weight: 600; /* Maps to SemiBold */
+}
+
+.font-bold {
+    -fx-font-family: "Inter";
+    -fx-font-weight: bold; /* Maps to Bold (700) */
+}

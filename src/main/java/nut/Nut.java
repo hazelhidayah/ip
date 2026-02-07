@@ -1,17 +1,14 @@
 package nut;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import nut.Command.Command;
 import nut.Parser.Parser;
 import nut.Storage.Storage;
-import nut.Task.TaskList;
 import nut.Task.NutException;
+import nut.Task.TaskList;
 import nut.Ui.Ui;
 
 /**
- * Main program class for nut task manager.
+ * Main program class for Nut task manager.
  */
 public class Nut { // app’s core logic
     private final Storage storage;
@@ -19,24 +16,22 @@ public class Nut { // app’s core logic
     private final Ui ui;
 
     /**
-     * Constructs a nut object with the specified file path.
-     *
-     * @param filePath The path to the file for storing tasks.
+     * Constructs a Nut object with the default file path "nut.txt".
      */
-    public Nut(String filePath) {
+    public Nut() {
         ui = new Ui();  // Create UI for displaying messages
-        storage = new Storage(filePath);  // Create Storage with file paths
+        storage = new Storage("nut.txt");  // Create Storage with file path "nut.txt"
 
         try {
-            tasks = new TaskList(storage.load());  // load tasks from a file into TaskList
+            tasks = new TaskList(storage.load());  // load tasks from a file into the TaskList
         } catch (NutException e) {
             ui.noFileError();
-            tasks = new TaskList();  // start with empty list if loading fails
+            tasks = new TaskList();  // start with an empty list if loading fails
         }
     }
 
     /**
-     * Runs the main program loop.
+     * Runs the main program loop (CLI mode).
      */
     public void run() {
         ui.showWelcome();  // Show welcome message
@@ -49,17 +44,25 @@ public class Nut { // app’s core logic
                 status = command.execute(ui);  // Execute command, returns true if "bye"
                 storage.save(tasks);  // Save tasks to file after each command
             } catch (NutException e) {
-                ui.showError(e.getMessage());  // Show error message if something goes wrong
+                ui.showError(e.getMessage());  // Show an error message if something goes wrong
             }
         }
     }
 
     /**
-     * Main entry point of the program.
+     * Main entry point of the CLI program.
      */
     public static void main(String[] args) {
-        new Nut("nut.txt").run();  // Create nut with "nut.txt" as data file, then run
+        new Nut().run();  // Create nut with "nut.txt" as a data file, then run
     }
 
-
+    /**
+     * Generates a response for the user's chat message (GUI mode).
+     *
+     * @param input User input.
+     * @return Nut's response.
+     */
+    public String getResponse(String input) {
+        return "Nut heard: " + input;
+    }
 }
