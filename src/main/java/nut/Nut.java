@@ -1,15 +1,19 @@
 package nut;
 
-import nut.Command.*;
-import nut.Parser.*;
-import nut.Storage.*;
-import nut.Task.*;
-import nut.Ui.*;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import nut.Command.Command;
+import nut.Parser.Parser;
+import nut.Storage.Storage;
+import nut.Task.TaskList;
+import nut.Task.NutException;
+import nut.Ui.Ui;
 
 /**
  * Main program class for nut task manager.
  */
-public class Nut {
+public class Nut { // app’s core logic
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
@@ -21,10 +25,10 @@ public class Nut {
      */
     public Nut(String filePath) {
         ui = new Ui();  // Create UI for displaying messages
-        storage = new Storage(filePath);  // Create Storage with file path
+        storage = new Storage(filePath);  // Create Storage with file paths
 
         try {
-            tasks = new TaskList(storage.load());  // load tasks from file into TaskList
+            tasks = new TaskList(storage.load());  // load tasks from a file into TaskList
         } catch (NutException e) {
             ui.noFileError();
             tasks = new TaskList();  // start with empty list if loading fails
@@ -38,7 +42,7 @@ public class Nut {
         ui.showWelcome();  // Show welcome message
         boolean status = false;  // false = keep running, true = exit
 
-        while (!status) {  // Loop until user says "bye"
+        while (!status) {  // Loop until the user says "bye"
             try {
                 String userInput = ui.readCommand();  // Read user's command
                 Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
@@ -56,4 +60,6 @@ public class Nut {
     public static void main(String[] args) {
         new Nut("nut.txt").run();  // Create nut with "nut.txt" as data file, then run
     }
+
+
 }
