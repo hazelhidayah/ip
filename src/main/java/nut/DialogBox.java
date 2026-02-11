@@ -1,85 +1,75 @@
 package nut;
 
-import javafx.geometry.Insets;
+import java.io.IOException;
+import java.util.Collections;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Circle; // for the profile picture images
+
 
 /**
- * A custom control representing a dialog box consisting of text and an avatar image.
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face
+ * and a label containing text from the speaker.
+ * This custom control is used to display individual messages in the chat interface,
+ * supporting both user and bot messages with different alignments.
  */
 public class DialogBox extends HBox {
 
-    private static final double AVATAR_SIZE = 44.0;
-    private static final double AVATAR_BG_SIZE = 52.0;
+    private static final double AVATAR_SIZE = 36.0; // picture
+    @FXML
+    private Label dialog;
+    @FXML
+    private ImageView displayPicture;
 
-    private final Label text;
-    private final StackPane avatarContainer;
+    private DialogBox(String text, Image img) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    private DialogBox(String s, Image i) {
-        text = new Label(s);
-        text.setWrapText(true);
-
-        // Avatar image
-        ImageView displayPicture = new ImageView(i);
-        displayPicture.setFitWidth(AVATAR_SIZE);
-        displayPicture.setFitHeight(AVATAR_SIZE);
-        displayPicture.setPreserveRatio(true);
+        dialog.setText(text);
+        displayPicture.setImage(img);
 
         // Clip to circle so the avatar is round
-        Circle clip = new Circle(AVATAR_SIZE / 2, AVATAR_SIZE / 2, AVATAR_SIZE / 2);
-        displayPicture.setClip(clip);
-
-        // Background behind the avatar (circle-like container)
-        avatarContainer = new StackPane(displayPicture);
-        avatarContainer.setMinSize(AVATAR_BG_SIZE, AVATAR_BG_SIZE);
-        avatarContainer.setPrefSize(AVATAR_BG_SIZE, AVATAR_BG_SIZE);
-        avatarContainer.setMaxSize(AVATAR_BG_SIZE, AVATAR_BG_SIZE);
-
-        // Soft background + rounded corners (works for circle-ish and square-ish styles)
-        avatarContainer.setStyle(
-                "-fx-background-color: rgba(255,255,255,0.6);"
-                        + "-fx-background-radius: 999;"
-                        + "-fx-border-radius: 999;"
-                        + "-fx-border-color: rgba(0,0,0,0.08);"
-                        + "-fx-border-width: 1;"
-        );
-
-        this.setSpacing(10);
-        this.setPadding(new Insets(4, 6, 4, 6));
-
-        // default layout = user (right side): text then avatar, aligned to right
-        this.setAlignment(Pos.TOP_RIGHT);
-        this.getChildren().addAll(text, avatarContainer);
+        Circle circle = new Circle(AVATAR_SIZE / 2, AVATAR_SIZE / 2, AVATAR_SIZE / 2);
+        displayPicture.setClip(circle);
     }
 
     /**
      * Flips the dialog box such that the avatar is on the left and text on the right.
      */
     private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
-        Node first = this.getChildren().get(0);
-        Node second = this.getChildren().get(1);
-        this.getChildren().setAll(second, first);
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
     }
 
     /**
      * Returns a dialog box for the user (right side).
      */
-    public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+    public static DialogBox getUserDialog(String text, Image img) {
+        return new DialogBox(text, img);
     }
 
     /**
      * Returns a dialog box for Nut (left side).
      */
-    public static DialogBox getNutDialog(String s, Image i) {
-        DialogBox db = new DialogBox(s, i);
+    public static DialogBox getNutDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
         db.flip();
         return db;
     }

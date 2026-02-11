@@ -21,8 +21,7 @@ public class SearchCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui) {
-        ui.showSearchResults(list,searchTerm);
-        return false;
+    public String execute(Ui ui) {
+        return ui.showSearchResults(list, searchTerm);
     }
 }

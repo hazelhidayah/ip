@@ -12,9 +12,8 @@ import nut.Ui.Ui;
 public class ByeCommand implements Command {
 
     @Override
-    public boolean execute(Ui ui) {
-        ui.showGoodbye();
-        return true; // exit
+    public String execute(Ui ui) {
+        return ui.showGoodbye();
     }
 
 }

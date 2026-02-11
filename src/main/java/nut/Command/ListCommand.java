@@ -19,9 +19,8 @@ public class ListCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui) {
-        ui.showTaskList(list);
-        return false; // DON'T exit
+    public String execute(Ui ui) {
+        return ui.showTaskList(list);
     }
 
 }

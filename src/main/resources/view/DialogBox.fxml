@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<fx:root alignment="TOP_RIGHT"
+         spacing="10.0"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="4.0"
+                left="6.0"
+                right="6.0"
+                top="4.0" />
+    </padding>
+
+    <Label fx:id="dialog" wrapText="true" />
+
+    <!-- Pink Background -->
+    <StackPane minHeight="40.0"
+               minWidth="40.0"
+               prefHeight="40.0"
+               prefWidth="40.0"
+               maxHeight="40.0"
+               maxWidth="40.0"
+               style="-fx-background-color: rgba(255,255,255,0.6); -fx-background-radius: 999;
+                        -fx-border-radius: 999; -fx-border-color: rgba(0,0,0,0.08); -fx-border-width: 1;">
+
+        <!-- Display Picture -->
+        <ImageView fx:id="displayPicture"
+                   fitHeight="36.0"
+                   fitWidth="36.0"
+                   preserveRatio="true" />
+    </StackPane>
+</fx:root>

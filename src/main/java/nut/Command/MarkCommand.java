@@ -22,13 +22,11 @@ public class MarkCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui) {
+    public String execute(Ui ui) {
         if (index < 0 || index >= list.size()) { // out of bound
-            ui.showSearchError();
-            return false;
+            return ui.showSearchError();
         }
         list.get(index).mark(); // mark() is from Task
-        ui.markTask(list, index);
-        return false;
+        return ui.markTask(list, index);
     }
 }

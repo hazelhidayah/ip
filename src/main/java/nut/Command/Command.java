@@ -10,7 +10,7 @@ public interface Command {
     /**
      * Executes the command.
      * @param ui The Ui object for displaying messages to the user.
-     * @return true if the program should exit, false otherwise.
+     * @return The response message to show to the user.
      */
-    boolean execute(Ui ui);
+    String execute(Ui ui);
 }

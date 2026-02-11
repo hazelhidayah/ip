@@ -34,10 +34,8 @@ public class Events extends Task {
                 || !parts[1].trim().startsWith("from")
                 || !parts[2].trim().startsWith("to")) {
             throw new NutException("""
-                        ____________________________________________________________
                         OOPS! Events must be in the format:
                         event <name> /from <start> /to <end>
-                        ____________________________________________________________
                     """);
         }
 

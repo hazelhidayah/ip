@@ -30,38 +30,30 @@ public class Ui {
     /**
      * Displays a greeting when the user says hello
      */
-    public void showHello() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello <3");
-        System.out.println("    ____________________________________________________________");
+    public String showHello() {
+        return "    Hello <3";
     }
 
     /**
      * Displays the welcome message when the program starts.
      */
-    public void showWelcome() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Hello! I'm Nut");
-        System.out.println("    What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+    public String showWelcome() {
+        return "    Hello! I'm Nut\n"
+                + "    What can I do for you?";
     }
 
     /**
      * Displays the goodbye message when the program exits.
      */
-    public void showGoodbye() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Alrighty, bai bai \\(^-^)/");
-        System.out.println("    ____________________________________________________________");
+    public String showGoodbye() {
+        return "    Alrighty, bai bai \\(^-^)/";
     }
 
     /**
      * Displays an error message when the index searched is out of bound.
      */
-    public void showSearchError() {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Invalid task index, that doesn't exist darling :(");
-        System.out.println("    ____________________________________________________________");
+    public String showSearchError() {
+        return "    Invalid task index, that doesn't exist darling :(";
     }
 
     /**
@@ -70,16 +62,16 @@ public class Ui {
      * @param list The list to search through.
      * @param searchTerm The search term used.
      */
-    public void showSearchResults(TaskList list, String searchTerm) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Here are the matching tasks in your list:");
+    public String showSearchResults(TaskList list, String searchTerm) {
+        StringBuilder result = new StringBuilder();
+        result.append("    Here are the matching tasks in your list:\n");
 
         for (int i = 0; i < list.size(); i++) { // loop through all tasks
             if (list.get(i).getName().contains(searchTerm)) { // if task name contains search term
-                System.out.println("    " + (i + 1) + "." + list.get(i)); // print task
+                result.append("    ").append(i + 1).append(".").append(list.get(i)).append("\n");
             }
         }
-        System.out.println("    ____________________________________________________________");
+        return result.toString().trim();
     }
 
     /**
@@ -87,11 +79,9 @@ public class Ui {
      * @param task The task that was added.
      * @param taskCount The total number of tasks in the list.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Got it. I've added this task: " + task);
-        System.out.println("    Now you have " + taskCount + " tasks in the list :)");
-        System.out.println("    ____________________________________________________________");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "    Got it. I've added this task: " + task + "\n"
+                + "    Now you have " + taskCount + " tasks in the list :)";
     }
 
     /**
@@ -99,33 +89,31 @@ public class Ui {
      * @param task The task that was deleted.
      * @param taskCount The total number of tasks remaining in the list.
      */
-    public void showTaskDeleted(Task task, int taskCount) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Got it. I've removed this task: " + task);
-        System.out.println("    Now you have " + taskCount + " tasks in the list :)");
-        System.out.println("    ____________________________________________________________");
+    public String showTaskDeleted(Task task, int taskCount) {
+        return "    Got it. I've removed this task: " + task + "\n"
+                + "    Now you have " + taskCount + " tasks in the list :)";
     }
 
     /**
      * Displays an error message to the user.
      * @param errorMessage The error message to display.
      */
-    public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+    public String showError(String errorMessage) {
+        return errorMessage;
     }
 
     /**
      * Displays an error message to the user if the input is empty.
      */
-    public void emptyError() {
-        System.out.println("The description cannot be empty :(");
+    public String emptyError() {
+        return "The description cannot be empty :(";
     }
 
     /**
      * Displays an error message to the user if no file is found.
      */
-    public void noFileError() {
-        System.out.println("No files found");
+    public String noFileError() {
+        return "No files found";
     }
 
 
@@ -134,20 +122,17 @@ public class Ui {
      *
      * @param tasks The TaskList containing all tasks.
      */
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
+        StringBuilder result = new StringBuilder();
         if (tasks.size() == 0) {
-            System.out.println("    ____________________________________________________________");
-            System.out.println("    Your task list is empty!");
-            System.out.println("    ____________________________________________________________");
-            return;
+            return "    Your task list is empty!";
         }
 
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    Here are the tasks in your list:");
+        result.append("    Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println("    " + (i + 1) + "." + tasks.get(i));
+            result.append("    ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        System.out.println("    ____________________________________________________________");
+        return result.toString().trim();
     }
 
     /**
@@ -155,11 +140,9 @@ public class Ui {
      *
      * @param tasks The TaskList containing all tasks.
      */
-    public void markTask(TaskList tasks, int index) {
-        System.out.println("    ____________________________________________________________");
-        System.out.println("    good job babes!");
-        System.out.println("    Marked task: " + tasks.get(index));
-        System.out.println("    ____________________________________________________________");
+    public String markTask(TaskList tasks, int index) {
+        return "    good job babes!\n"
+                + "    Marked task: " + tasks.get(index);
     }
 
 }

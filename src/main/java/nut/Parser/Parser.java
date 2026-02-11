@@ -38,13 +38,20 @@ public class Parser {
      * @throws NutException If the input format is invalid.
      */
     public static Command parse(String userInput, TaskList list) throws NutException {
+        // empty
+        if (userInput.trim().isEmpty()) {
+            throw new NutException("""
+                            OOPS, I can't help you as your input is empty :(
+                        """);
+        }
+
         // bye
-        if (userInput.equalsIgnoreCase("bye")) {
+        else if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         }
 
         // hello or hi
-        if (userInput.equalsIgnoreCase("hi")
+        else if (userInput.equalsIgnoreCase("hi")
             || userInput.equalsIgnoreCase("hello")) {
             return new HelloCommand();
         }
@@ -55,15 +62,13 @@ public class Parser {
         }
 
         // search
-        if (userInput.startsWith("find")) {
+        else if (userInput.startsWith("find")) {
             String searchTerm = userInput.substring(4).trim(); // find is 4 char long, trim to remove whitespace
 
 
             if (searchTerm.isEmpty()) {
                 throw new NutException("""
-                            ____________________________________________________________
                             OOPS! Please enter a search term to search for!
-                            ____________________________________________________________
                         """);
             }
             return new SearchCommand(list, searchTerm);
@@ -75,10 +80,8 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            ____________________________________________________________
                             Please include which task to delete.
                             (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
-                            ____________________________________________________________
                         """);
             }
 
@@ -92,10 +95,8 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            ____________________________________________________________
                             Please include which task to mark off.
                             (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
-                            ____________________________________________________________
                         """);
             }
 
@@ -109,10 +110,8 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            ____________________________________________________________
                             Please include which task to unmark.
                             (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
-                            ____________________________________________________________
                         """);
             }
 
@@ -126,9 +125,7 @@ public class Parser {
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                            ____________________________________________________________
                             OOPS! The description of a todo cannot be empty.
-                            ____________________________________________________________
                         """);
             }
 
@@ -141,9 +138,7 @@ public class Parser {
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                            ____________________________________________________________
                             OOPS! The description of a deadline cannot be empty.
-                            ____________________________________________________________
                         """);
             }
 
@@ -156,9 +151,7 @@ public class Parser {
 
             if (taskDescription.isEmpty()) {
                 throw new NutException("""
-                            ____________________________________________________________
                             OOPS! The description of an event cannot be empty.
-                            ____________________________________________________________
                         """);
             }
 
@@ -168,9 +161,7 @@ public class Parser {
         // not valid input
         else {
             throw new NutException("""
-                        ____________________________________________________________
                         OOPS! I don't know what you just said :(
-                        ____________________________________________________________
                     """);
         }
     }

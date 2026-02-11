@@ -20,9 +20,9 @@ public class DeleteCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui) {
-        ui.showTaskDeleted(list.get(index), list.size() - 1);
+    public String execute(Ui ui) {
+        String response = ui.showTaskDeleted(list.get(index), list.size() - 1);
         list.delete(index);
-        return false;
+        return response;
     }
 }

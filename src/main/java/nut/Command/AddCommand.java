@@ -21,9 +21,8 @@ public class AddCommand implements Command {
     }
 
     @Override
-    public boolean execute(Ui ui) {
+    public String execute(Ui ui) {
         list.add(task);
-        ui.showTaskAdded(task, list.size());
-        return false;
+        return ui.showTaskAdded(task, list.size());
     }
 }
