@@ -1,5 +1,6 @@
 package nut;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -34,6 +35,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Disables button only if there are 0 characters (whitespace counts as input)
+        sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
     }
 
     /**

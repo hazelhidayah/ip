@@ -52,7 +52,8 @@ public class Parser {
 
         // hello or hi
         else if (userInput.equalsIgnoreCase("hi")
-            || userInput.equalsIgnoreCase("hello")) {
+            || userInput.equalsIgnoreCase("hello")
+                || userInput.equalsIgnoreCase("hey")) {
             return new HelloCommand();
         }
 
