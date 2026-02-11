@@ -50,7 +50,7 @@ public class Parser {
             return new ByeCommand();
         }
 
-        // hello or hi
+        // hello or hi or hey
         else if (userInput.equalsIgnoreCase("hi")
             || userInput.equalsIgnoreCase("hello")
                 || userInput.equalsIgnoreCase("hey")) {
