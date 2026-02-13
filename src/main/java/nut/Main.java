@@ -18,9 +18,11 @@ import java.util.Objects;
 
 /**
  * Main application class for Nut task manager.
+ * <p>
  * This class serves as the entry point for the JavaFX GUI application.
  * It is responsible for initializing the primary stage, loading FXML layouts,
  * loading custom fonts, and setting up the initial window configuration.
+ * </p>
  */
 
 public class Main extends Application { // JavaFX Application class

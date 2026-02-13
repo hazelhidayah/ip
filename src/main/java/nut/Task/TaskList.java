@@ -11,12 +11,10 @@ import java.util.List;
  * querying the number of tasks.
  */
 public class TaskList {
-    /** Internal backing list that stores tasks. */
+    // Internal backing list that stores tasks.
     private final ArrayList<Task> list;
 
-    /**
-     * Constructs an empty {@code TaskList}.
-     */
+    // Constructs an empty {@code TaskList}.
     public TaskList() {
         this.list = new ArrayList<>();
     }

@@ -12,8 +12,10 @@ import nut.Task.NutException;
 
 /**
  * Controller for the main GUI window.
+ * <p>
  * This class handles user interactions with the chat interface, including
  * text input, button clicks, and displaying conversation messages.
+ * </p>
  * It serves as the bridge between the UI components defined in MainWindow.fxml
  * and the application logic in the Nut class.
  */

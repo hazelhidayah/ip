@@ -7,8 +7,10 @@ import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with a specific deadline.
+ * <p>
  * A Deadline task contains a description and a date/time by which it must be completed.
  * It supports input formats for both date and time (dd/MM/yyyy HHmm), and date only (dd/MM/yyyy).
+ * </p>
  */
 
 public class Deadlines extends Task {
@@ -21,21 +23,22 @@ public class Deadlines extends Task {
     // Indicates if the user provided a specific time or just a date.
     private boolean hasTime;
 
-    // Input formatters
+    // Input formatters !!!
     private static final DateTimeFormatter DATE_AND_TIME_INPUT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter DATE_INPUT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    // Output formatters
+    // Output formatters !!!
     private static final DateTimeFormatter DATE_AND_TIME_DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     private static final DateTimeFormatter DATE_DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    // Storage formatter
+    // Storage formatter !!!
     private static final DateTimeFormatter STORAGE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+
     /**
      * Constructs a new Deadline task based on user input.
      * Parses the raw command string to extract the description and the deadline date.
@@ -43,14 +46,12 @@ public class Deadlines extends Task {
      * @param rawInput The raw command string (e.g., "return book /by 12/12/2024 1800").
      * @throws NutException If the format is invalid or the date cannot be parsed.
      */
-
     public Deadlines(String rawInput) throws NutException {
         super(rawInput);
 
         String[] parts = rawInput.split("/by");
 
-        // limit: 2 ensures we only split into Description and Date, and the input is valid
-        if (parts.length != 2 ||
+        if (parts.length != 2 || // limit 2 ensures we only split into Description and Date, and the input is valid
                 parts[0].trim().isEmpty()) { // invalid
             throw new NutException("""
                         OOPS! Deadlines must be in the format:
@@ -66,7 +67,7 @@ public class Deadlines extends Task {
         parseDeadline(dateTimeString);
     }
 
-    // constructor for loading from a file
+    // constructor for loading from a file !!!
     public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NutException {
         super(updatedName + " /by " + dateTimeString);
         this.updatedName = updatedName;
@@ -80,22 +81,19 @@ public class Deadlines extends Task {
     /**
      * Helper method to parse the date string.
      * Tries to parse as DateTime first, falls back to Date only.
-     * * @param dateString The string to parse.
+     *
+     * @param dateString The string to parse.
      * @throws NutException If the date string matches neither format.
      */
-
-    private void parseDeadline(String str) throws NutException {
-        try {
-            // try to parse as date + time
-            this.deadline = LocalDateTime.parse(str, DATE_AND_TIME_INPUT);
+    private void parseDeadline(String dateString) throws NutException {
+        try { // try to parse as date + time
+            this.deadline = LocalDateTime.parse(dateString, DATE_AND_TIME_INPUT);
             this.hasTime = true;
         } catch (DateTimeParseException e1) {
-            try {
-                // try parsing as Date only
-                LocalDate dateOnly = LocalDate.parse(str, DATE_INPUT);
-                // hasTime = false for formatting
+            try { // try parsing as Date only
+                LocalDate dateOnly = LocalDate.parse(dateString, DATE_INPUT);
                 this.deadline = dateOnly.atStartOfDay();
-                this.hasTime = false;
+                this.hasTime = false; // hasTime = false for formatting
             } catch (DateTimeParseException e2) {
                 throw new NutException("""
                         OOPS! Deadlines must be in the format:
@@ -106,7 +104,6 @@ public class Deadlines extends Task {
             }
         }
     }
-
 
     @Override
     public String getName() {

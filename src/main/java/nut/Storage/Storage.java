@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Handles persistence of tasks to and from local storage.
+ * Handles the persistence of tasks to and from local storage.
  * <p>
  * The {@code Storage} component is responsible for reading saved tasks from a data file at startup
  * and writing the current task list back to disk after changes, so the user's tasks persist between
@@ -37,17 +37,17 @@ public class Storage {
      * @throws NutException If there is an error reading the file.
      */
     public ArrayList<Task> load() throws NutException {
-        ArrayList<Task> tasks = new ArrayList<>();  // create empty list to store tasks
+        ArrayList<Task> tasks = new ArrayList<>();  // create an empty list to store tasks
         File file = new File(filePath);  // referencing the file
 
-        if (!file.exists()) { // if file doesn't exist
+        if (!file.exists()) { // if the file doesn't exist
             return tasks; // return empty list
         }
 
-        try (Scanner scanner = new Scanner(file)) {  // open file for reading
+        try (Scanner scanner = new Scanner(file)) {  // open the file for reading
             while (scanner.hasNextLine()) {  // read line by line
                 String line = scanner.nextLine();
-                Task task = parseTaskFromFile(line);  // convert line to Task object
+                Task task = parseTaskFromFile(line);  // convert line to a Task object
                 if (task != null) {  // add if parsing succeeded
                     tasks.add(task);
                 }
@@ -55,12 +55,12 @@ public class Storage {
         } catch (IOException e) {
             throw new NutException("Error loading tasks from file: " + filePath);
         }
-
         return tasks;  // return list of tasks
     }
 
     /**
      * Parses a line from the file into a Task object.
+     *
      * @param line The line from the file to parse.
      * @return The parsed Task object, or null if parsing fails.
      */
@@ -93,20 +93,21 @@ public class Storage {
 
     /**
      * Saves all tasks to the file.
+     *
      * @param tasks The TaskList containing all tasks to save.
      * @throws NutException If there is an error writing to the file.
      */
     public void save(TaskList tasks) throws NutException {
         try {
             File file = new File(filePath);
-            File parentDir = file.getParentFile();  // Get parent directory
+            File parentDir = file.getParentFile();  // Get a parent directory
 
-            FileWriter writer = new FileWriter(file);  // Open file for writing
+            FileWriter writer = new FileWriter(file);  // Open the file for writing
             for (int i = 0; i < tasks.size(); i++) {  // Loop through all tasks
                 Task task = tasks.get(i);
-                writer.write(task.toFileFormat() + "\n");  // Write task in file format
+                writer.write(task.toFileFormat() + "\n");  // Write a task in the file format
             }
-            writer.close();  // Close file
+            writer.close();  // Close the file
         } catch (IOException e) {
             throw new NutException("Error saving tasks to file: " + filePath);
         }

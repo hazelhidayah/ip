@@ -15,7 +15,6 @@ public class MarkCommand implements Command {
     private final TaskList list;
     private final int index;
 
-    // constructor
     public MarkCommand(TaskList list, int index) {
         this.list = list;
         this.index = index;

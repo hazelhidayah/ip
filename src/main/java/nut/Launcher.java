@@ -4,8 +4,10 @@ import javafx.application.Application;
 
 /**
  * A launcher class to workaround classpath issues.
+ * <p>
  * This class serves as an alternative entry point for the JavaFX application.
  * This class is particularly useful when running the application as a JAR file.
+ * </p>
  * It delegates to the Main class to start the application.
  */
 public class Launcher {

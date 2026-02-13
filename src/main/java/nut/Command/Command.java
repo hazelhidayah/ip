@@ -9,6 +9,7 @@ import nut.Ui.Ui;
 public interface Command {
     /**
      * Executes the command.
+     *
      * @param ui The Ui object for displaying messages to the user.
      * @return The response message to show to the user.
      */

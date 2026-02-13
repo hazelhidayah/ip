@@ -14,10 +14,12 @@ import nut.Ui.Ui;
  * storage operations, and user interface interactions. It supports both CLI and GUI modes.
  * </p>
  * The Nut class is responsible for:
- * - Initializing storage and loading saved tasks
- * - Processing user commands through the parser
- * - Managing the task list and persisting changes
- * - Generating responses for the GUI
+ * <ul>
+ *     <li> Initializing storage and loading saved tasks. </li>
+ *     <li> Processing user commands through the parser. </li>
+ *     <li> Managing the task list and persisting changes. </li>
+ *     <li> Generating responses for the GUI. </li>
+ * </ul>
  */
 public class Nut { // app’s core logic
     private final Storage storage;

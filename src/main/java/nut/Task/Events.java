@@ -6,15 +6,16 @@ package nut.Task;
  * The input to construct an {@code Events} instance is expected to follow the format:
  * {@code <description> /from <start> /to <end>}.
  * For example: {@code project meeting /from Mon 2pm /to 4pm}.
+ * </p>
  */
 public class Events extends Task {
-    /** The event description without the {@code /from} and {@code /to} components. */
+    // The event description without the {@code /from} and {@code /to} components.
     private final String updatedName;
 
-    /** The start time portion of the event, as provided by the user. */
+    // The start time portion of the event, as provided by the user.
     private final String updatedStartTime;
 
-    /** The end time portion of the event, as provided by the user. */
+    // The end time portion of the event, as provided by the user.
     private final String updatedEndTime;
 
     /**

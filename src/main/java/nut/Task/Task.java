@@ -5,15 +5,16 @@ package nut.Task;
  * A task has a name/description and a completion status.
  */
 public class Task {
-    /** The name/description of the task. */
+    // The name/description of the task.
     protected final String name;
 
-    /** Indicates whether the task has been completed. */
+    // Indicates whether the task has been completed.
     protected boolean isDone;
 
     /**
      * Constructs a new Task with the given name.
      * The task is initially marked as not done.
+     *
      * @param name The name/description of the task.
      */
     public Task(String name) throws NutException {
@@ -27,7 +28,8 @@ public class Task {
     }
 
     /**
-     * Constructor for loading tasks from file with a completion status.
+     * Constructor for loading tasks from the file with a completion status.
+     *
      * @param name The name/description of the task.
      * @param isDone The completion status of the task.
      */
@@ -45,16 +47,12 @@ public class Task {
         return (isDone ? "[x]" : "[ ]");
     }
 
-    /**
-     * Marks the task as done.
-     */
+    // Marks the task as done.
     public void mark() {
         isDone = true;
     }
 
-    /**
-     * Marks the task as not done.
-     */
+    // Marks the task as not done.
     public void unmark() {
         isDone = false;
     }

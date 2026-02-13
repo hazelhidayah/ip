@@ -38,34 +38,33 @@ public class Parser {
      * @throws NutException If the input format is invalid.
      */
     public static Command parse(String userInput, TaskList list) throws NutException {
-        // empty
+        // empty !!!
         if (userInput.trim().isEmpty()) {
             throw new NutException("""
                             OOPS, I can't help you as your input is empty :(
                         """);
         }
 
-        // bye
+        // bye !!!
         else if (userInput.equalsIgnoreCase("bye")) {
             return new ByeCommand();
         }
 
-        // hello or hi or hey
+        // hello or hi or hey !!!
         else if (userInput.equalsIgnoreCase("hi")
             || userInput.equalsIgnoreCase("hello")
                 || userInput.equalsIgnoreCase("hey")) {
             return new HelloCommand();
         }
 
-        // list
+        // list !!!
         else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand(list);
         }
 
-        // search
+        // search !!!
         else if (userInput.startsWith("find")) {
-            String searchTerm = userInput.substring(4).trim(); // find is 4 char long, trim to remove whitespace
-
+            String searchTerm = userInput.substring(4).trim();
 
             if (searchTerm.isEmpty()) {
                 throw new NutException("""
@@ -75,7 +74,7 @@ public class Parser {
             return new SearchCommand(list, searchTerm);
         }
 
-        // delete
+        // delete !!!
         else if (userInput.startsWith("delete")) {
             String[] parts = userInput.split(" ");
 
@@ -85,12 +84,11 @@ public class Parser {
                             (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
                         """);
             }
-
             int index = Integer.parseInt(parts[1]) - 1;
             return new DeleteCommand(list, index);
         }
 
-        // mark
+        // mark !!!
         else if (userInput.startsWith("mark")) {
             String[] parts = userInput.split(" ");
 
@@ -100,12 +98,11 @@ public class Parser {
                             (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
                         """);
             }
-
             int index = Integer.parseInt(parts[1]) - 1;
             return new MarkCommand(list, index);
         }
 
-        // unmark
+        // unmark !!!
         else if (userInput.startsWith("unmark")) {
             String[] parts = userInput.split(" ");
 
@@ -115,12 +112,11 @@ public class Parser {
                             (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
                         """);
             }
-
             int index = Integer.parseInt(parts[1]) - 1;
             return new UnmarkCommand(list, index);
         }
 
-        // todo
+        // todo !!!
         else if (userInput.startsWith("todo")) {
             String taskDescription = userInput.substring(4).trim();
 
@@ -129,11 +125,10 @@ public class Parser {
                             OOPS! The description of a todo cannot be empty.
                         """);
             }
-
             return new AddCommand(list, new ToDos(taskDescription));
         }
 
-        // deadline
+        // deadline !!!
         else if (userInput.startsWith("deadline")) {
             String taskDescription = userInput.substring(8).trim();
 
@@ -142,11 +137,10 @@ public class Parser {
                             OOPS! The description of a deadline cannot be empty.
                         """);
             }
-
             return new AddCommand(list, new Deadlines(taskDescription));
         }
 
-        // event
+        // event !!!
         else if (userInput.startsWith("event")) {
             String taskDescription = userInput.substring(5).trim();
 
@@ -155,11 +149,10 @@ public class Parser {
                             OOPS! The description of an event cannot be empty.
                         """);
             }
-
             return new AddCommand(list, new Events(taskDescription));
         }
 
-        // not valid input
+        // not valid input !!!
         else {
             throw new NutException("""
                         OOPS! I don't know what you just said :(
