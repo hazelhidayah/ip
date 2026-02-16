@@ -14,7 +14,7 @@ java {
 }
 
 application {
-    mainClass = "nut.Launcher"
+    mainClass = "nut.gui.Launcher"
 }
 
 jar {
