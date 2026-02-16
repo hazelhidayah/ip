@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 /**
  * Base class for all task types (ToDos, Deadlines, Events).
@@ -12,7 +12,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task with the given name.
+     * Constructs a new task with the given name.
      * The task is initially marked as not done.
      *
      * @param name The name/description of the task.

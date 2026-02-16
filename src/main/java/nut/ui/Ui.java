@@ -1,7 +1,7 @@
-package nut.Ui;
+package nut.ui;
 
-import nut.Task.TaskList;
-import nut.Task.Task;
+import nut.task.TaskList;
+import nut.task.Task;
 import java.util.Scanner;
 
 /**
@@ -13,7 +13,7 @@ public class Ui {
     private final Scanner sc;
 
     /**
-     * Constructs a new Ui object and initializes the scanner for reading user input.
+     * Constructs a new ui object and initializes the scanner for reading user input.
      */
     public Ui() {
         this.sc = new Scanner(System.in);

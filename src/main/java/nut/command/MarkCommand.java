@@ -1,21 +1,21 @@
-package nut.Command;
+package nut.command;
 
-import nut.Task.TaskList;
-import nut.Ui.Ui;
+import nut.task.TaskList;
+import nut.ui.Ui;
 
 /**
- * Command that unmarks a task in the {@link nut.Task.TaskList} as uncompleted.
+ * command that marks a task in the {@link nut.task.TaskList} as completed.
  * <p>
  * This command targets a task by its index. When executed, it validates that the index is within
- * bounds, marks the corresponding task as done, and uses the {@link nut.Ui.Ui} to display the
+ * bounds, marks the corresponding task as done, and uses the {@link nut.ui.Ui} to display the
  * updated task state (or an error message if the index is invalid).
  * </p>
  */
-public class UnmarkCommand implements Command {
+public class MarkCommand implements Command {
     private final TaskList list;
     private final int index;
 
-    public UnmarkCommand(TaskList list, int index) {
+    public MarkCommand(TaskList list, int index) {
         this.list = list;
         this.index = index;
     }
@@ -25,7 +25,7 @@ public class UnmarkCommand implements Command {
         if (index < 0 || index >= list.size()) { // out of bound
             return ui.showSearchError();
         }
-        list.get(index).unmark(); // unmark() is from Task
+        list.get(index).mark(); // mark() is from task
         return ui.markTask(list, index);
     }
 }

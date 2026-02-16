@@ -16,7 +16,7 @@
             style="-fx-background-color: rgb(255, 209, 220);"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="nut.MainWindow">
+            fx:controller="nut.gui.MainWindow">
 
     <ScrollPane fx:id="scrollPane"
                 fitToWidth="true"

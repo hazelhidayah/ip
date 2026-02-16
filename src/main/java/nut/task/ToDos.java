@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 /**
  * Represents a todo task (a task without any associated date/time).

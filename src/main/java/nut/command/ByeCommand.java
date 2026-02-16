@@ -1,9 +1,9 @@
-package nut.Command;
+package nut.command;
 
-import nut.Ui.Ui;
+import nut.ui.Ui;
 
 /**
- * Command that ends the application session.
+ * command that ends the application session.
  * <p>
  * When executed, this command displays a goodbye message via the {@link Ui}
  * and signals to the caller that the program should terminate.

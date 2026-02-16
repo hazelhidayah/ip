@@ -1,82 +1,67 @@
-package nut.Parser;
+package nut.parser;
 
-import nut.Command.SearchCommand;
-import nut.Command.ByeCommand;
-import nut.Command.HelloCommand;
-import nut.Command.ListCommand;
-import nut.Command.AddCommand;
-import nut.Command.DeleteCommand;
-import nut.Command.MarkCommand;
-import nut.Command.UnmarkCommand;
-import nut.Command.Command;
-import nut.Task.TaskList;
-import nut.Task.Deadlines;
-import nut.Task.Events;
-import nut.Task.NutException;
-import nut.Task.ToDos;
+import nut.command.SearchCommand;
+import nut.command.ByeCommand;
+import nut.command.HelloCommand;
+import nut.command.ListCommand;
+import nut.command.AddCommand;
+import nut.command.DeleteCommand;
+import nut.command.MarkCommand;
+import nut.command.UnmarkCommand;
+import nut.command.Command;
+import nut.task.TaskList;
+import nut.task.Deadlines;
+import nut.task.Events;
+import nut.task.NutException;
+import nut.task.ToDos;
 
 /**
- * Converts raw user input into executable {@link nut.Command.Command} instances.
+ * Converts raw user input into executable {@link nut.command.Command} instances.
  * <p>
- * The {@code Parser} is responsible for interpreting a user's command line (e.g. {@code list},
+ * The {@code parser} is responsible for interpreting a user's command line (e.g. {@code list},
  * {@code todo <desc>}, {@code delete <index>}) and constructing the corresponding command object
- * configured with the provided {@link nut.Task.TaskList}.
+ * configured with the provided {@link nut.task.TaskList}.
  * </p>
  * <p>
  * If the input does not match a supported command or is missing required arguments, parsing fails
- * by throwing {@link nut.Task.NutException}.
+ * by throwing {@link nut.task.NutException}.
  * </p>
  */
 public class Parser {
 
     /**
-     * Parses the user's input string and returns the appropriate Command.
+     * Parses the user's input string and returns the appropriate command.
      *
      * @param userInput The full user input string.
      * @param list The TaskList to operate on.
-     * @return The Command object corresponding to the user input.
+     * @return The command object corresponding to the user input.
      * @throws NutException If the input format is invalid.
      */
     public static Command parse(String userInput, TaskList list) throws NutException {
 
-        // Handles an empty user input.
-        if (userInput.trim().isEmpty()) {
-            throw new NutException("""
-                            OOPS, I can't help you as your input is empty :(
-                        """);
-        }
+        if (userInput.trim().isEmpty()) { // Handles an empty user input.
+            throw new NutException("OOPS, I can't help you as your input is empty :(");
 
-        // Handles when the user says "bye".
-        else if (userInput.equalsIgnoreCase("bye")) {
+        } else if (userInput.equalsIgnoreCase("bye")) { // Handles when the user says "bye".
             return new ByeCommand();
-        }
 
-        // Handles when the user says "hello", "hi" or "hey".
-        else if (userInput.equalsIgnoreCase("hi")
-            || userInput.equalsIgnoreCase("hello")
-                || userInput.equalsIgnoreCase("hey")) {
+        } else if (userInput.equalsIgnoreCase("hi")
+                || userInput.equalsIgnoreCase("hello")
+                || userInput.equalsIgnoreCase("hey")) { // Handles when the user says "hello"/"hi"/"hey".
             return new HelloCommand();
-        }
 
-        // Handles when the user says "list".
-        else if (userInput.equalsIgnoreCase("list")) {
+        } else if (userInput.equalsIgnoreCase("list")) { // Handles when the user says "list".
             return new ListCommand(list);
-        }
 
-        // Handles when the user says "find".
-        else if (userInput.startsWith("find")) {
+        } else if (userInput.startsWith("find")) { // Handles when the user says "find".
             String searchTerm = userInput.substring(4).trim();
 
             if (searchTerm.isEmpty()) {
-                throw new NutException("""
-                            OOPS! Please enter a search term to search for!
-                        """);
+                throw new NutException("OOPS! Please enter a search term to search for!");
             }
             return new SearchCommand(list, searchTerm);
-        }
 
-        // Handles when the user says "delete".
-        else if (userInput.startsWith("delete")) {
+        } else if (userInput.startsWith("delete")) { // Handles when the user says "delete".
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
@@ -87,10 +72,8 @@ public class Parser {
             }
             int index = Integer.parseInt(parts[1]) - 1;
             return new DeleteCommand(list, index);
-        }
 
-        // Handles when the user says "mark".
-        else if (userInput.startsWith("mark")) {
+        } else if (userInput.startsWith("mark")) { // Handles when the user says "mark".
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
@@ -101,10 +84,8 @@ public class Parser {
             }
             int index = Integer.parseInt(parts[1]) - 1;
             return new MarkCommand(list, index);
-        }
 
-        // Handles when the user says "unmark".
-        else if (userInput.startsWith("unmark")) {
+        } else if (userInput.startsWith("unmark")) { // Handles when the user says "unmark".
             String[] parts = userInput.split(" ");
 
             if (parts.length != 2) {
@@ -115,10 +96,8 @@ public class Parser {
             }
             int index = Integer.parseInt(parts[1]) - 1;
             return new UnmarkCommand(list, index);
-        }
 
-        // Handles when the user says "todo".
-        else if (userInput.startsWith("todo")) {
+        } else if (userInput.startsWith("todo")) { // Handles when the user says "todo".
             String taskDescription = userInput.substring(4).trim();
 
             if (taskDescription.isEmpty()) {
@@ -127,10 +106,8 @@ public class Parser {
                         """);
             }
             return new AddCommand(list, new ToDos(taskDescription));
-        }
 
-        // Handles when the user says "deadline".
-        else if (userInput.startsWith("deadline")) {
+        } else if (userInput.startsWith("deadline")) { // Handles when the user says "deadline".
             String taskDescription = userInput.substring(8).trim();
 
             if (taskDescription.isEmpty()) {
@@ -139,10 +116,8 @@ public class Parser {
                         """);
             }
             return new AddCommand(list, new Deadlines(taskDescription));
-        }
 
-        // Handles when the user says "event".
-        else if (userInput.startsWith("event")) {
+        } else if (userInput.startsWith("event")) { // Handles when the user says "event".
             String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
@@ -151,10 +126,8 @@ public class Parser {
                         """);
             }
             return new AddCommand(list, new Events(taskDescription));
-        }
 
-        // Handles when the user's input is invalid.
-        else {
+        } else { // Handles when the user's input is invalid.
             throw new NutException("""
                         OOPS! I don't know what you just said :(
                     """);

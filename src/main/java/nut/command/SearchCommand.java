@@ -1,13 +1,13 @@
-package nut.Command;
+package nut.command;
 
-import nut.Task.TaskList;
-import nut.Ui.Ui;
+import nut.task.TaskList;
+import nut.ui.Ui;
 
 /**
- * Command that searches the task list for tasks matching a user-provided query.
+ * command that searches the task list for tasks matching a user-provided query.
  * <p>
- * When executed, this command scans the associated {@link nut.Task.TaskList} and uses the
- * {@link nut.Ui.Ui} to display the tasks whose description contains (or otherwise matches)
+ * When executed, this command scans the associated {@link nut.task.TaskList} and uses the
+ * {@link nut.ui.Ui} to display the tasks whose description contains (or otherwise matches)
  * the search keyword.
  * </p>
  */

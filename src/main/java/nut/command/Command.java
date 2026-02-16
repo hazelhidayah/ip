@@ -1,6 +1,6 @@
-package nut.Command;
+package nut.command;
 
-import nut.Ui.Ui;
+import nut.ui.Ui;
 
 /**
  * This interface ensures every concrete command has an execute() method.
@@ -10,7 +10,7 @@ public interface Command {
     /**
      * Executes the command.
      *
-     * @param ui The Ui object for displaying messages to the user.
+     * @param ui The ui object for displaying messages to the user.
      * @return The response message to show to the user.
      */
     String execute(Ui ui);

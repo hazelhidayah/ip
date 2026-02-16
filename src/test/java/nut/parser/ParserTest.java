@@ -1,16 +1,15 @@
-package nut.Parser;
+package nut.parser;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
-import nut.Command.ByeCommand;
-import nut.Command.Command;
-import nut.Command.DeleteCommand;
-import nut.Command.ListCommand;
-import nut.Command.SearchCommand;
-import nut.Task.NutException;
-import nut.Task.TaskList;
+import nut.command.ByeCommand;
+import nut.command.Command;
+import nut.command.DeleteCommand;
+import nut.command.ListCommand;
+import nut.task.NutException;
+import nut.task.TaskList;
 
 public class ParserTest {
 

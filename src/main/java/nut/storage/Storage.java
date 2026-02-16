@@ -1,11 +1,11 @@
-package nut.Storage;
+package nut.storage;
 
-import nut.Task.Events;
-import nut.Task.Deadlines;
-import nut.Task.ToDos;
-import nut.Task.TaskList;
-import nut.Task.Task;
-import nut.Task.NutException;
+import nut.task.Events;
+import nut.task.Deadlines;
+import nut.task.ToDos;
+import nut.task.TaskList;
+import nut.task.Task;
+import nut.task.NutException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Scanner;
 /**
  * Handles the persistence of tasks to and from local storage.
  * <p>
- * The {@code Storage} component is responsible for reading saved tasks from a data file at startup
+ * The {@code storage} component is responsible for reading saved tasks from a data file at startup
  * and writing the current task list back to disk after changes, so the user's tasks persist between
  * runs of the application.
  * </p>
@@ -24,7 +24,7 @@ public class Storage {
     private final String filePath;  // Path to the data file (e.g., "Nut.txt")
 
     /**
-     * Constructs a Storage object with the specified file path.
+     * Constructs a storage object with the specified file path.
      * @param filePath The path to the file for storing tasks.
      */
     public Storage(String filePath) {
@@ -46,7 +46,7 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {  // open the file for reading
             while (scanner.hasNextLine()) {  // read line by line
                 String line = scanner.nextLine();
-                Task task = parseTaskFromFile(line);  // convert the line to a Task object
+                Task task = parseTaskFromFile(line);  // convert the line to a task object
                 if (task != null) {  // add if parsing succeeded
                     tasks.add(task);
                 }
@@ -66,19 +66,19 @@ public class Storage {
     }
 
     /**
-     * Parses a line from the file into a Task object.
+     * Parses a line from the file into a task object.
      *
      * @param line The line from the file to parse.
-     * @return The parsed Task object, or null if parsing fails.
+     * @return The parsed task object, or null if parsing fails.
      */
     private Task parseTaskFromFile(String line) {
         try {
             String[] parts = line.split(" \\| ");  // Split by " | " → ["T", "0", "sleep"]
             if (parts.length < 3) return null;  // Invalid format, skip this line
 
-            String type = parts[0];  // Task type: "T", "D", or "E"
+            String type = parts[0];  // task type: "T", "D", or "E"
             boolean isDone = parts[1].equals("1");  // "1" = done, "0" = not done
-            String description = parts[2];  // Task description
+            String description = parts[2];  // task description
 
             return switch (type) {
                 case "T" ->  // ToDo task

@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,7 +34,7 @@ public class Deadlines extends Task {
     private static final DateTimeFormatter DATE_DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    // Storage formatter
+    // storage formatter
     private static final DateTimeFormatter STORAGE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 

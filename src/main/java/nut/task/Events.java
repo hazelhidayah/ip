@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 /**
  * Represents an event task with a start and end time.

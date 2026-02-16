@@ -1,6 +1,7 @@
-package nut;
+package nut.gui;
 
 import javafx.application.Application;
+import nut.Main;
 
 /**
  * A launcher class to workaround classpath issues.

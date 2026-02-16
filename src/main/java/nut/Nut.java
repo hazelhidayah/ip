@@ -1,12 +1,12 @@
 package nut;
 
-import nut.Command.Command;
-import nut.Command.ByeCommand;
-import nut.Parser.Parser;
-import nut.Storage.Storage;
-import nut.Task.NutException;
-import nut.Task.TaskList;
-import nut.Ui.Ui;
+import nut.command.Command;
+import nut.command.ByeCommand;
+import nut.parser.Parser;
+import nut.storage.Storage;
+import nut.task.NutException;
+import nut.task.TaskList;
+import nut.ui.Ui;
 
 /**
  * <p> Main program class for Nut task manager.
@@ -31,7 +31,7 @@ public class Nut { // app’s core logic
      */
     public Nut() {
         ui = new Ui();  // Create UI for displaying messages
-        storage = new Storage("nut.txt");  // Create Storage with a file path "nut.txt"
+        storage = new Storage("nut.txt");  // Create storage with a file path "nut.txt"
 
         try {
             tasks = new TaskList(storage.load());  // load tasks from a file into the TaskList
@@ -51,7 +51,7 @@ public class Nut { // app’s core logic
         while (!shouldExit) {  // Loop until the user says "bye"
             try {
                 String userInput = ui.readCommand();  // Read user's command
-                Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
+                Command command = Parser.parse(userInput, tasks);  // Parse input → create command
                 String response = command.execute(ui);  // Execute command, returns response
                 if (!response.isEmpty()) {
                     System.out.println(response);

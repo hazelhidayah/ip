@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 /**
  * Represents an exception specific to the Nut application.

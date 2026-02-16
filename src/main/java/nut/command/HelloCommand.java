@@ -1,11 +1,11 @@
-package nut.Command;
+package nut.command;
 
-import nut.Ui.Ui;
+import nut.ui.Ui;
 
 /**
- * Command that greets the user.
+ * command that greets the user.
  * <p>
- * When executed, this command uses the {@link nut.Ui.Ui} to display a greeting message
+ * When executed, this command uses the {@link nut.ui.Ui} to display a greeting message
  * and then returns control to the application (i.e., it does not terminate the program).
  * </p>
  */

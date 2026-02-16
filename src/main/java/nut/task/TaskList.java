@@ -1,4 +1,4 @@
-package nut.Task;
+package nut.task;
 
 import java.util.ArrayList;
 import java.util.Collections;

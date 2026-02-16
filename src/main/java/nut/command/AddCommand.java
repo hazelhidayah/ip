@@ -1,11 +1,11 @@
-package nut.Command;
+package nut.command;
 
-import nut.Task.Task;
-import nut.Task.TaskList;
-import nut.Ui.Ui;
+import nut.task.Task;
+import nut.task.TaskList;
+import nut.ui.Ui;
 
 /**
- * Command that adds a {@link Task} to a {@link TaskList}.
+ * command that adds a {@link Task} to a {@link TaskList}.
  * <p>
  * When executed, this command appends the task to the given list and uses the
  * {@link Ui} to display a confirmation message (including the updated list size).

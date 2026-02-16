@@ -14,6 +14,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
+import nut.gui.MainWindow;
+
 import java.util.Objects;
 
 /**
@@ -49,14 +51,7 @@ public class Main extends Application { // JavaFX Application class
     @Override
     public void start(Stage stage) {
         try {
-            // Load Inter fonts
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Thin.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Regular.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Medium.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-SemiBold.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Bold.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Black.ttf")), 14);
-            Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Italic.ttf")), 14);
+            loadFonts(); // Load Inter fonts
 
             // Load app icon
             Image nutImage = new Image(Objects.requireNonNull(
@@ -67,7 +62,7 @@ public class Main extends Application { // JavaFX Application class
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
 
-            // Create scene
+            // Create a scene
             Scene scene = new Scene(ap);
 
             // Attach CSS
@@ -95,5 +90,18 @@ public class Main extends Application { // JavaFX Application class
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Helper method for loading the Inter font variants so they are available to JavaFX styling.
+     */
+    private void loadFonts() {
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Thin.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Regular.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Medium.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-SemiBold.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Bold.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Black.ttf")), 14);
+        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Italic.ttf")), 14);
     }
 }

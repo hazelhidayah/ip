@@ -1,4 +1,4 @@
-package nut;
+package nut.gui;
 
 import java.io.IOException;
 import java.util.Collections;
