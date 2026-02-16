@@ -16,10 +16,11 @@ public class SearchCommand implements Command {
     private final String searchTerm;
 
     public SearchCommand(TaskList list, String searchTerm) {
+        assert list != null : "TaskList must not be null";
+        assert searchTerm != null : "searchTerm must not be null";
         this.list = list;
         this.searchTerm = searchTerm;
     }
-
     @Override
     public String execute(Ui ui) {
         return ui.showSearchResults(list, searchTerm);

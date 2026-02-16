@@ -16,6 +16,8 @@ public class AddCommand implements Command {
     private final Task task;
 
     public AddCommand(TaskList list, Task task) {
+        assert list != null : "TaskList must not be null";
+        assert task != null : "Task must not be null";
         this.list = list;
         this.task = task;
     }

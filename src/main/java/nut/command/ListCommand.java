@@ -15,6 +15,7 @@ public class ListCommand implements Command {
     private final TaskList list; // list
 
     public ListCommand(TaskList list) {
+        assert list != null : "TaskList must not be null";
         this.list = list;
     }
 

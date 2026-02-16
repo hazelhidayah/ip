@@ -13,8 +13,12 @@ java {
     }
 }
 
+run {
+    enableAssertions = true
+}
+
 application {
-    mainClass = "nut.Launcher"
+    mainClass = "nut.gui.Launcher"
 }
 
 jar {

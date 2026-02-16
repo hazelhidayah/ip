@@ -16,6 +16,8 @@ public class MarkCommand implements Command {
     private final int index;
 
     public MarkCommand(TaskList list, int index) {
+        assert list != null : "TaskList must not be null";
+        assert index >= 0 && index < list.size() : "index out of bounds: " + index;
         this.list = list;
         this.index = index;
     }
