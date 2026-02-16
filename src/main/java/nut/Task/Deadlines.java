@@ -12,7 +12,6 @@ import java.time.format.DateTimeParseException;
  * It supports input formats for both date and time (dd/MM/yyyy HHmm), and date only (dd/MM/yyyy).
  * </p>
  */
-
 public class Deadlines extends Task {
     // The description of the task without the /by command.
     private final String updatedName;
@@ -23,19 +22,19 @@ public class Deadlines extends Task {
     // Indicates if the user provided a specific time or just a date.
     private boolean hasTime;
 
-    // Input formatters !!!
+    // Input formatters
     private static final DateTimeFormatter DATE_AND_TIME_INPUT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private static final DateTimeFormatter DATE_INPUT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    // Output formatters !!!
+    // Output formatters
     private static final DateTimeFormatter DATE_AND_TIME_DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
     private static final DateTimeFormatter DATE_DISPLAY_FORMAT =
             DateTimeFormatter.ofPattern("MMM dd yyyy");
 
-    // Storage formatter !!!
+    // Storage formatter
     private static final DateTimeFormatter STORAGE_FORMAT =
             DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
@@ -67,7 +66,7 @@ public class Deadlines extends Task {
         parseDeadline(dateTimeString);
     }
 
-    // constructor for loading from a file !!!
+    // Constructor for loading from a file
     public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NutException {
         super(updatedName + " /by " + dateTimeString);
         this.updatedName = updatedName;

@@ -40,14 +40,13 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();  // create an empty list to store tasks
         File file = new File(filePath);  // referencing the file
 
-        if (!file.exists()) { // if the file doesn't exist
-            return tasks; // return empty list
-        }
+        ArrayList<Task> tasks1 = getTasks(file, tasks); // retrieve the tasks from the file
+        if (tasks1 != null) return tasks1; // if the file has tasks, return the tasks
 
         try (Scanner scanner = new Scanner(file)) {  // open the file for reading
             while (scanner.hasNextLine()) {  // read line by line
                 String line = scanner.nextLine();
-                Task task = parseTaskFromFile(line);  // convert line to a Task object
+                Task task = parseTaskFromFile(line);  // convert the line to a Task object
                 if (task != null) {  // add if parsing succeeded
                     tasks.add(task);
                 }
@@ -56,6 +55,14 @@ public class Storage {
             throw new NutException("Error loading tasks from file: " + filePath);
         }
         return tasks;  // return list of tasks
+    }
+
+    // Handles the case if the file does not exist.
+    private static ArrayList<Task> getTasks(File file, ArrayList<Task> tasks) {
+        if (!file.exists()) { // if the file doesn't exist
+            return tasks;
+        }
+        return null;
     }
 
     /**

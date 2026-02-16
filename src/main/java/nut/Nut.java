@@ -31,7 +31,7 @@ public class Nut { // app’s core logic
      */
     public Nut() {
         ui = new Ui();  // Create UI for displaying messages
-        storage = new Storage("nut.txt");  // Create Storage with file path "nut.txt"
+        storage = new Storage("nut.txt");  // Create Storage with a file path "nut.txt"
 
         try {
             tasks = new TaskList(storage.load());  // load tasks from a file into the TaskList
@@ -46,9 +46,9 @@ public class Nut { // app’s core logic
      */
     public void run() {
         System.out.println(ui.showWelcome());  // Show welcome message
-        boolean status = false;  // false = keep running, true = exit
+        boolean shouldExit = false;  // false = keep running, true = exit
 
-        while (!status) {  // Loop until the user says "bye"
+        while (!shouldExit) {  // Loop until the user says "bye"
             try {
                 String userInput = ui.readCommand();  // Read user's command
                 Command command = Parser.parse(userInput, tasks);  // Parse input → create Command
@@ -56,7 +56,7 @@ public class Nut { // app’s core logic
                 if (!response.isEmpty()) {
                     System.out.println(response);
                 }
-                status = command instanceof ByeCommand;
+                shouldExit = command instanceof ByeCommand;
                 storage.save(tasks);  // Save tasks to file after each command
             } catch (NutException e) {
                 System.out.println(ui.showError(e.getMessage()));  // Show an error message if something goes wrong
