@@ -101,9 +101,7 @@ public class Parser {
             String taskDescription = userInput.substring(4).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("""
-                            OOPS! The description of a todo cannot be empty.
-                        """);
+                throw new NutException("OOPS! The description of a todo cannot be empty.");
             }
             return new AddCommand(list, new ToDos(taskDescription));
 
@@ -111,9 +109,7 @@ public class Parser {
             String taskDescription = userInput.substring(8).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("""
-                            OOPS! The description of a deadline cannot be empty.
-                        """);
+                throw new NutException("OOPS! The description of a deadline cannot be empty.");
             }
             return new AddCommand(list, new Deadlines(taskDescription));
 
@@ -121,16 +117,12 @@ public class Parser {
             String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("""
-                            OOPS! The description of an event cannot be empty.
-                        """);
+                throw new NutException("OOPS! The description of an event cannot be empty.");
             }
             return new AddCommand(list, new Events(taskDescription));
 
         } else { // Handles when the user's input is invalid.
-            throw new NutException("""
-                        OOPS! I don't know what you just said :(
-                    """);
+            throw new NutException("OOPS! I don't know what you just said :(");
         }
     }
 }

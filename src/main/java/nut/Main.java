@@ -93,7 +93,7 @@ public class Main extends Application { // JavaFX Application class
     }
 
     /**
-     * Helper method for loading the Inter font variants so they are available to JavaFX styling.
+     * Loads the Inter font variants so they are available to JavaFX styling.
      */
     private void loadFonts() {
         Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Thin.ttf")), 14);
