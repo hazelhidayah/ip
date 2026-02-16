@@ -63,10 +63,9 @@ public class MainWindow extends AnchorPane {
      * the user's message and Nut's response in the dialog container.
      */
     @FXML
-    private void handleUserInput() throws NutException{
+    private void handleUserInput() {
         String input = userInput.getText();
-        String response = null;
-        response = nut.getResponse(input);
+        String response = nut.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNutDialog(response, nutImage)
