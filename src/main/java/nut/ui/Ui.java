@@ -31,29 +31,29 @@ public class Ui {
      * Displays a greeting when the user says hello
      */
     public String showHello() {
-        return "    Hello <3";
+        return "Hello <3";
     }
 
     /**
      * Displays the welcome message when the program starts.
      */
     public String showWelcome() {
-        return "    Hello! I'm Nut\n"
-                + "    What can I do for you?";
+        return "Hello! I'm Nut\n" +
+                "What can I do for you?";
     }
 
     /**
      * Displays the goodbye message when the program exits.
      */
     public String showGoodbye() {
-        return "    Alrighty, bai bai \\(^-^)/";
+        return " Alrighty, bai bai \\(^-^)/";
     }
 
     /**
      * Displays an error message when the index searched is out of bound.
      */
     public String showSearchError() {
-        return "    Invalid task index, that doesn't exist darling :(";
+        return "Invalid task index, that doesn't exist darling :(";
     }
 
     /**
@@ -63,9 +63,9 @@ public class Ui {
      */
     public String showInvalidTaskIndex(int taskCount) {
         if (taskCount <= 0) {
-            return "    There are no tasks in the list.";
+            return "There are no tasks in the list.";
         }
-        return "    Please enter a task number between 1 and " + taskCount + ".";
+        return "Please enter a task number between 1 and " + taskCount + ".";
     }
 
     /**
@@ -76,10 +76,10 @@ public class Ui {
      */
     public String showSearchResults(TaskList list, String searchTerm) {
         StringBuilder result = new StringBuilder();
-        result.append("    Here are the matching tasks in your list:\n");
+        result.append("Here are the matching tasks in your list:\n");
 
         for (int i = 0; i < list.size(); i++) { // loop through all tasks
-            if (list.get(i).getName().contains(searchTerm)) { // if task name contains search term
+            if (list.get(i).getName().contains(searchTerm)) { // if the task name contains the search term
                 result.append("    ").append(i + 1).append(".").append(list.get(i)).append("\n");
             }
         }
@@ -92,8 +92,8 @@ public class Ui {
      * @param taskCount The total number of tasks in the list.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "    Got it. I've added this task: " + task + "\n"
-                + "    Now you have " + taskCount + " tasks in the list :)";
+        return "Got it. I've added this task: " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list :)";
     }
 
     /**
@@ -113,7 +113,7 @@ public class Ui {
      * @param task The duplicate task that was not added.
      */
     public String showDuplicateTaskCancelled(Task task) {
-        return "    Okay, task: " + task + " not added";
+        return "Okay, task: " + task + " not added";
     }
 
     /**
@@ -122,8 +122,8 @@ public class Ui {
      * @param taskCount The total number of tasks remaining in the list.
      */
     public String showTaskDeleted(Task task, int taskCount) {
-        return "    Got it. I've removed this task: " + task + "\n"
-                + "    Now you have " + taskCount + " tasks in the list :)";
+        return "Got it. I've removed this task: " + task + "\n"
+                + "Now you have " + taskCount + " tasks in the list :)";
     }
 
     /**
@@ -157,10 +157,10 @@ public class Ui {
     public String showTaskList(TaskList tasks) {
         StringBuilder result = new StringBuilder();
         if (tasks.size() == 0) {
-            return "    Your task list is empty!";
+            return "Your task list is empty!";
         }
 
-        result.append("    Here are the tasks in your list:\n");
+        result.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             result.append("    ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
@@ -173,8 +173,8 @@ public class Ui {
      * @param tasks The TaskList containing all tasks.
      */
     public String markTask(TaskList tasks, int index) {
-        return "    good job babes!\n"
-                + "    Marked task: " + tasks.get(index);
+        return "Good job babe!\n"
+                + "Marked task: " + tasks.get(index);
     }
 
 }
