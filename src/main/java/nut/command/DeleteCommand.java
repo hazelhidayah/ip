@@ -16,13 +16,15 @@ public class DeleteCommand implements Command {
 
     public DeleteCommand(TaskList list, int index) {
         assert list != null : "TaskList must not be null";
-        assert index >= 0 && index < list.size() : "index out of bounds: " + index;
         this.list = list;
         this.index = index;
     }
 
     @Override
     public String execute(Ui ui) {
+        if (index < 0 || index >= list.size()) { // out of bound
+            return ui.showInvalidTaskIndex(list.size());
+        }
         String response = ui.showTaskDeleted(list.get(index), list.size() - 1);
         list.delete(index);
         return response;

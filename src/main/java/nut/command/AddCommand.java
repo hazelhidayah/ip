@@ -24,7 +24,10 @@ public class AddCommand implements Command {
 
     @Override
     public String execute(Ui ui) {
-        list.add(task);
+        boolean added = list.add(task);
+        if (!added) { // if add is false, then ask the user for confirmation
+            return ui.showDuplicateTaskPrompt(task);
+        }
         return ui.showTaskAdded(task, list.size());
     }
 }
