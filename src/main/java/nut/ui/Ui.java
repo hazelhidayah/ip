@@ -57,6 +57,18 @@ public class Ui {
     }
 
     /**
+     * Displays an error message when the task index is invalid.
+     *
+     * @param taskCount The total number of tasks in the list.
+     */
+    public String showInvalidTaskIndex(int taskCount) {
+        if (taskCount <= 0) {
+            return "    There are no tasks in the list.";
+        }
+        return "    Please enter a task number between 1 and " + taskCount + ".";
+    }
+
+    /**
      * Displays user's search results
      *
      * @param list The list to search through.
@@ -82,6 +94,26 @@ public class Ui {
     public String showTaskAdded(Task task, int taskCount) {
         return "    Got it. I've added this task: " + task + "\n"
                 + "    Now you have " + taskCount + " tasks in the list :)";
+    }
+
+    /**
+     * Prompts the user to confirm adding a duplicate task.
+     *
+     * @param task The duplicate task the user attempted to add.
+     */
+    public String showDuplicateTaskPrompt(Task task) {
+        return "You already have a similar task: \n" +
+                "[ " + task.getName() + "]\n" +
+                "Are you sure you want to add your new task? (yes/no)";
+    }
+
+    /**
+     * Displays a confirmation message when adding a duplicate task is cancelled.
+     *
+     * @param task The duplicate task that was not added.
+     */
+    public String showDuplicateTaskCancelled(Task task) {
+        return "    Okay, task: " + task + " not added";
     }
 
     /**

@@ -8,6 +8,7 @@ import nut.command.AddCommand;
 import nut.command.DeleteCommand;
 import nut.command.MarkCommand;
 import nut.command.UnmarkCommand;
+import nut.command.ConfirmDuplicateCommand;
 import nut.command.Command;
 import nut.task.TaskList;
 import nut.task.Deadlines;
@@ -41,6 +42,17 @@ public class Parser {
 
         if (userInput.trim().isEmpty()) { // Handles an empty user input.
             throw new NutException("OOPS, I can't help you as your input is empty :(");
+
+        } else if (list.hasPendingDuplicate()) { // Handles pending duplicate confirmation.
+
+            if (userInput.trim().equalsIgnoreCase("yes")
+                    || userInput.trim().equalsIgnoreCase("y")) {
+                return new ConfirmDuplicateCommand(list, true);
+            } else if (userInput.trim().equalsIgnoreCase("no")
+                    || userInput.trim().equalsIgnoreCase("n")) {
+                return new ConfirmDuplicateCommand(list, false);
+            } // stop the user from entering other inputs, throw an error message for confirmation.
+            throw new NutException("Please reply \"yes\" or \"no\" to confirm adding the task.");
 
         } else if (userInput.equalsIgnoreCase("bye")) { // Handles when the user says "bye".
             return new ByeCommand();

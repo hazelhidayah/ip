@@ -17,7 +17,6 @@ public class UnmarkCommand implements Command {
 
     public UnmarkCommand(TaskList list, int index) {
         assert list != null : "TaskList must not be null";
-        assert index >= 0 && index < list.size() : "index out of bounds: " + index;
         this.list = list;
         this.index = index;
     }
@@ -25,7 +24,7 @@ public class UnmarkCommand implements Command {
     @Override
     public String execute(Ui ui) {
         if (index < 0 || index >= list.size()) { // out of bound
-            return ui.showSearchError();
+            return ui.showInvalidTaskIndex(list.size());
         }
         list.get(index).unmark(); // unmark() is from task
         return ui.markTask(list, index);
