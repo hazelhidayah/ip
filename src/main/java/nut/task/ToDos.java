@@ -18,6 +18,16 @@ public class ToDos extends Task {
     }
 
     /**
+     * Constructs a todo task with the given description and completion status.
+     *
+     * @param name The description of the todo task.
+     * @param isDone Whether the task is completed.
+     */
+    public ToDos(String name, boolean isDone) {
+        super(name, isDone);
+    }
+
+    /**
      * Returns the status icon for this todo task.
      *
      * @return {@code "[T] [x]"} if done, otherwise {@code "[T] [ ]"}.

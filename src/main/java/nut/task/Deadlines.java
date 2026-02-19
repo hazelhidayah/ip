@@ -71,13 +71,9 @@ public class Deadlines extends Task {
 
     // Constructor for loading from a file
     public Deadlines(String updatedName, String dateTimeString, boolean isDone) throws NutException {
-        super(updatedName + " /by " + dateTimeString);
+        super(updatedName + " /by " + dateTimeString, isDone);
         this.updatedName = updatedName;
-        try {
-            parseDeadline(dateTimeString);
-        } catch (NutException e) {
-            throw new RuntimeException(e);
-        }
+        parseDeadline(dateTimeString);
     }
 
     /**

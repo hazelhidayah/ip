@@ -49,6 +49,21 @@ public class Events extends Task {
     }
 
     /**
+     * Constructs an event task from stored fields.
+     *
+     * @param updatedName The event description.
+     * @param updatedStartTime The event start time.
+     * @param updatedEndTime The event end time.
+     * @param isDone Whether the event is completed.
+     */
+    public Events(String updatedName, String updatedStartTime, String updatedEndTime, boolean isDone) {
+        super(updatedName + " /from " + updatedStartTime + " /to " + updatedEndTime, isDone);
+        this.updatedName = updatedName;
+        this.updatedStartTime = updatedStartTime;
+        this.updatedEndTime = updatedEndTime;
+    }
+
+    /**
      * Returns the event description (excluding the time components).
      *
      * @return The event description.
@@ -78,5 +93,11 @@ public class Events extends Task {
         return getStatusIcon() + " " + updatedName
                 + " (by: " + updatedStartTime
                 + " to: " + updatedEndTime + ")";
+    }
+
+    @Override
+    public String toFileFormat() {
+        return "E | " + (isDone ? "1" : "0") + " | " + updatedName
+                + " | " + updatedStartTime + " | " + updatedEndTime;
     }
 }

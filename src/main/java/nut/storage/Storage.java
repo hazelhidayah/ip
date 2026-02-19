@@ -82,14 +82,14 @@ public class Storage {
 
             return switch (type) {
                 case "T" ->  // ToDo task
-                        new ToDos(description);
+                        new ToDos(description, isDone);
                 case "D" -> {
                     if (parts.length < 4) yield null;
-                    yield new Deadlines(description);  // have date
+                    yield new Deadlines(description, parts[3], isDone);  // have date
                 }
                 case "E" -> {
                     if (parts.length < 5) yield null;
-                    yield new Events(description);  // have start and end dates
+                    yield new Events(description, parts[3], parts[4], isDone);  // have start and end dates
                 }
                 default -> null;
             };

@@ -1,26 +1,67 @@
-# nut.nut project template
+# Nut Task Manager
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Nut is a Java task manager with a chat-style interface (GUI) and command parsing for common task operations.
 
-## Setting up in Intellij
+## Features
+- Add tasks: `todo`, `deadline`, `event`
+- List tasks
+- Find tasks by keyword
+- Mark / unmark tasks
+- Delete tasks
+- Duplicate task confirmation flow (`yes` / `no`)
+- Help command: `help`
+- Persistent storage in `nut.txt`
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Prerequisites
+- JDK 17
+- Gradle (or use the included wrapper `./gradlew`)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/nut.nut.java` file, right-click it, and choose `Run nut.nut.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Run
+### GUI mode
+```bash
+./gradlew run
+```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### CLI mode
+```bash
+./gradlew -q run --args=''
+```
+(If your run config points to GUI by default, run `nut.Nut` directly from IDE for CLI mode.)
+
+## Command Reference
+- `todo <task>`
+  - Example: `todo read chapter 3`
+- `deadline <task> /by <dd/MM/yyyy HHmm>`
+  - Example: `deadline submit report /by 15/09/2026 1800`
+- `deadline <task> /by <dd/MM/yyyy>`
+  - Example: `deadline submit report /by 15/09/2026`
+- `event <task> /from <start> /to <end>`
+  - Example: `event project sync /from Mon 2pm /to Mon 3pm`
+- `list`
+- `find <keyword>`
+- `mark <task number>`
+- `unmark <task number>`
+- `delete <task number>`
+- `help`
+- `bye`
+
+## Duplicate Confirmation
+When adding a task with the same normalized name as an existing task, Nut asks for confirmation:
+- `yes` / `y` to proceed
+- `no` / `n` to cancel
+
+## Storage
+Tasks are saved to `nut.txt` in the project root so task data persists across sessions.
+
+## Test
+```bash
+./gradlew test
+```
+
+## Project Structure
+- `src/main/java/nut` - app logic
+- `src/main/java/nut/parser` - command parsing
+- `src/main/java/nut/command` - command implementations
+- `src/main/java/nut/task` - task models
+- `src/main/resources` - FXML, CSS, images, fonts
+- `src/test/java` - unit tests
