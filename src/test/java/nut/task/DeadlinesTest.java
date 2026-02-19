@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import nut.exception.NutException;
 import org.junit.jupiter.api.Test;
+import java.util.Locale;
 
 public class DeadlinesTest {
 
@@ -13,8 +14,8 @@ public class DeadlinesTest {
     void constructor_validDateTime_parsesAndFormatsCorrectly() throws NutException {
         Deadlines deadline = new Deadlines("submit report /by 15/09/2026 1800");
         assertEquals("submit report", deadline.getName());
-        assertTrue(deadline.getDeadline().contains("Sep 15 2026"));
-        assertTrue(deadline.getDeadline().contains("6:00"));
+        String expected = "Sep 15 2026, 6:00 PM";
+        assertEquals(expected.toLowerCase(Locale.ROOT), deadline.getDeadline().toLowerCase(Locale.ROOT));
         assertEquals("D | 0 | submit report | 15/09/2026 1800", deadline.toFileFormat());
     }
 

@@ -93,6 +93,12 @@ public class ParserTest {
     }
 
     @Test
+    void parse_deleteNonNumericIndex_throwsNutException() {
+        TaskList list = new TaskList();
+        assertThrows(NutException.class, () -> Parser.parse("delete abc", list));
+    }
+
+    @Test
     void parse_deleteWithIndex_returnsDeleteCommand() throws NutException {
         // Arrange
         TaskList list = new TaskList();
@@ -112,10 +118,22 @@ public class ParserTest {
     }
 
     @Test
+    void parse_markNonNumericIndex_throwsNutException() {
+        TaskList list = new TaskList();
+        assertThrows(NutException.class, () -> Parser.parse("mark xyz", list));
+    }
+
+    @Test
     void parse_unmarkWithIndex_returnsUnmarkCommand() throws NutException {
         TaskList list = new TaskList();
         Command command = Parser.parse("unmark 1", list);
         assertInstanceOf(UnmarkCommand.class, command);
+    }
+
+    @Test
+    void parse_unmarkNonNumericIndex_throwsNutException() {
+        TaskList list = new TaskList();
+        assertThrows(NutException.class, () -> Parser.parse("unmark ?!?", list));
     }
 
     @Test

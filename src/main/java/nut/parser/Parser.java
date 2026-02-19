@@ -89,7 +89,7 @@ public class Parser {
                             (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
                         """);
             }
-            int index = Integer.parseInt(parts[1]) - 1;
+            int index = parseTaskIndex(parts[1], "delete");
             return new DeleteCommand(list, index);
 
         } else if (userInput.startsWith("mark")) { // Handles when the user says "mark".
@@ -101,7 +101,7 @@ public class Parser {
                             (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
                         """);
             }
-            int index = Integer.parseInt(parts[1]) - 1;
+            int index = parseTaskIndex(parts[1], "mark");
             return new MarkCommand(list, index);
 
         } else if (userInput.startsWith("unmark")) { // Handles when the user says "unmark".
@@ -113,7 +113,7 @@ public class Parser {
                             (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
                         """);
             }
-            int index = Integer.parseInt(parts[1]) - 1;
+            int index = parseTaskIndex(parts[1], "unmark");
             return new UnmarkCommand(list, index);
 
         } else if (userInput.startsWith("todo")) { // Handles when the user says "todo".
@@ -145,6 +145,14 @@ public class Parser {
                     I couldn't crack that command.
                     Try help for the command list.
                     """);
+        }
+    }
+
+    private static int parseTaskIndex(String indexText, String commandWord) throws NutException {
+        try {
+            return Integer.parseInt(indexText) - 1;
+        } catch (NumberFormatException e) {
+            throw new NutException("Please provide a valid task number for " + commandWord + ".");
         }
     }
 }

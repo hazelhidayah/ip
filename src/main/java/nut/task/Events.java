@@ -44,8 +44,8 @@ public class Events extends Task {
         }
 
         this.updatedName = parts[0].trim();
-        this.updatedStartTime = parts[1].substring(parts[1].indexOf(" ") + 1);
-        this.updatedEndTime = parts[2].substring(parts[2].indexOf(" ") + 1);
+        this.updatedStartTime = parts[1].substring(parts[1].indexOf(" ") + 1).trim();
+        this.updatedEndTime = parts[2].substring(parts[2].indexOf(" ") + 1).trim();
     }
 
     /**
