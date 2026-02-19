@@ -1,5 +1,7 @@
 package nut.task;
 
+import nut.exception.NutException;
+
 /**
  * Base class for all task types (ToDos, Deadlines, Events).
  * A task has a name/description and a completion status.
@@ -20,7 +22,8 @@ public class Task {
     public Task(String name) throws NutException {
         if (name == null || name.trim().isEmpty()) {
             throw new NutException("""
-                        OOPS! The description of a task cannot be empty.
+                        A task needs a description.
+                        This shell is empty.
                     """);
         }
         this.name = name;

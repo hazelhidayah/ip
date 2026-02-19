@@ -1,5 +1,7 @@
 package nut.task;
 
+import nut.exception.NutException;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +55,8 @@ public class Deadlines extends Task {
         if (parts.length != 2 || // limit 2 ensures we only split into Description and Date, and the input is valid
                 parts[0].trim().isEmpty()) { // invalid
             throw new NutException("""
-                        OOPS! Deadlines must be in the format:
+                        I couldn't crack that deadline format.
+                        Use:
                         deadline <name> /by <dd/MM/yyyy HHmm>
                         or
                         deadline <name> /by <dd/MM/yyyy>
@@ -95,7 +98,8 @@ public class Deadlines extends Task {
                 this.hasTime = false; // hasTime = false for formatting
             } catch (DateTimeParseException e2) {
                 throw new NutException("""
-                        OOPS! Deadlines must be in the format:
+                        I couldn't crack that deadline format.
+                        Use:
                         deadline <name> /by <dd/MM/yyyy HHmm>
                         or
                         deadline <name> /by <dd/MM/yyyy>

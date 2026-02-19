@@ -4,7 +4,7 @@ import nut.command.Command;
 import nut.command.ByeCommand;
 import nut.parser.Parser;
 import nut.storage.Storage;
-import nut.task.NutException;
+import nut.exception.NutException;
 import nut.task.TaskList;
 import nut.ui.Ui;
 
@@ -46,6 +46,7 @@ public class Nut { // app’s core logic
      */
     public void run() {
         System.out.println(ui.showWelcome());  // Show welcome message
+        System.out.println(ui.showCommandRundown());  // Show initial command guide
         boolean shouldExit = false;  // false = keep running, true = exit
 
         while (!shouldExit) {  // Loop until the user says "bye"
@@ -86,5 +87,19 @@ public class Nut { // app’s core logic
         } catch (NutException e) {
             return ui.showError(e.getMessage());
         }
+    }
+
+    /**
+     * Returns Nut's startup greeting message for GUI.
+     */
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
+
+    /**
+     * Returns Nut's startup command guide for GUI.
+     */
+    public String getStartupGuideMessage() {
+        return ui.showCommandRundown();
     }
 }

@@ -1,5 +1,7 @@
 package nut.task;
 
+import nut.exception.NutException;
+
 /**
  * Represents a todo task (a task without any associated date/time).
  */

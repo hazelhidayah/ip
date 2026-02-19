@@ -4,6 +4,7 @@ import nut.command.SearchCommand;
 import nut.command.ByeCommand;
 import nut.command.HelloCommand;
 import nut.command.ListCommand;
+import nut.command.HelpCommand;
 import nut.command.AddCommand;
 import nut.command.DeleteCommand;
 import nut.command.MarkCommand;
@@ -13,7 +14,7 @@ import nut.command.Command;
 import nut.task.TaskList;
 import nut.task.Deadlines;
 import nut.task.Events;
-import nut.task.NutException;
+import nut.exception.NutException;
 import nut.task.ToDos;
 
 /**
@@ -25,7 +26,7 @@ import nut.task.ToDos;
  * </p>
  * <p>
  * If the input does not match a supported command or is missing required arguments, parsing fails
- * by throwing {@link nut.task.NutException}.
+ * by throwing {@link NutException}.
  * </p>
  */
 public class Parser {
@@ -41,7 +42,10 @@ public class Parser {
     public static Command parse(String userInput, TaskList list) throws NutException {
 
         if (userInput.trim().isEmpty()) { // Handles an empty user input.
-            throw new NutException("OOPS, I can't help you as your input is empty :(");
+            throw new NutException("""
+           Nut can't crack an empty command.
+           Type something and I'll shell it out for you.
+           """);
 
         } else if (list.hasPendingDuplicate()) { // Handles pending duplicate confirmation.
 
@@ -52,7 +56,7 @@ public class Parser {
                     || userInput.trim().equalsIgnoreCase("n")) {
                 return new ConfirmDuplicateCommand(list, false);
             } // stop the user from entering other inputs, throw an error message for confirmation.
-            throw new NutException("Please reply \"yes\" or \"no\" to confirm adding the task.");
+            throw new NutException("Please reply \"yes\" or \"no\" so I can crack this issue.");
 
         } else if (userInput.equalsIgnoreCase("bye")) { // Handles when the user says "bye".
             return new ByeCommand();
@@ -65,11 +69,14 @@ public class Parser {
         } else if (userInput.equalsIgnoreCase("list")) { // Handles when the user says "list".
             return new ListCommand(list);
 
+        } else if (userInput.trim().equalsIgnoreCase("help")) {
+            return new HelpCommand();
+
         } else if (userInput.startsWith("find")) { // Handles when the user says "find".
             String searchTerm = userInput.substring(4).trim();
 
             if (searchTerm.isEmpty()) {
-                throw new NutException("OOPS! Please enter a search term to search for!");
+                throw new NutException("Toss me a keyword so I can sniff out the right nut.");
             }
             return new SearchCommand(list, searchTerm);
 
@@ -78,7 +85,7 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            Please include which task to delete.
+                            Please include which task to delete, little acorn.
                             (if you meant to actually add 'delete' to the task, please rephrase it ^-^)
                         """);
             }
@@ -90,7 +97,7 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            Please include which task to mark off.
+                            Please include which task to mark off, little acorn.
                             (if you meant to actually add 'mark' to the task, please rephrase it ^-^)
                         """);
             }
@@ -102,7 +109,7 @@ public class Parser {
 
             if (parts.length != 2) {
                 throw new NutException("""
-                            Please include which task to unmark.
+                            Please include which task to unmark, little acorn.
                             (if you meant to actually add 'unmark' to the task, please rephrase it ^-^)
                         """);
             }
@@ -113,7 +120,7 @@ public class Parser {
             String taskDescription = userInput.substring(4).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("OOPS! The description of a todo cannot be empty.");
+                throw new NutException("A todo needs a description. This shell is empty.");
             }
             return new AddCommand(list, new ToDos(taskDescription));
 
@@ -121,7 +128,7 @@ public class Parser {
             String taskDescription = userInput.substring(8).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("OOPS! The description of a deadline cannot be empty.");
+                throw new NutException("A deadline needs a description. This shell is empty.");
             }
             return new AddCommand(list, new Deadlines(taskDescription));
 
@@ -129,12 +136,15 @@ public class Parser {
             String taskDescription = userInput.substring(5).trim();
 
             if (taskDescription.isEmpty()) {
-                throw new NutException("OOPS! The description of an event cannot be empty.");
+                throw new NutException("An event needs a description. This shell is empty.");
             }
             return new AddCommand(list, new Events(taskDescription));
 
         } else { // Handles when the user's input is invalid.
-            throw new NutException("OOPS! I don't know what you just said :(");
+            throw new NutException("""
+                    I couldn't crack that command.
+                    Try help for the command list.
+                    """);
         }
     }
 }

@@ -5,7 +5,7 @@ import nut.task.Deadlines;
 import nut.task.ToDos;
 import nut.task.TaskList;
 import nut.task.Task;
-import nut.task.NutException;
+import nut.exception.NutException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new NutException("Error loading tasks from file: " + filePath);
+            throw new NutException("Nut hit a shell while loading tasks from: " + filePath);
         }
         return tasks;  // return list of tasks
     }
@@ -116,7 +116,7 @@ public class Storage {
             }
             writer.close();  // Close the file
         } catch (IOException e) {
-            throw new NutException("Error saving tasks to file: " + filePath);
+            throw new NutException("Nut couldn't stash tasks to: " + filePath);
         }
     }
 }

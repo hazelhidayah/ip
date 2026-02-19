@@ -31,29 +31,47 @@ public class Ui {
      * Displays a greeting when the user says hello
      */
     public String showHello() {
-        return "Hello <3";
+        return "Hey there lil acorn :)";
     }
 
     /**
      * Displays the welcome message when the program starts.
      */
     public String showWelcome() {
-        return "Hello! I'm Nut\n" +
-                "What can I do for you?";
+        return "Hello! I'm Nut.";
+    }
+
+    /**
+     * Displays a brief help/rundown of supported commands.
+     */
+    public String showCommandRundown() {
+        return """
+                Here are some quick start commands:
+                - todo <task>
+                - deadline <task> /by <dd/MM/yyyy [HHmm]>
+                - event <task> /from <start> /to <end>
+                - list
+                - find <keyword>
+                - mark <task number>
+                - unmark <task number>
+                - delete <task number>
+                - help
+                - bye
+                """;
     }
 
     /**
      * Displays the goodbye message when the program exits.
      */
     public String showGoodbye() {
-        return " Alrighty, bai bai \\(^-^)/";
+        return "Shell you later. Stay cracking \\(^-^)/";
     }
 
     /**
      * Displays an error message when the index searched is out of bound.
      */
     public String showSearchError() {
-        return "Invalid task index, that doesn't exist darling :(";
+        return "That task index is out of shell range.";
     }
 
     /**
@@ -63,9 +81,9 @@ public class Ui {
      */
     public String showInvalidTaskIndex(int taskCount) {
         if (taskCount <= 0) {
-            return "There are no tasks in the list.";
+            return "Your nut stash is empty right now.";
         }
-        return "Please enter a task number between 1 and " + taskCount + ".";
+        return "Pick a task number between 1 and " + taskCount + ", little acorn.";
     }
 
     /**
@@ -76,7 +94,7 @@ public class Ui {
      */
     public String showSearchResults(TaskList list, String searchTerm) {
         StringBuilder result = new StringBuilder();
-        result.append("Here are the matching tasks in your list:\n");
+        result.append("Here are the matching tasks in your nut stash:\n");
 
         for (int i = 0; i < list.size(); i++) { // loop through all tasks
             if (list.get(i).getName().contains(searchTerm)) { // if the task name contains the search term
@@ -92,8 +110,8 @@ public class Ui {
      * @param taskCount The total number of tasks in the list.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return "Got it. I've added this task: " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list :)";
+        return "Cracked it. I've added this task: " + task + "\n"
+                + "Now you have " + taskCount + " tasks in your stash.";
     }
 
     /**
@@ -102,9 +120,9 @@ public class Ui {
      * @param task The duplicate task the user attempted to add.
      */
     public String showDuplicateTaskPrompt(Task task) {
-        return "You already have a similar task: \n" +
+        return "I already spotted a similar task:\n" +
                 "[ " + task.getName() + "]\n" +
-                "Are you sure you want to add your new task? (yes/no)";
+                "Still add the new one? (yes/no)";
     }
 
     /**
@@ -113,7 +131,7 @@ public class Ui {
      * @param task The duplicate task that was not added.
      */
     public String showDuplicateTaskCancelled(Task task) {
-        return "Okay, task: " + task + " not added";
+        return "Alright, I shelved this and did not add it: " + task;
     }
 
     /**
@@ -122,8 +140,8 @@ public class Ui {
      * @param taskCount The total number of tasks remaining in the list.
      */
     public String showTaskDeleted(Task task, int taskCount) {
-        return "Got it. I've removed this task: " + task + "\n"
-                + "Now you have " + taskCount + " tasks in the list :)";
+        return "Shell removed. I deleted this task: " + task + "\n"
+                + "Now you have " + taskCount + " tasks in your stash.";
     }
 
     /**
@@ -138,14 +156,14 @@ public class Ui {
      * Displays an error message to the user if the input is empty.
      */
     public String emptyError() {
-        return "The description cannot be empty :(";
+        return "That description is emptier than a cracked shell.";
     }
 
     /**
      * Displays an error message to the user if no file is found.
      */
     public String noFileError() {
-        return "No files found";
+        return "No task file found. Starting with a fresh nut stash.";
     }
 
 
@@ -157,10 +175,10 @@ public class Ui {
     public String showTaskList(TaskList tasks) {
         StringBuilder result = new StringBuilder();
         if (tasks.size() == 0) {
-            return "Your task list is empty!";
+            return "Your nut stash is empty!";
         }
 
-        result.append("Here are the tasks in your list:\n");
+        result.append("Here are the tasks in your nut stash:\n");
         for (int i = 0; i < tasks.size(); i++) {
             result.append("    ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
@@ -173,8 +191,8 @@ public class Ui {
      * @param tasks The TaskList containing all tasks.
      */
     public String markTask(TaskList tasks, int index) {
-        return "Good job babe!\n"
-                + "Marked task: " + tasks.get(index);
+        return "Nut noted.\n"
+                + "Updated task: " + tasks.get(index);
     }
 
 }

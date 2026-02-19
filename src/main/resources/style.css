@@ -4,35 +4,178 @@
     src: url('Fonts/Inter_18pt-Regular.ttf');
 }
 
-/* Make Inter the Global default for the whole app */
+/* Global defaults */
 .root {
     -fx-font-family: "Inter";
     -fx-font-size: 14px;
 }
 
 /* Utility classes */
-
 .font-thin {
     -fx-font-family: "Inter";
-    -fx-font-weight: 100; /* Maps to Thin */
+    -fx-font-weight: 100; /* Thin */
 }
 
 .font-regular {
     -fx-font-family: "Inter";
-    -fx-font-weight: normal; /* Maps to Regular */
+    -fx-font-weight: normal; /* Regular */
 }
 
 .font-medium {
     -fx-font-family: "Inter";
-    -fx-font-weight: 500; /* Maps to Medium */
+    -fx-font-weight: 500; /* Medium */
 }
 
 .font-semibold {
     -fx-font-family: "Inter";
-    -fx-font-weight: 600; /* Maps to SemiBold */
+    -fx-font-weight: 600; /* SemiBold */
 }
 
 .font-bold {
     -fx-font-family: "Inter";
-    -fx-font-weight: bold; /* Maps to Bold (700) */
+    -fx-font-weight: bold; /* Bold (700) */
+}
+
+/* Main layout */
+.main-root {
+    -fx-background-color: #F5F2ED;
+}
+
+.ambient-overlay {
+    -fx-background-color:
+            linear-gradient(to bottom, rgba(245, 242, 237, 1.00), rgba(236, 229, 220, 1.00)),
+            radial-gradient(center 18% 14%, radius 85%, rgba(166, 124, 82, 0.30), rgba(245, 242, 237, 0.95));
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255, 251, 245, 0.92);
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #D9CFC2;
+    -fx-border-width: 1;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(61, 54, 48, 0.18), 16, 0.16, 0, 6);
+}
+
+.scroll-pane:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+    -fx-padding: 0 2 0 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(191, 165, 136, 0.72);
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(217, 199, 179, 0.20);
+    -fx-background-radius: 8;
+}
+
+.scroll-pane.scrollbar-hidden .scroll-bar:vertical .thumb,
+.scroll-pane.scrollbar-hidden .scroll-bar:vertical .track {
+    -fx-opacity: 0;
+}
+
+.dialog-container {
+    -fx-padding: 14 10 14 10;
+    -fx-spacing: 12;
+}
+
+.dialog-row {
+    -fx-padding: 2 0 2 0;
+}
+
+.dialog-text {
+    -fx-max-width: 360;
+    -fx-background-radius: 12;
+    -fx-padding: 8 12 8 12;
+    -fx-font-size: 13.5px;
+    -fx-wrap-text: true;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.34), 10, 0.15, 0, 2);
+}
+
+.user-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #b0885e, #A67C52);
+    -fx-text-fill: #FFF8F0;
+    -fx-border-color: rgba(61, 54, 48, 0.18);
+    -fx-border-width: 1;
+    -fx-border-radius: 12 12 3 12;
+    -fx-background-radius: 12 12 3 12;
+}
+
+.bot-dialog {
+    -fx-background-color: linear-gradient(to bottom right, #9db08d, #94A684);
+    -fx-text-fill: #3D3630;
+    -fx-border-color: rgba(61, 54, 48, 0.20);
+    -fx-border-width: 1;
+    -fx-border-radius: 12 12 12 3;
+    -fx-background-radius: 12 12 12 3;
+}
+
+.avatar-image {
+    -fx-effect: dropshadow(gaussian, rgba(45, 39, 34, 0.22), 7, 0.18, 0, 1);
+}
+
+.user-input {
+    -fx-background-color: #F8F4EE;
+    -fx-text-fill: #2F2924;
+    -fx-prompt-text-fill: rgba(47, 41, 36, 0.7);
+    -fx-highlight-fill: #7D5A3A;
+    -fx-highlight-text-fill: #FFF8F0;
+    -fx-background-radius: 11;
+    -fx-border-radius: 11;
+    -fx-border-color: #B89F86;
+    -fx-border-width: 1.2;
+    -fx-padding: 8 12 8 12;
+    -fx-font-family: "Inter";
+    -fx-font-size: 12.5px;
+    -fx-effect: dropshadow(gaussian, rgba(61, 54, 48, 0.08), 3, 0.1, 0, 1);
+    -fx-cursor: text;
+}
+
+.user-input:focused {
+    -fx-border-color: #7D5A3A;
+    -fx-effect: dropshadow(gaussian, rgba(125, 90, 58, 0.14), 6, 0.14, 0, 0);
+}
+
+.send-button {
+    -fx-background-color: linear-gradient(to bottom, #8A6541, #7D5A3A);
+    -fx-text-fill: #FFF8F0;
+    -fx-font-size: 12.5px;
+    -fx-font-family: "Inter";
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2px;
+    -fx-background-radius: 11;
+    -fx-border-radius: 11;
+    -fx-border-color: #6A4B31;
+    -fx-border-width: 1;
+    -fx-padding: 8 16 8 16;
+    -fx-effect: dropshadow(gaussian, rgba(61, 54, 48, 0.26), 10, 0.2, 0, 3);
+}
+
+.send-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #96724D, #8B6440);
+}
+
+.send-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #7A583A, #6E4E33);
+}
+
+.send-button:disabled {
+    -fx-opacity: 0.65;
 }

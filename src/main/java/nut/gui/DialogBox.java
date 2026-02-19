@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle; // for the profile picture images
 
 
 /**
@@ -25,8 +24,6 @@ import javafx.scene.shape.Circle; // for the profile picture images
  * </p>
  */
 public class DialogBox extends HBox {
-
-    private static final double AVATAR_SIZE = 36.0; // picture
     @FXML
     private Label dialog;
     @FXML
@@ -44,10 +41,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
-        // Clip to circle background to the avatar
-        Circle circle = new Circle(AVATAR_SIZE / 2, AVATAR_SIZE / 2, AVATAR_SIZE / 2);
-        displayPicture.setClip(circle);
     }
 
     // Flips the dialog box such that the avatar is on the left and text on the right.
@@ -60,13 +53,16 @@ public class DialogBox extends HBox {
 
     // Returns a dialog box for the user (right side).
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-dialog");
+        return db;
     }
 
     // Returns a dialog box for Nut (left side).
     public static DialogBox getNutDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.getStyleClass().add("bot-dialog");
         return db;
     }
 }

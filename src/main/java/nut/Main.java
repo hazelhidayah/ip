@@ -40,10 +40,10 @@ public class Main extends Application { // JavaFX Application class
             this.getClass().getResourceAsStream("/Images/user.png")));
     // bot avatar image
     private final Image nutImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/Images/nut-bot-head.png")));
+            this.getClass().getResourceAsStream("/Images/nut-bot-icon.png")));
     // bot app icon
     private final Image logoImage = new Image(Objects.requireNonNull(
-            this.getClass().getResourceAsStream("/Images/nut-bot.png")));
+            this.getClass().getResourceAsStream("/Images/nut-bot-icon.png")));
 
     private final Nut nut = new Nut();
 
@@ -54,9 +54,7 @@ public class Main extends Application { // JavaFX Application class
             loadFonts(); // Load Inter fonts
 
             // Load app icon
-            Image nutImage = new Image(Objects.requireNonNull(
-                    this.getClass().getResourceAsStream("/Images/nut-bot-head.png")));
-            stage.getIcons().add(nutImage);
+            stage.getIcons().add(logoImage);
 
             // Load FXML
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

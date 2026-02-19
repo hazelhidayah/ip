@@ -1,5 +1,7 @@
 package nut.task;
 
+import nut.exception.NutException;
+
 /**
  * Represents an event task with a start and end time.
  * <p>
@@ -35,7 +37,8 @@ public class Events extends Task {
                 || !parts[1].trim().startsWith("from")
                 || !parts[2].trim().startsWith("to")) {
             throw new NutException("""
-                        OOPS! Events must be in the format:
+                        I couldn't crack that event format.
+                        Use:
                         event <name> /from <start> /to <end>
                     """);
         }

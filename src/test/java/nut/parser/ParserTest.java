@@ -8,7 +8,7 @@ import nut.command.ByeCommand;
 import nut.command.Command;
 import nut.command.DeleteCommand;
 import nut.command.ListCommand;
-import nut.task.NutException;
+import nut.exception.NutException;
 import nut.task.TaskList;
 
 public class ParserTest {

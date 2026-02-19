@@ -1,14 +1,19 @@
 package nut.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import nut.Nut;
-import nut.task.NutException;
+
+import java.net.URL;
 
 /**
  * Controller for the main GUI window.
@@ -20,6 +25,8 @@ import nut.task.NutException;
  * and the application logic in the Nut class.
  */
 public class MainWindow extends AnchorPane {
+    private static final String SCROLLBAR_HIDDEN_CLASS = "scrollbar-hidden";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,17 +35,54 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private MediaView backgroundView;
 
     private Nut nut;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image nutImage = new Image(this.getClass().getResourceAsStream("/images/nut-bot.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/Images/user.png"));
+    private Image nutImage = new Image(this.getClass().getResourceAsStream("/Images/nut-bot-head.png"));
+    private MediaPlayer backgroundPlayer;
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        backgroundView.fitWidthProperty().bind(widthProperty());
+        backgroundView.fitHeightProperty().bind(heightProperty());
+        setupBackgroundVideo();
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> updateScrollbarVisibility());
+        scrollPane.viewportBoundsProperty().addListener((obs, oldVal, newVal) -> updateScrollbarVisibility());
+        Platform.runLater(this::updateScrollbarVisibility);
         // Disables button only if there are 0 characters (whitespace counts as input)
         sendButton.disableProperty().bind(userInput.textProperty().isEmpty());
+    }
+
+    private void updateScrollbarVisibility() {
+        double contentHeight = dialogContainer.getHeight();
+        double viewportHeight = scrollPane.getViewportBounds().getHeight();
+        boolean shouldShowScrollbar = contentHeight > viewportHeight + 0.5;
+
+        if (shouldShowScrollbar) {
+            scrollPane.getStyleClass().remove(SCROLLBAR_HIDDEN_CLASS);
+            return;
+        }
+        if (!scrollPane.getStyleClass().contains(SCROLLBAR_HIDDEN_CLASS)) {
+            scrollPane.getStyleClass().add(SCROLLBAR_HIDDEN_CLASS);
+        }
+    }
+
+    private void setupBackgroundVideo() {
+        URL resource = getClass().getResource("/Images/background.mp4");
+        if (resource == null) {
+            backgroundView.setVisible(false);
+            return;
+        }
+        Media media = new Media(resource.toExternalForm());
+        backgroundPlayer = new MediaPlayer(media);
+        backgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        backgroundPlayer.setMute(true);
+        backgroundPlayer.setAutoPlay(true);
+        backgroundView.setMediaPlayer(backgroundPlayer);
     }
 
     /**
@@ -51,9 +95,10 @@ public class MainWindow extends AnchorPane {
     public void setNut(Nut n) {
         nut = n;
 
-        // Make Nut speak first, no auto user dialog
-        DialogBox nutDialog = DialogBox.getNutDialog("Hello! I'm Nut. What can I do for you? :)", nutImage);
-        dialogContainer.getChildren().add(nutDialog);
+        // Make Nut speak first, then show a quick command guide.
+        DialogBox greetingDialog = DialogBox.getNutDialog(nut.getWelcomeMessage(), nutImage);
+        DialogBox guideDialog = DialogBox.getNutDialog(nut.getStartupGuideMessage(), nutImage);
+        dialogContainer.getChildren().addAll(greetingDialog, guideDialog);
     }
 
     /**
