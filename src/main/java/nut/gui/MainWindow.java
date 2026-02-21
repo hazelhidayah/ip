@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -46,11 +47,16 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setPannable(true);
         backgroundView.fitWidthProperty().bind(widthProperty());
         backgroundView.fitHeightProperty().bind(heightProperty());
         setupBackgroundVideo();
-        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> updateScrollbarVisibility());
+        setupTrackpadScrolling();
+
+        dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
+            updateScrollbarVisibility();
+            scrollPane.setVvalue(1.0);
+        });
         scrollPane.viewportBoundsProperty().addListener((obs, oldVal, newVal) -> updateScrollbarVisibility());
         Platform.runLater(this::updateScrollbarVisibility);
         // Disables button only if there are 0 characters (whitespace counts as input)
@@ -69,6 +75,26 @@ public class MainWindow extends AnchorPane {
         if (!scrollPane.getStyleClass().contains(SCROLLBAR_HIDDEN_CLASS)) {
             scrollPane.getStyleClass().add(SCROLLBAR_HIDDEN_CLASS);
         }
+    }
+
+    private void setupTrackpadScrolling() {
+        dialogContainer.addEventFilter(ScrollEvent.SCROLL, event -> {
+            double contentHeight = dialogContainer.getBoundsInLocal().getHeight();
+            double viewportHeight = scrollPane.getViewportBounds().getHeight();
+            if (contentHeight <= viewportHeight) {
+                return;
+            }
+
+            // Route trackpad/mouse-wheel deltas directly to the ScrollPane.
+            double delta = event.getDeltaY() / (contentHeight - viewportHeight);
+            double nextValue = clamp(scrollPane.getVvalue() - delta, 0.0, 1.0);
+            scrollPane.setVvalue(nextValue);
+            event.consume();
+        });
+    }
+
+    private double clamp(double value, double min, double max) {
+        return Math.max(min, Math.min(max, value));
     }
 
     private void setupBackgroundVideo() {

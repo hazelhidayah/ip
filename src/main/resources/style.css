@@ -119,9 +119,11 @@
 }
 
 .bot-dialog {
-    -fx-background-color: linear-gradient(to bottom right, #9db08d, #94A684);
-    -fx-text-fill: #3D3630;
-    -fx-border-color: rgba(61, 54, 48, 0.20);
+    -fx-background-color: linear-gradient(to bottom right, #B0AE82, #919967);
+    -fx-text-fill: #2F2A24;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 1.5px;
+    -fx-border-color: rgba(47, 42, 36, 0.30);
     -fx-border-width: 1;
     -fx-border-radius: 12 12 12 3;
     -fx-background-radius: 12 12 12 3;
