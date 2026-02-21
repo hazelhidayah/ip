@@ -2,114 +2,179 @@
 
 Nut is a lightweight chatbot task manager that helps you track todos, deadlines, and events using simple text commands.
 
+<style>
+  :root {
+    --nut-bg: #fbf8f3;
+    --nut-bg-soft: #f4eee6;
+    --nut-accent: #8a6541;
+    --nut-accent-dark: #6e4e33;
+    --nut-card: rgba(255, 251, 245, 0.9);
+    --nut-text: #2f2a24;
+    --nut-border: #d9cfc2;
+  }
+
+  body,
+  .main-content,
+  .markdown-body {
+    background: linear-gradient(to bottom, var(--nut-bg), var(--nut-bg-soft)) !important;
+    color: var(--nut-text) !important;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    color: var(--nut-accent-dark) !important;
+  }
+
+  .markdown-body code {
+    color: #fff8f0 !important;
+    background-color: var(--nut-accent) !important;
+    border: 1px solid var(--nut-accent-dark) !important;
+    border-radius: 6px;
+    padding: 2px 6px;
+  }
+
+  .markdown-body table {
+    background: var(--nut-card) !important;
+    border: 1px solid var(--nut-border) !important;
+  }
+
+  .markdown-body th,
+  .markdown-body td {
+    border: 1px solid var(--nut-border) !important;
+  }
+</style>
+
 ![Nut UI Screenshot](Ui.png)
 
 ## Features
 
 ### Command format notes
 
-- Commands should be entered in lowercase (e.g., `list`, `todo read book`).
+- Commands should be entered in lowercase (e.g., <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">list</span>, <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">todo read book</span>).
 - `TASK_NUMBER` refers to the number shown in the `list` output.
 - Use `dd/MM/yyyy` or `dd/MM/yyyy HHmm` for deadlines.
-- `yes`/`y` and `no`/`n` are only used when Nut asks you to confirm a duplicate task.
+- <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">yes</span>/<span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">y</span> and <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">no</span>/<span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">n</span> are only used when Nut asks you to confirm a duplicate task.
 
-### Viewing help: `help`
+### Viewing help: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">help</span>
 
 Shows the in-app command rundown.
 
-Format: `help`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">help</span>
 
-### Greeting Nut: `hi`, `hello`, `hey`
+---
+
+### Greeting Nut: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">hi</span>, <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">hello</span>, <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">hey</span>
 
 Sends a greeting and gets a friendly reply.
 
-Format: `hi` or `hello` or `hey`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">hi</span> or <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">hello</span> or <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">hey</span>
 
-### Adding a todo: `todo`
+---
+
+### Adding a todo: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">todo</span>
 
 Adds a simple todo task.
 
-Format: `todo DESCRIPTION`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">todo DESCRIPTION</span>
 
 Examples:
-- `todo borrow book`
-- `todo submit reflection`
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">todo borrow book</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">todo submit reflection</span>
 
-### Adding a deadline: `deadline`
+---
+
+### Adding a deadline: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">deadline</span>
 
 Adds a deadline task.
 
 Format:
-- `deadline DESCRIPTION /by dd/MM/yyyy`
-- `deadline DESCRIPTION /by dd/MM/yyyy HHmm`
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">deadline DESCRIPTION /by dd/MM/yyyy</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">deadline DESCRIPTION /by dd/MM/yyyy HHmm</span>
 
 Examples:
-- `deadline return library book /by 03/12/2026`
-- `deadline submit report /by 15/09/2026 1800`
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">deadline return library book /by 03/12/2026</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">deadline submit report /by 15/09/2026 1800</span>
 
-### Adding an event: `event`
+---
+
+### Adding an event: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">event</span>
 
 Adds an event task with start and end fields.
 
-Format: `event DESCRIPTION /from START /to END`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event DESCRIPTION /from START /to END</span>
 
 Examples:
-- `event project meeting /from Mon 2pm /to 4pm`
-- `event hackathon /from 9am /to 6pm`
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event project meeting /from Mon 2pm /to 4pm</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event hackathon /from 9am /to 6pm</span>
 
-### Listing tasks: `list`
+---
+
+### Listing tasks: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">list</span>
 
 Shows all tasks in your task list.
 
-Format: `list`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">list</span>
 
-### Finding tasks: `find`
+---
+
+### Finding tasks: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">find</span>
 
 Shows tasks whose descriptions contain the given keyword.
 
-Format: `find KEYWORD`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">find KEYWORD</span>
 
 Examples:
-- `find report`
-- `find book`
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">find report</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">find book</span>
 
-### Marking a task as done: `mark`
+---
+
+### Marking a task as done: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">mark</span>
 
 Marks the specified task as completed.
 
-Format: `mark TASK_NUMBER`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">mark TASK_NUMBER</span>
 
-Example: `mark 2`
+Example: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">mark 2</span>
 
-### Unmarking a task: `unmark`
+---
+
+### Unmarking a task: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">unmark</span>
 
 Marks the specified task as not completed.
 
-Format: `unmark TASK_NUMBER`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">unmark TASK_NUMBER</span>
 
-Example: `unmark 2`
+Example: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">unmark 2</span>
 
-### Deleting a task: `delete`
+---
+
+### Deleting a task: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">delete</span>
 
 Deletes the specified task.
 
-Format: `delete TASK_NUMBER`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">delete TASK_NUMBER</span>
 
-Example: `delete 3`
+Example: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">delete 3</span>
 
-### Exiting the app: `bye`
+---
+
+### Exiting the app: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">bye</span>
 
 Closes Nut.
 
-Format: `bye`
+Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">bye</span>
 
-### Duplicate confirmation: `yes` / `no`
+---
+
+### Duplicate confirmation: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">yes</span> / <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">no</span>
 
 If you add a task with a duplicate name, Nut will ask if you still want to add it.
 
 Reply with:
-- `yes` or `y` to add anyway
-- `no` or `n` to cancel
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">yes</span> or <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">y</span> to add anyway
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">no</span> or <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">n</span> to cancel
 
 ## Saving data
 
@@ -144,7 +209,7 @@ No manual save command is required.
 A: In `nut.txt` at the project root.
 
 **Q: Can I edit `nut.txt` manually?**  
-A: You can, but invalid format may cause loading issues. Back it up first.
+A: You can, but invalid formatting may cause loading issues. Back it up first.
 
 **Q: Why did Nut ask for `yes`/`no` after I added a task?**  
 A: Nut detected a duplicate task name and is asking for confirmation.
