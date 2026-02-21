@@ -105,7 +105,7 @@ Adds an event task with start and end fields.
 Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event DESCRIPTION /from START /to END</span>
 
 Examples:
-- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event project meeting /from Mon 2pm /to 4pm</span>
+- <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event project meeting /from Mon 2pm /to Mon 4pm</span>
 - <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">event hackathon /from 9am /to 6pm</span>
 
 ---
