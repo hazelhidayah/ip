@@ -25,6 +25,15 @@ A Java task manager with a chat-style interface (GUI) and command-driven workflo
 - Help command: `help`
 - Persistent storage in `nut.txt`
 
+## Quick Start Example
+```text
+todo submit tutorial
+deadline submit report /by 15/09/2026 1800
+list
+mark 2
+bye
+```
+
 ## Prerequisites
 - JDK `17`
 - Gradle (or use the included wrapper `./gradlew`)
