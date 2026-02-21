@@ -94,12 +94,19 @@ public class Ui {
      */
     public String showSearchResults(TaskList list, String searchTerm) {
         StringBuilder result = new StringBuilder();
-        result.append("Here are the matching tasks in your nut stash:\n");
+        boolean hasMatch = false;
 
         for (int i = 0; i < list.size(); i++) { // loop through all tasks
             if (list.get(i).getName().contains(searchTerm)) { // if the task name contains the search term
+                if (!hasMatch) {
+                    result.append("Here are the matching tasks in your nut stash:\n");
+                    hasMatch = true;
+                }
                 result.append("    ").append(i + 1).append(".").append(list.get(i)).append("\n");
             }
+        }
+        if (!hasMatch) {
+            return "No results found for \"" + searchTerm + "\".";
         }
         return result.toString().trim();
     }
