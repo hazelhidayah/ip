@@ -189,6 +189,8 @@ public class Ui {
      * Displays a task marked confirmation message to the user.
      *
      * @param tasks The TaskList containing all tasks.
+     * @param index The index of the task that was updated.
+     * @return A confirmation message with the updated task details.
      */
     public String markTask(TaskList tasks, int index) {
         return "Nut noted.\n"

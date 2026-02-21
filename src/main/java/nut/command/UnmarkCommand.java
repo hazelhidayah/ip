@@ -4,11 +4,11 @@ import nut.task.TaskList;
 import nut.ui.Ui;
 
 /**
- * command that unmarks a task in the {@link nut.task.TaskList} as uncompleted.
+ * Command that unmarks a task in the {@link nut.task.TaskList} as not completed.
  * <p>
  * This command targets a task by its index. When executed, it validates that the index is within
- * bounds, marks the corresponding task as done, and uses the {@link nut.ui.Ui} to display the
- * updated task state (or an error message if the index is invalid).
+ * bounds, unmarks the corresponding task as not done, and uses the {@link nut.ui.Ui} to display
+ * the updated task state (or an error message if the index is invalid).
  * </p>
  */
 public class UnmarkCommand implements Command {

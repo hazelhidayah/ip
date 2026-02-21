@@ -18,6 +18,7 @@ public class Task {
      * The task is initially marked as not done.
      *
      * @param name The name/description of the task.
+     * @throws NutException If {@code name} is {@code null} or blank.
      */
     public Task(String name) throws NutException {
         if (name == null || name.trim().isEmpty()) {

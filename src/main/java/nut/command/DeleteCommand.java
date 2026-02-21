@@ -4,10 +4,11 @@ import nut.task.TaskList;
 import nut.ui.Ui;
 
 /**
- * command that ends the application session.
+ * Command that deletes a task from the {@link nut.task.TaskList}.
  * <p>
- * When executed, this command displays a goodbye message via the {@link Ui}
- * and signals to the caller that the program should terminate.
+ * This command targets a task by its index. When executed, it validates that the
+ * index is within bounds, removes the corresponding task, and uses the
+ * {@link Ui} to display the deletion result (or an error message if the index is invalid).
  * </p>
  */
 public class DeleteCommand implements Command {

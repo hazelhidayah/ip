@@ -67,6 +67,8 @@ public class Nut { // app’s core logic
 
     /**
      * Main entry point of the CLI program.
+     *
+     * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
         new Nut().run();  // Create nut with "nut.txt" as a data file, then run
@@ -91,6 +93,8 @@ public class Nut { // app’s core logic
 
     /**
      * Returns Nut's startup greeting message for GUI.
+     *
+     * @return The startup greeting message.
      */
     public String getWelcomeMessage() {
         return ui.showWelcome();
@@ -98,6 +102,8 @@ public class Nut { // app’s core logic
 
     /**
      * Returns Nut's startup command guide for GUI.
+     *
+     * @return The startup command guide message.
      */
     public String getStartupGuideMessage() {
         return ui.showCommandRundown();
