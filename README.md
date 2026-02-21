@@ -43,6 +43,12 @@ A Java task manager with a chat-style interface (GUI) and command-driven workflo
 > [!NOTE]
 > If your run config opens GUI by default, run `nut.Nut` directly from your IDE for CLI mode.
 
+## Build Distribution JAR
+Create a single runnable JAR (output: `build/libs/ip.jar`):
+```bash
+./gradlew clean shadowJar
+```
+
 ## Command Reference
 
 ### Create tasks
