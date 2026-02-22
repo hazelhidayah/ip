@@ -73,7 +73,7 @@ Create a single runnable JAR (output: `build/libs/ip.jar`):
 
 ### Manage tasks
 - `list`
-- `find <keyword>`
+- `find <keyword>` (case-insensitive keyword matching)
 - `mark <task number>`
 - `unmark <task number>`
 - `delete <task number>`
