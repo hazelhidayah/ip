@@ -197,13 +197,13 @@ No manual save command is required.
 | Add deadline with time | `deadline DESCRIPTION /by dd/MM/yyyy HHmm` |
 | Add event | `event DESCRIPTION /from START /to END` |
 | List tasks | `list` |
-| Find tasks | `find KEYWORD` |
+| Find tasks | `find KEYWORD` (case-insensitive) |
 | Mark task | `mark TASK_NUMBER` |
 | Unmark task | `unmark TASK_NUMBER` |
 | Delete task | `delete TASK_NUMBER` |
 | Confirm duplicate | `yes` / `y` |
 | Cancel duplicate | `no` / `n` |
-| Exit | `bye` |
+| Exit | `bye` (exits after 3 seconds) |
 
 ## FAQ
 
