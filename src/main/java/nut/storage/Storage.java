@@ -6,11 +6,13 @@ import nut.task.ToDos;
 import nut.task.TaskList;
 import nut.task.Task;
 import nut.exception.NutException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles the persistence of tasks to and from local storage.
@@ -40,12 +42,14 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();  // create an empty list to store tasks
         File file = new File(filePath);  // referencing the file
 
-        ArrayList<Task> tasks1 = getTasks(file, tasks); // retrieve the tasks from the file
-        if (tasks1 != null) return tasks1; // if the file has tasks, return the tasks
+        ArrayList<Task> existingTasks = getTasks(file, tasks); // retrieve the tasks from the file
+        if (existingTasks != null) {
+            return existingTasks; // if the file has tasks, return the tasks
+        }
 
-        try (Scanner scanner = new Scanner(file)) {  // open the file for reading
-            while (scanner.hasNextLine()) {  // read line by line
-                String line = scanner.nextLine();
+        try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+            String line;
+            while ((line = reader.readLine()) != null) {  // read line by line
                 Task task = parseTaskFromFile(line);  // convert the line to a task object
                 if (task != null) {  // add if parsing succeeded
                     tasks.add(task);
@@ -73,23 +77,41 @@ public class Storage {
      */
     private Task parseTaskFromFile(String line) {
         try {
-            String[] parts = line.split(" \\| ");  // Split by " | " → ["T", "0", "sleep"]
+            String[] parts = line.split(" \\| ", 3); // Preserve task fields that contain delimiters.
             if (parts.length < 3) return null;  // Invalid format, skip this line
 
             String type = parts[0];  // task type: "T", "D", or "E"
+            if (!parts[1].equals("0") && !parts[1].equals("1")) {
+                return null;
+            }
             boolean isDone = parts[1].equals("1");  // "1" = done, "0" = not done
-            String description = parts[2];  // task description
+            String payload = parts[2];
 
             return switch (type) {
                 case "T" ->  // ToDo task
-                        new ToDos(description, isDone);
+                        new ToDos(payload, isDone);
                 case "D" -> {
-                    if (parts.length < 4) yield null;
-                    yield new Deadlines(description, parts[3], isDone);  // have date
+                    int dateSeparator = payload.lastIndexOf(" | ");
+                    if (dateSeparator < 0) {
+                        yield null;
+                    }
+                    String description = payload.substring(0, dateSeparator);
+                    String date = payload.substring(dateSeparator + 3);
+                    yield new Deadlines(description, date, isDone); // have date
                 }
                 case "E" -> {
-                    if (parts.length < 5) yield null;
-                    yield new Events(description, parts[3], parts[4], isDone);  // have start and end dates
+                    int endSeparator = payload.lastIndexOf(" | ");
+                    if (endSeparator < 0) {
+                        yield null;
+                    }
+                    int startSeparator = payload.lastIndexOf(" | ", endSeparator - 1);
+                    if (startSeparator < 0) {
+                        yield null;
+                    }
+                    String description = payload.substring(0, startSeparator);
+                    String start = payload.substring(startSeparator + 3, endSeparator);
+                    String end = payload.substring(endSeparator + 3);
+                    yield new Events(description, start, end, isDone); // have start and end dates
                 }
                 default -> null;
             };
@@ -108,13 +130,16 @@ public class Storage {
         try {
             File file = new File(filePath);
             File parentDir = file.getParentFile();  // Get a parent directory
-
-            FileWriter writer = new FileWriter(file);  // Open the file for writing
-            for (int i = 0; i < tasks.size(); i++) {  // Loop through all tasks
-                Task task = tasks.get(i);
-                writer.write(task.toFileFormat() + "\n");  // Write a task in the file format
+            if (parentDir != null) {
+                Files.createDirectories(parentDir.toPath());
             }
-            writer.close();  // Close the file
+
+            try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
+                for (int i = 0; i < tasks.size(); i++) {  // Loop through all tasks
+                    Task task = tasks.get(i);
+                    writer.write(task.toFileFormat() + "\n");  // Write a task in the file format
+                }
+            }
         } catch (IOException e) {
             throw new NutException("Nut couldn't stash tasks to: " + filePath);
         }

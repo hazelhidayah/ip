@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -58,6 +59,54 @@ public class StorageTest {
             assertEquals("E | 1 | project sync | Mon 2pm | Mon 3pm", loadedEvent.toFileFormat());
         } catch (NutException e) {
             throw new AssertionError("Round-trip storage should not fail.", e);
+        } finally {
+            Files.deleteIfExists(tempFile);
+        }
+    }
+
+    @Test
+    void saveAndLoad_roundTrip_preservesUnicodeCharacters() throws Exception {
+        Path tempFile = Files.createTempFile("nut-storage-unicode", ".txt");
+        try {
+            Storage storage = new Storage(tempFile.toString());
+            TaskList original = new TaskList();
+
+            original.add(new ToDos("学习中文"));
+            original.add(new Deadlines("完成实验 /by 31/12/2027"));
+
+            storage.save(original);
+            String savedContent = Files.readString(tempFile, StandardCharsets.UTF_8);
+            assertTrue(savedContent.contains("学习中文"));
+            assertTrue(savedContent.contains("完成实验"));
+
+            ArrayList<Task> loaded = storage.load();
+            assertEquals(2, loaded.size());
+            assertEquals("T | 0 | 学习中文", loaded.get(0).toFileFormat());
+            assertEquals("D | 0 | 完成实验 | 31/12/2027", loaded.get(1).toFileFormat());
+        } catch (NutException e) {
+            throw new AssertionError("Unicode round-trip storage should not fail.", e);
+        } finally {
+            Files.deleteIfExists(tempFile);
+        }
+    }
+
+    @Test
+    void load_deadlineDescriptionContainingDelimiter_preservesActualDeadline() throws Exception {
+        Path tempFile = Files.createTempFile("nut-storage-deadline-delimiter", ".txt");
+        try {
+            Files.writeString(tempFile, "D | 0 | inject | 01/01/2026 0000 | 31/12/2027\n", StandardCharsets.UTF_8);
+            Storage storage = new Storage(tempFile.toString());
+
+            ArrayList<Task> loaded = storage.load();
+            assertEquals(1, loaded.size());
+
+            Task loadedTask = loaded.get(0);
+            assertInstanceOf(Deadlines.class, loadedTask);
+            Deadlines loadedDeadline = (Deadlines) loadedTask;
+            assertEquals("inject | 01/01/2026 0000", loadedDeadline.getName());
+            assertEquals("D | 0 | inject | 01/01/2026 0000 | 31/12/2027", loadedDeadline.toFileFormat());
+        } catch (NutException e) {
+            throw new AssertionError("Delimiter-safe deadline loading should not fail.", e);
         } finally {
             Files.deleteIfExists(tempFile);
         }
