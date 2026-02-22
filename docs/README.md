@@ -216,6 +216,9 @@ A: You can, but invalid formatting may cause loading issues. Back it up first.
 **Q: Why did Nut ask for `yes`/`no` after I added a task?**  
 A: Nut detected a duplicate task name and is asking for confirmation.
 
+**Q: How does Nut decide a task is a duplicate?**  
+A: It compares task names after trimming spaces and ignoring case.
+
 **Q: Which date format is valid for `deadline`?**  
 A: Use `dd/MM/yyyy` or `dd/MM/yyyy HHmm` (24-hour time).
 
