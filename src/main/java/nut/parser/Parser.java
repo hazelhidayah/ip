@@ -16,6 +16,7 @@ import nut.task.Deadlines;
 import nut.task.Events;
 import nut.exception.NutException;
 import nut.task.ToDos;
+import java.util.Locale;
 
 /**
  * Converts raw user input into executable {@link nut.command.Command} instances.
@@ -52,7 +53,7 @@ public class Parser {
             return new ListCommand(list);
         } else if (userInput.trim().equalsIgnoreCase("help")) {
             return new HelpCommand();
-        } else if (userInput.startsWith("find")) {
+        } else if (userInput.toLowerCase(Locale.ROOT).startsWith("find")) {
             return parseFind(userInput, list);
         } else if (userInput.startsWith("delete")) {
             return parseDelete(userInput, list);

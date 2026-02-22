@@ -1,5 +1,6 @@
 package nut.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import nut.Nut;
 
 import java.net.URL;
@@ -44,6 +46,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/Images/user.png"));
     private Image nutImage = new Image(this.getClass().getResourceAsStream("/Images/nut-bot-head.png"));
     private MediaPlayer backgroundPlayer;
+    private PauseTransition exitDelayTransition;
 
     @FXML
     public void initialize() {
@@ -142,5 +145,18 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNutDialog(response, nutImage)
         );
         userInput.clear();
+        if (nut.isExitRequested()) {
+            userInput.setDisable(true);
+            scheduleExitAfterDelay();
+        }
+    }
+
+    private void scheduleExitAfterDelay() {
+        if (exitDelayTransition != null) {
+            exitDelayTransition.stop();
+        }
+        exitDelayTransition = new PauseTransition(Duration.millis(nut.getExitDelayMillis()));
+        exitDelayTransition.setOnFinished(event -> Platform.exit());
+        exitDelayTransition.play();
     }
 }

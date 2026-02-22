@@ -22,9 +22,12 @@ import nut.ui.Ui;
  * </ul>
  */
 public class Nut { // app’s core logic
+    private static final long EXIT_DELAY_MILLIS = 3000L;
+
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private boolean isExitRequested;
 
     /**
      * Constructs a Nut object with the default file path "nut.txt".
@@ -59,6 +62,9 @@ public class Nut { // app’s core logic
                 }
                 shouldExit = command instanceof ByeCommand;
                 storage.save(tasks);  // Save tasks to file after each command
+                if (shouldExit) {
+                    waitBeforeExit();
+                }
             } catch (NutException e) {
                 System.out.println(ui.showError(e.getMessage()));  // Show an error message if something goes wrong
             }
@@ -82,11 +88,14 @@ public class Nut { // app’s core logic
      */
     public String getResponse(String input) {
         try {
+            isExitRequested = false;
             Command command = Parser.parse(input, tasks);
             String response = command.execute(ui);
             storage.save(tasks);
+            isExitRequested = command instanceof ByeCommand;
             return response;
         } catch (NutException e) {
+            isExitRequested = false;
             return ui.showError(e.getMessage());
         }
     }
@@ -107,5 +116,31 @@ public class Nut { // app’s core logic
      */
     public String getStartupGuideMessage() {
         return ui.showCommandRundown();
+    }
+
+    /**
+     * Returns whether the most recently processed GUI command requested app exit.
+     *
+     * @return True if the last command was {@code bye}; false otherwise.
+     */
+    public boolean isExitRequested() {
+        return isExitRequested;
+    }
+
+    /**
+     * Returns the delay (in milliseconds) before exiting after {@code bye}.
+     *
+     * @return Exit delay in milliseconds.
+     */
+    public long getExitDelayMillis() {
+        return EXIT_DELAY_MILLIS;
+    }
+
+    private void waitBeforeExit() {
+        try {
+            Thread.sleep(EXIT_DELAY_MILLIS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

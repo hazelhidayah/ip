@@ -55,6 +55,7 @@ Nut is a lightweight chatbot task manager that helps you track todos, deadlines,
 - `TASK_NUMBER` refers to the number shown in the `list` output.
 - Use `dd/MM/yyyy` or `dd/MM/yyyy HHmm` for deadlines.
 - <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">yes</span>/<span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">y</span> and <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">no</span>/<span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">n</span> are only used when Nut asks you to confirm a duplicate task.
+- `find` matches keywords case-insensitively (e.g., `find report` matches `Report`).
 
 ### Viewing help: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">help</span>
 
@@ -121,6 +122,7 @@ Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-rad
 ### Finding tasks: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">find</span>
 
 Shows tasks whose descriptions contain the given keyword.
+Keyword matching is case-insensitive.
 
 Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">find KEYWORD</span>
 
@@ -162,7 +164,7 @@ Example: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-ra
 
 ### Exiting the app: <span style="background:#8A6541;color:#FFF8F0;padding:2px 8px;border-radius:6px;font-family:monospace;">bye</span>
 
-Closes Nut.
+Closes Nut after showing the goodbye message and waiting 3 seconds (ends the CLI session or closes the GUI window).
 
 Format: <span style="background:#E8DCCF;color:#5E432E;padding:2px 8px;border-radius:6px;font-family:monospace;border:1px solid #B89F86;">bye</span>
 

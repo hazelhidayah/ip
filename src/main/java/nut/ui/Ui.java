@@ -3,6 +3,7 @@ package nut.ui;
 import nut.task.TaskList;
 import nut.task.Task;
 import java.util.Scanner;
+import java.util.Locale;
 
 /**
  * Handles interactions with the user.
@@ -95,9 +96,11 @@ public class Ui {
     public String showSearchResults(TaskList list, String searchTerm) {
         StringBuilder result = new StringBuilder();
         boolean hasMatch = false;
+        String normalizedSearchTerm = searchTerm.toLowerCase(Locale.ROOT);
 
         for (int i = 0; i < list.size(); i++) { // loop through all tasks
-            if (list.get(i).getName().contains(searchTerm)) { // if the task name contains the search term
+            String normalizedTaskName = list.get(i).getName().toLowerCase(Locale.ROOT);
+            if (normalizedTaskName.contains(normalizedSearchTerm)) { // if the task name contains the search term
                 if (!hasMatch) {
                     result.append("Here are the matching tasks in your nut stash:\n");
                     hasMatch = true;

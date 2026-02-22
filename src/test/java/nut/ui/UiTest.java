@@ -24,6 +24,18 @@ public class UiTest {
     }
 
     @Test
+    void showSearchResults_caseInsensitiveSearch_returnsMatchingTasks() throws NutException {
+        Ui ui = new Ui();
+        TaskList list = new TaskList();
+        list.add(new ToDos("Read report"));
+
+        String result = ui.showSearchResults(list, "rEaD");
+
+        assertTrue(result.contains("Here are the matching tasks in your nut stash:"));
+        assertTrue(result.contains("1.[T] [ ] Read report"));
+    }
+
+    @Test
     void showSearchResults_withoutMatches_returnsNoResultsMessage() throws NutException {
         Ui ui = new Ui();
         TaskList list = new TaskList();

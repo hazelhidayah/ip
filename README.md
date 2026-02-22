@@ -23,6 +23,7 @@ A Java task manager with a chat-style interface (GUI) and command-driven workflo
 - Delete tasks
 - Duplicate task confirmation flow (`yes` / `no`)
 - Help command: `help`
+- Graceful exit after `bye` (3-second delay)
 - Persistent storage in `nut.txt`
 
 ## Quick Start Example
@@ -79,7 +80,7 @@ Create a single runnable JAR (output: `build/libs/ip.jar`):
 
 ### Utility
 - `help`
-- `bye`
+- `bye` (shows goodbye response, then exits after 3 seconds)
 
 ## Duplicate Confirmation
 When adding a task with the same normalized name as an existing task, Nut asks for confirmation:

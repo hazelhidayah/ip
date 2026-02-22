@@ -72,6 +72,13 @@ public class ParserTest {
     }
 
     @Test
+    void parse_findWithMixedCaseCommand_returnsSearchCommand() throws NutException {
+        TaskList list = new TaskList();
+        Command command = Parser.parse("FiNd report", list);
+        assertInstanceOf(SearchCommand.class, command);
+    }
+
+    @Test
     void parse_findWithoutSearchTerm_throwsNutException() {
         // Arrange
         TaskList list = new TaskList();
