@@ -45,7 +45,7 @@ Nut is a lightweight chatbot task manager that helps you track todos, deadlines,
   }
 </style>
 
-![Nut UI Screenshot](Ui.png)
+<img src="Ui.png" alt="Nut UI Screenshot" width="75%">
 
 ## Features
 
