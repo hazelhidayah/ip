@@ -218,3 +218,9 @@ A: Nut detected a duplicate task name and is asking for confirmation.
 
 **Q: Which date format is valid for `deadline`?**  
 A: Use `dd/MM/yyyy` or `dd/MM/yyyy HHmm` (24-hour time).
+
+**Q: Is `find` case-sensitive?**  
+A: No. `find report` and `find Report` return the same matches.
+
+**Q: Why doesn't Nut close immediately after `bye`?**  
+A: Nut shows the goodbye message first, waits 3 seconds, then exits.
