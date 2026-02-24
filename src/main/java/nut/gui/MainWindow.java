@@ -8,15 +8,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import nut.Nut;
-
-import java.net.URL;
 
 /**
  * Controller for the main GUI window.
@@ -38,22 +33,16 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private MediaView backgroundView;
 
     private Nut nut;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/Images/user.png"));
     private Image nutImage = new Image(this.getClass().getResourceAsStream("/Images/nut-bot-head.png"));
-    private MediaPlayer backgroundPlayer;
     private PauseTransition exitDelayTransition;
 
     @FXML
     public void initialize() {
         scrollPane.setPannable(true);
-        backgroundView.fitWidthProperty().bind(widthProperty());
-        backgroundView.fitHeightProperty().bind(heightProperty());
-        setupBackgroundVideo();
         setupTrackpadScrolling();
 
         dialogContainer.heightProperty().addListener((obs, oldVal, newVal) -> {
@@ -98,20 +87,6 @@ public class MainWindow extends AnchorPane {
 
     private double clamp(double value, double min, double max) {
         return Math.max(min, Math.min(max, value));
-    }
-
-    private void setupBackgroundVideo() {
-        URL resource = getClass().getResource("/Images/background.mp4");
-        if (resource == null) {
-            backgroundView.setVisible(false);
-            return;
-        }
-        Media media = new Media(resource.toExternalForm());
-        backgroundPlayer = new MediaPlayer(media);
-        backgroundPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        backgroundPlayer.setMute(true);
-        backgroundPlayer.setAutoPlay(true);
-        backgroundView.setMediaPlayer(backgroundPlayer);
     }
 
     /**

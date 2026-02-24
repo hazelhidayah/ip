@@ -91,15 +91,9 @@ public class Main extends Application { // JavaFX Application class
     }
 
     /**
-     * Loads the Inter font variants so they are available to JavaFX styling.
+     * Loads the bundled Inter font so it is available to JavaFX styling.
      */
     private void loadFonts() {
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Thin.ttf")), 14);
         Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Regular.ttf")), 14);
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Medium.ttf")), 14);
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-SemiBold.ttf")), 14);
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Bold.ttf")), 14);
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Black.ttf")), 14);
-        Font.loadFont(Objects.requireNonNull(getClass().getResourceAsStream("/Fonts/Inter_18pt-Italic.ttf")), 14);
     }
 }

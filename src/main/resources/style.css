@@ -38,13 +38,7 @@
 
 /* Main layout */
 .main-root {
-    -fx-background-color: #F5F2ED;
-}
-
-.ambient-overlay {
-    -fx-background-color:
-            linear-gradient(to bottom, rgba(245, 242, 237, 1.00), rgba(236, 229, 220, 1.00)),
-            radial-gradient(center 18% 14%, radius 85%, rgba(166, 124, 82, 0.30), rgba(245, 242, 237, 0.95));
+    -fx-background-color: #E2CCB1;
 }
 
 .scroll-pane {

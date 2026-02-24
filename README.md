@@ -21,10 +21,11 @@ A Java task manager with a chat-style interface (GUI) and command-driven workflo
 - Find tasks by keyword
 - Mark and unmark tasks
 - Delete tasks
-- Duplicate task confirmation flow (`yes` / `no`)
+- Duplicate task confirmation flow (`yes`/`y`, `no`/`n`)
+- Greeting commands: `hi`, `hello`, `hey`
 - Help command: `help`
 - Graceful exit after `bye` (3-second delay)
-- Persistent storage in `nut.txt`
+- Automatic persistence in `nut.txt`
 
 ## Quick Start Example
 ```text
@@ -47,11 +48,14 @@ bye
 
 ### CLI mode
 ```bash
-./gradlew -q run --args=''
+./gradlew classes
+java -cp build/classes/java/main nut.Nut
 ```
 
-> [!NOTE]
-> If your run config opens GUI by default, run `nut.Nut` directly from your IDE for CLI mode.
+### Run built JAR (GUI)
+```bash
+java -jar build/libs/ip.jar
+```
 
 ## Build Distribution JAR
 Create a single runnable JAR (output: `build/libs/ip.jar`):
@@ -60,6 +64,10 @@ Create a single runnable JAR (output: `build/libs/ip.jar`):
 ```
 
 ## Command Reference
+### Command notes
+- Use lowercase command keywords and delimiters: `todo`, `deadline`, `event`, `mark`, `unmark`, `delete`, `/by`, `/from`, `/to`
+- `find` keyword matching is case-insensitive
+- During duplicate confirmation, only `yes`/`y` or `no`/`n` is accepted until resolved
 
 ### Create tasks
 - `todo <task>`
@@ -73,12 +81,13 @@ Create a single runnable JAR (output: `build/libs/ip.jar`):
 
 ### Manage tasks
 - `list`
-- `find <keyword>` (case-insensitive keyword matching)
+- `find <keyword>`
 - `mark <task number>`
 - `unmark <task number>`
 - `delete <task number>`
 
 ### Utility
+- `hi`, `hello`, `hey`
 - `help`
 - `bye` (shows goodbye response, then exits after 3 seconds)
 
@@ -88,7 +97,7 @@ When adding a task with the same normalized name as an existing task, Nut asks f
 - `no` or `n` to cancel
 
 ## Storage
-Tasks are stored in `nut.txt` at the project root, so data persists across sessions.
+Tasks are auto-saved to `nut.txt` at the project root after each command.
 
 ## Testing
 Run all tests:
